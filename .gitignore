@@ -1,0 +1,27 @@
+# Real personal records never leave this machine.
+inputs/
+*.ritual.json
+
+# Assignment source text and private manuscripts
+*과제*요구사항*.txt
+*소설*.docx
+
+# Build and run outputs that are regenerated
+device/out/
+device/tmp/
+dist/
+*.zip
+
+# Local environments and editors
+.venv/
+__pycache__/
+node_modules/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+!.env.example
