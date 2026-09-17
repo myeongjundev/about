@@ -25,3 +25,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Design canvas generator outputs
+planning/design-canvas/project/
+planning/design-canvas/preview/
