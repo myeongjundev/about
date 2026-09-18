@@ -22,9 +22,22 @@
   - 시안 캔버스: https://claude.ai/artifact/CbHUdWUnN9yoNSuhcTfwPD
   - 시안 생성 스크립트 사본: `planning/design-canvas/gen_d2.py`
 
+## 2026-09-18 — 기록 받기와 D2 뼈대
+
+- 본인 리추얼 JSON과 출석 기록을 받아 `inputs/`에 두었다(Git 제외).
+  - 출석: 수업일 27일 중 27일, 지각·결석 0 (09-17 기준)
+  - 아침 리추얼: 27/27 수업일
+- 과정 기간은 2026-08-11부터 11-12까지다(DESIGN.md 5절).
+- `docs/`에 D2 구조로 정적 뼈대(`index.html`, `styles.css`)를 만들었다.
+  - 아직 채우지 않은 자리는 `.todo`(노란 배경)로 표시했다.
+  - 숫자 칸 두 개와 10번 논문(제목·요약·PDF 링크)은 실제 값을 넣었다.
+  - 데스크톱은 1120px 폭에서 왼쪽 360px·오른쪽 본문, 900px 이하는 한 줄로 쌓인다.
+
 ## 다음 작업 (집에서 이어서)
 
-1. `docs/`에 D2 구조로 정적 사이트 뼈대(`index.html`, `styles.css`, `script.js`, `data/site.json`)를 만든다. 자리표시로 둔다.
+1. ~~`docs/` D2 뼈대~~ 완료(09-18).
+   - `data/site.json`과 JS는 장치(`build_site.py`)를 만들 때 정한다.
+   - 본문은 HTML에 직접 들어가게 한다.
 2. 카드 1: 이야기 본편 초안(1,500자 안팎, 사실만)과 세 능력 장면 표시 → 본인 확인.
    - 요약줄 후보와 능력 짝짓기는 `DESIGN-DECISION.md` 6절.
 3. GitHub Pages 켜기(main `/docs`) → 시크릿 창 확인.
