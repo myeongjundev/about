@@ -204,7 +204,7 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
     add_label_value(document, "연락 수단", text(contact.get("label") if contact else None, draft))
     if contact and contact.get("href"):
         paragraph = document.add_paragraph()
-        add_hyperlink(paragraph, contact["href"], contact["href"])
+        add_hyperlink(paragraph, contact.get("label") or "연락 링크", contact["href"])
 
     document.add_heading("교육", level=1)
     for item in profile.get("education") or []:
