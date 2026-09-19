@@ -266,15 +266,20 @@ def build_personal_statement(data: dict[str, object], output: Path, draft: bool)
         ),
     )
     for segment in story["segments"]:
-        document.add_heading(f"{segment['stage']} {segment['period']}", level=1)
+        document.add_heading(
+            text(segment.get("statementTitle"), draft, f"{segment['stage']}의 자기소개서 제목"),
+            level=1,
+        )
+        meta = document.add_paragraph()
+        meta.paragraph_format.space_after = Pt(5)
+        meta_run = meta.add_run(f"{segment['period']}  ·  {segment['ability']}")
+        set_run_font(meta_run, 9.8, True, BLUE)
         summary = document.add_paragraph()
         run = summary.add_run(segment["summary"])
         set_run_font(run, 11.5, True)
-        ability = document.add_paragraph()
-        ability_run = ability.add_run(f"드러난 능력  {segment['ability']}")
-        set_run_font(ability_run, 9.8, True, BLUE)
         body = document.add_paragraph(segment["body"])
         body.paragraph_format.space_after = Pt(12)
+    document.add_heading("앞으로의 방향", level=1)
     closing = document.add_paragraph(
         text(
             story.get("lastSentence"),
@@ -345,23 +350,32 @@ def main() -> int:
     parser.add_argument("--content", type=Path, default=base.parent / "content" / "approved.json")
     parser.add_argument("--output-dir", type=Path, default=base.parent / "docs" / "files")
     parser.add_argument("--draft", action="store_true")
+    parser.add_argument(
+        "--only",
+        choices=("all", "resume", "personal-statement", "career-description"),
+        default="all",
+    )
     args = parser.parse_args()
     try:
         data = json.loads(args.content.read_text(encoding="utf-8"))
         if data.get("draft") and not args.draft:
             raise ValueError("approved.json이 draft 상태입니다. 최종 문서 생성을 중단합니다.")
         output_dir = args.output_dir.resolve()
-        build_resume(data, output_dir / "resume-kim-myeongjun.docx", args.draft)
-        build_personal_statement(
-            data, output_dir / "personal-statement-kim-myeongjun.docx", args.draft
-        )
-        build_career_description(
-            data, output_dir / "career-description-kim-myeongjun.docx", args.draft
-        )
+        if args.only in {"all", "resume"}:
+            build_resume(data, output_dir / "resume-kim-myeongjun.docx", args.draft)
+        if args.only in {"all", "personal-statement"}:
+            build_personal_statement(
+                data, output_dir / "personal-statement-kim-myeongjun.docx", args.draft
+            )
+        if args.only in {"all", "career-description"}:
+            build_career_description(
+                data, output_dir / "career-description-kim-myeongjun.docx", args.draft
+            )
     except (OSError, KeyError, ValueError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
-    print(f"PASS: 3 DOCX files in {args.output_dir}")
+    count = 3 if args.only == "all" else 1
+    print(f"PASS: {count} DOCX file{'s' if count != 1 else ''} in {args.output_dir}")
     return 0
 
 

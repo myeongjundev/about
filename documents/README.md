@@ -16,3 +16,9 @@ python documents/build.py --draft --output-dir documents/out
 
 최종 문서는 생성 뒤 `render_docx.py`로 모든 페이지를 이미지로 렌더링하고 글자 잘림, 표 겹침,
 페이지 나눔을 확인한다. 내부 초안은 제출하거나 `docs/files/`에 복사하지 않는다.
+
+한 문서만 다시 만들 때는 `--only`를 사용한다.
+
+```text
+python documents/build.py --draft --only personal-statement --output-dir documents/out
+```

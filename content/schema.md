@@ -18,6 +18,7 @@
 - `profile.contact`
 - `story.firstSentence`
 - `story.lastSentence`
+- `story.segments[*].statementTitle`
 - `numbers[submissions]`
 - `experience[third-project]`
 

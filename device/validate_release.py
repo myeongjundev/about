@@ -65,6 +65,10 @@ def required_content(data: dict[str, object]) -> list[str]:
             if empty(item.get(field)):
                 missing.append(f"numbers.{item['id']}.{field}")
 
+    for segment in story.get("segments") or []:
+        if empty(segment.get("statementTitle")):
+            missing.append(f"story.{segment['id']}.statementTitle")
+
     for item in data["works"]:
         if item.get("status") == "planned" and empty(item.get("plannedDate")):
             missing.append(f"works.{item['id']}.plannedDate")
