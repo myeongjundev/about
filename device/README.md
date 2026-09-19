@@ -31,6 +31,19 @@ python device/refresh.py device/sample-inputs device/out
 문장 후보는 자동으로 사이트에 들어가지 않는다. 내용을 읽고 공개 범위를 확인한 뒤
 `content/approved.json`에 직접 옮겨야 한다.
 
+집계 숫자는 먼저 미리보기 파일에 반영해 확인한다.
+
+```text
+python device/apply_numbers.py
+```
+
+`device/out/approved.preview.json`의 값과 기준일을 확인한 뒤에만 다음 명령으로 승인 데이터에
+반영한다.
+
+```text
+python device/apply_numbers.py --in-place
+```
+
 ## 반복 실행 검사
 
 ```text

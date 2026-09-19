@@ -23,6 +23,7 @@ def load_module(name: str, path: Path):
 refresh_module = load_module("t12_refresh", BASE / "refresh.py")
 site_module = load_module("t12_build_site", BASE / "build_site.py")
 validation_module = load_module("t12_validate_release", BASE / "validate_release.py")
+apply_module = load_module("t12_apply_numbers", BASE / "apply_numbers.py")
 
 
 class RefreshTests(unittest.TestCase):
@@ -68,6 +69,21 @@ class SiteTests(unittest.TestCase):
                     BASE / "templates" / "page.html.tpl",
                     False,
                 )
+
+
+class ApplyNumbersTests(unittest.TestCase):
+    def test_applies_only_metric_fields_and_updated_date(self) -> None:
+        content = json.loads((REPO / "content" / "approved.json").read_text(encoding="utf-8"))
+        numbers = json.loads((BASE / "expected" / "numbers.json").read_text(encoding="utf-8"))
+        story_before = json.dumps(content["story"], ensure_ascii=False, sort_keys=True)
+        result = apply_module.apply_numbers(content, numbers)
+        by_id = {item["id"]: item for item in result["numbers"]}
+        self.assertEqual(by_id["attendance"]["value"], "3 / 3일")
+        self.assertEqual(by_id["submissions"]["value"], "2 / 3건")
+        self.assertEqual(result["updatedAt"], "2026-09-03")
+        self.assertEqual(
+            json.dumps(result["story"], ensure_ascii=False, sort_keys=True), story_before
+        )
 
 
 class ValidationTests(unittest.TestCase):
