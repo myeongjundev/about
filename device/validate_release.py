@@ -69,11 +69,19 @@ def required_content(data: dict[str, object]) -> list[str]:
 
 
 def check_url(url: str) -> str | None:
-    request = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "T12-release-check/1.0"})
+    # A HEAD response can be healthy even when the page body fails at runtime.
+    # Read one byte with GET so this check matches what an anonymous visitor opens
+    # without downloading large linked files such as PDFs.
+    request = urllib.request.Request(
+        url,
+        method="GET",
+        headers={"User-Agent": "T12-release-check/1.0", "Accept": "*/*"},
+    )
     try:
         with urllib.request.urlopen(request, timeout=15) as response:
             if response.status >= 400:
                 return f"HTTP {response.status}: {url}"
+            response.read(1)
     except urllib.error.HTTPError as exc:
         return f"HTTP {exc.code}: {url}"
     except urllib.error.URLError as exc:

@@ -28,7 +28,8 @@ def add_file(archive: zipfile.ZipFile, source: Path, target: PurePosixPath) -> N
 def required_files(repo: Path) -> list[tuple[Path, PurePosixPath]]:
     root = PurePosixPath("T12-KimMyeongjun")
     files: list[tuple[Path, PurePosixPath]] = []
-    for name in ("README-FIRST.md", "CHECK-HOWTO.md", "AI-JUDGMENT.md"):
+    files.append((repo / "submission" / "README-FIRST.md", root / "README-FIRST.md"))
+    for name in ("CHECK-HOWTO.md", "AI-JUDGMENT.md"):
         files.append((repo / "submission" / name, root / "submission" / name))
     for name in DOCUMENTS:
         files.append((repo / "docs" / "files" / name, root / "documents" / name))
@@ -37,6 +38,7 @@ def required_files(repo: Path) -> list[tuple[Path, PurePosixPath]]:
     for relative in (
         "README.md",
         "refresh.py",
+        "apply_numbers.py",
         "build_site.py",
         "check_repeat.py",
         "validate_release.py",

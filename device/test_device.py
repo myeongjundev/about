@@ -5,6 +5,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 BASE = Path(__file__).resolve().parent
@@ -24,6 +25,7 @@ refresh_module = load_module("t12_refresh", BASE / "refresh.py")
 site_module = load_module("t12_build_site", BASE / "build_site.py")
 validation_module = load_module("t12_validate_release", BASE / "validate_release.py")
 apply_module = load_module("t12_apply_numbers", BASE / "apply_numbers.py")
+release_module = load_module("t12_build_release", REPO / "release" / "build_release.py")
 
 
 class RefreshTests(unittest.TestCase):
@@ -87,6 +89,27 @@ class ApplyNumbersTests(unittest.TestCase):
 
 
 class ValidationTests(unittest.TestCase):
+    def test_external_url_check_uses_get_and_reads_body(self) -> None:
+        class Response:
+            status = 200
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self, size: int) -> bytes:
+                self.read_size = size
+                return b"<"
+
+        response = Response()
+        with mock.patch.object(validation_module.urllib.request, "urlopen", return_value=response) as open_url:
+            self.assertIsNone(validation_module.check_url("https://example.com"))
+        request = open_url.call_args.args[0]
+        self.assertEqual(request.get_method(), "GET")
+        self.assertEqual(response.read_size, 1)
+
     def test_current_draft_passes_structural_validation(self) -> None:
         self.assertEqual(validation_module.validate(REPO, True, False), [])
 
@@ -94,6 +117,20 @@ class ValidationTests(unittest.TestCase):
         problems = validation_module.validate(REPO, False, False)
         self.assertTrue(any("profile.tagline" in problem for problem in problems))
         self.assertTrue(any("t13-app.plannedDate" in problem for problem in problems))
+
+
+class ReleaseTests(unittest.TestCase):
+    def test_release_allowlist_contains_full_device_and_root_readme(self) -> None:
+        targets = {str(target) for _, target in release_module.required_files(REPO)}
+        self.assertIn("T12-KimMyeongjun/README-FIRST.md", targets)
+        self.assertIn("T12-KimMyeongjun/device/apply_numbers.py", targets)
+        self.assertFalse(
+            any(
+                target.startswith("T12-KimMyeongjun/private/")
+                or target.startswith("T12-KimMyeongjun/inputs/")
+                for target in targets
+            )
+        )
 
 
 if __name__ == "__main__":

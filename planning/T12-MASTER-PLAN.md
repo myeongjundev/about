@@ -1,7 +1,7 @@
 # T12 전체 재설계 — 단일 기준 문서
 
 작성: 2026-09-19  
-상태: **구현 전 승인용 설계**  
+상태: **공통 기반 구현 완료 · 본인 승인 대기**
 적용 범위: 공개 사이트, 문서 3종, 기록 갱신 장치, 제출 패키지, 검수
 
 이 문서는 T12 작업의 새 단일 기준이다. 기존 `DESIGN.md`, `DESIGN-DECISION.md`,
@@ -111,7 +111,7 @@ device/
   sample-inputs/             실명이 없는 합성 입력
   expected/                  합성 입력의 고정 기대 결과
   templates/
-    index.html.tpl
+    page.html.tpl
 
 private/
   inputs/                    실제 기록, Git 제외
