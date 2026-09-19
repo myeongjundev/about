@@ -23,6 +23,7 @@ SECRET_PATTERNS = {
 class LinkParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
+        self.assets: list[str] = []
         self.ids: list[str] = []
         self.links: list[str] = []
 
@@ -32,6 +33,10 @@ class LinkParser(HTMLParser):
             self.ids.append(str(values["id"]))
         if tag == "a" and values.get("href"):
             self.links.append(str(values["href"]))
+        if tag == "link" and values.get("href"):
+            self.assets.append(str(values["href"]))
+        if tag in {"img", "script"} and values.get("src"):
+            self.assets.append(str(values["src"]))
 
 
 def empty(value: object) -> bool:
@@ -125,6 +130,14 @@ def validate(repo: Path, allow_draft: bool, check_urls: bool) -> list[str]:
         target = (site_path.parent / href).resolve()
         if not target.exists() and not allow_draft:
             problems.append(f"없는 파일 링크: {href}")
+
+    for href in parser.assets:
+        parsed = urlparse(href)
+        if parsed.scheme in {"http", "https", "data"}:
+            continue
+        target = (site_path.parent / parsed.path).resolve()
+        if not target.is_file():
+            problems.append(f"없는 사이트 자산: {href}")
 
     for path in (repo / "docs", repo / "content", repo / "device", repo / "submission"):
         for file in path.rglob("*"):

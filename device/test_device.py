@@ -89,6 +89,15 @@ class ApplyNumbersTests(unittest.TestCase):
 
 
 class ValidationTests(unittest.TestCase):
+    def test_site_assets_are_declared_and_present(self) -> None:
+        parser = validation_module.LinkParser()
+        parser.feed((REPO / "docs" / "index.html").read_text(encoding="utf-8"))
+        self.assertIn("styles.css", parser.assets)
+        self.assertIn("favicon.svg", parser.assets)
+        for href in parser.assets:
+            if not href.startswith(("http://", "https://", "data:")):
+                self.assertTrue((REPO / "docs" / href).is_file(), href)
+
     def test_external_url_check_uses_get_and_reads_body(self) -> None:
         class Response:
             status = 200
