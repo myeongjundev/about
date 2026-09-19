@@ -5,30 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>김명준 자기소개</title>
   <meta name="description" content="김명준의 이야기와 기록, 대표작, 경력, 문서">
+  <meta name="theme-color" content="#f4f6fb">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 바로 가기</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
   <p class="draft-banner" role="status">작업 중인 미리보기입니다. 노란 표시는 본인 확인이 필요합니다.</p>
   <div class="layout">
     <aside class="side">
       <header class="intro">
-        <span class="mono muted">myeongjundev.github.io/about</span>
+        <div class="profile-topline">
+          <span class="avatar" aria-hidden="true">MJ</span>
+          <span class="profile-actions">
+            <span class="availability"><span aria-hidden="true"></span> Portfolio 2026</span>
+            <button class="theme-toggle" type="button" aria-label="색상 테마 바꾸기" aria-pressed="false">
+              <span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Dark mode</span>
+            </button>
+          </span>
+        </div>
+        <span class="mono muted site-id">myeongjundev / portfolio</span>
         <h1>김명준</h1>
         <p class="role">신입 풀스택 개발자</p>
         <p class="tagline">백엔드의 구조를 설계하고 화면까지 완성하는 사람</p>
+        <p class="craft-line"><span>DESIGN</span><i aria-hidden="true"></i><span>BUILD</span><i aria-hidden="true"></i><span>SHIP</span></p>
       </header>
 
       <nav class="entrances" aria-label="바로 가기">
-        <a href="#story"><span>이야기</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#numbers"><span>숫자</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#work"><span>대표작</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#experience"><span>경력</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#documents"><span>문서</span><span class="arrow" aria-hidden="true">→</span></a>
+        <a href="#story"><span class="nav-index">01</span><span>이야기</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#numbers"><span class="nav-index">02</span><span>숫자</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#work"><span class="nav-index">03</span><span>대표작</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#experience"><span class="nav-index">04</span><span>경력</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#documents"><span class="nav-index">05</span><span>문서</span><span class="arrow" aria-hidden="true">↗</span></a>
       </nav>
 
       <dl class="facts">
@@ -44,8 +57,9 @@
           <h2>이야기</h2>
           <p>고난에서 다시 시작한 날을 거쳐 지금의 학습 방식으로 이어집니다.</p>
         </div>
-        <p class="lead">저는 서로 다른 사람과 도구가 만든 결과를 하나의 서비스로 연결하는 개발자 김명준입니다.</p>
-        <article class="stage" id="story-setback">
+        <p class="lead lead-opening">저는 서로 다른 사람과 도구가 만든 결과를 하나의 서비스로 연결하는 개발자 김명준입니다.</p>
+        <article class="stage reveal" id="story-setback">
+          <span class="stage-index" aria-hidden="true">01</span>
           <div class="stage-meta">
             <time class="mono date" datetime="2024-12-05">2024.12</time>
             <span class="stage-name">고난</span>
@@ -56,7 +70,8 @@
           <p class="body">2024년 12월 5일, AWS에서 134,772원이 결제됐습니다. 한 달 뒤에도 94,138원이 빠져나가 모두 23만 원에 가까운 돈이었습니다. 대학 팀 프로젝트에서 백엔드와 인프라를 맡았지만 당시 실력으로는 화면과 서버를 끝내 연결하지 못했습니다. 프로젝트가 끝난 뒤에도 시드니 리전의 로드밸런서와 서버, 디스크, 공인 IP가 남아 있었습니다. 당황했지만 청구 내역부터 읽고 남은 자원을 찾아 삭제했습니다. AWS 고객지원이 요청한 월별 내역과 원인, 재발 방지 대책은 GPT에게 물어 가며 직접 정리해 제출했습니다. 문제를 지우는 데서 끝내지 않고 같은 비용이 다시 생기지 않도록 확인할 항목도 함께 적었습니다. 이때 코드를 만드는 것과 서비스를 닫을 때 남은 자원까지 책임지는 일이 다르다는 것을 처음 배웠습니다. 환불 결과는 확인되지 않았기 때문에 결과를 보태지 않습니다.</p>
           <p class="pair">↔ 숫자 「기한 안에 낸 과제 / 제출 대상 과제」와 연결</p>
         </article>
-        <article class="stage" id="story-recovery">
+        <article class="stage reveal" id="story-recovery">
+          <span class="stage-index" aria-hidden="true">02</span>
           <div class="stage-meta">
             <time class="mono date" datetime="2026-06-26">2026.06.26 - 08.04</time>
             <span class="stage-name">다시 일어난 날</span>
@@ -67,7 +82,8 @@
           <p class="body">2026년 6월 26일, 네 명이 함께 쓸 CLOV 저장소를 만들었습니다. 저는 팀장 겸 풀스택 개발자였습니다. 첫 모임에는 저와 팀원 한 명만 나왔고, 저를 뺀 세 사람은 모두 비전공자이며 팀 프로젝트도 처음이었습니다. 설명보다 먼저 기능과 화면을 볼 수 있는 프로토타입을 만들었습니다. 팀원마다 사용하는 AI 도구가 달라 코드가 자주 부딪히자 작업 전에 이슈를 열고, 머지 전에 코드와 실행 결과를 확인한 뒤 수정 이유를 리뷰로 남기는 흐름을 만들었습니다. 말로 한 설명이 적용되지 않을 때는 기초 개념과 서비스 전체 구조를 Markdown 문서로 남기고 다음 이슈에서 같은 기준을 다시 적용했습니다. 처음에는 모든 머지를 직접 보느라 병목이 생겼지만, 반복한 문서와 리뷰 뒤에는 팀원이 각자 작업과 서비스 방향을 파악하면서 문제가 줄었습니다. 8월 4일까지 이슈 152개와 PR 266개가 쌓였고, 제가 리뷰한 PR은 72개였습니다. Ubuntu, Nginx, Docker, HTTPS를 직접 구성해 대학 때 끝내지 못했던 서버 연결도 실제 주소에서 마쳤습니다.</p>
 
         </article>
-        <article class="stage" id="story-now">
+        <article class="stage reveal" id="story-now">
+          <span class="stage-index" aria-hidden="true">03</span>
           <div class="stage-meta">
             <time class="mono date" datetime="2026-08-11">2026.08.11 - 현재</time>
             <span class="stage-name">더 나아진 지금</span>
@@ -87,27 +103,33 @@
           <p>13주 과정 기록에서 옮겼으며 값마다 출처와 기준일을 표시했습니다.</p>
         </div>
         <div class="metrics">
-          <div class="metric">
+          <article class="metric reveal">
+            <span class="metric-index mono">01</span>
             <span class="value">27 / 27일</span>
             <span class="label">출석일 / 확정 수업일</span>
             <span class="label-detail">지각 0 · 결석 0</span>
+            <span class="metric-bar" aria-hidden="true"><span style="--progress: 100%"></span></span>
             <span class="source">출처 · 내 출석 기록<br>기준 · 2026-09-17<br>분모 · 2026-08-11부터 2026-09-17까지 확정된 수업일</span>
 
-          </div>
-          <div class="metric">
+          </article>
+          <article class="metric reveal">
+            <span class="metric-index mono">02</span>
             <span class="value">27 / 27일</span>
             <span class="label">아침 리추얼 작성 수업일 / 확정 수업일</span>
 
+            <span class="metric-bar" aria-hidden="true"><span style="--progress: 100%"></span></span>
             <span class="source">출처 · 내 리추얼 기록<br>기준 · 2026-09-17<br>분모 · 2026-08-11부터 2026-09-17까지 확정된 수업일</span>
             <span class="pair">↔ 이야기 now</span>
-          </div>
-          <div class="metric">
+          </article>
+          <article class="metric reveal">
+            <span class="metric-index mono">03</span>
             <span class="value"><span class="todo" data-draft="true">집계 필요</span></span>
             <span class="label">기한 안에 낸 과제 / 제출 대상 과제</span>
 
+            <span class="metric-bar" aria-hidden="true"><span style="--progress: 0%"></span></span>
             <span class="source">출처 · 내 제출 현황<br>기준 · <span class="todo" data-draft="true">기준일 필요</span><br>분모 · <span class="todo" data-draft="true">분모 정의 필요</span></span>
             <span class="pair">↔ 이야기 setback</span>
-          </div>
+          </article>
         </div>
       </section>
 
@@ -116,14 +138,24 @@
           <h2>대표작</h2>
         </div>
         <div class="works">
-          <article class="work">
-            <span class="mono muted">10번 과제 · 논문 · 2026.09</span>
+          <article class="work published reveal">
+            <div class="work-visual" aria-hidden="true">
+              <span class="work-number">01</span>
+              <span class="work-signal"></span>
+              <span class="work-status">LIVE</span>
+            </div>
+            <span class="mono muted work-kind">10번 과제 · 논문 · 2026.09</span>
             <h3 class="work-title">데이터 분할 방식에 따른 XAI 기반 네트워크 침입 탐지 성능과 설명 안정성 분석</h3>
             <p class="work-desc">CICIDS2017 2,830,743건에서 XGBoost의 Macro F1이 무작위 분할 0.9979에서 미관측 공격 분할 0.3871로 낮아지는 것을 확인했습니다.</p>
             <p class="links"><a href="https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/output/pdf/T10-research-paper.pdf">논문 읽기</a><a href="https://github.com/myeongjundev/explainsoc-research">공개 저장소</a></p>
           </article>
-          <article class="work pending">
-            <span class="mono muted">13번 과제 · 앱 · 예정 · <span class="todo" data-draft="true">예정일 확정 필요</span></span>
+          <article class="work pending reveal">
+            <div class="work-visual" aria-hidden="true">
+              <span class="work-number">02</span>
+              <span class="work-signal"></span>
+              <span class="work-status">NEXT</span>
+            </div>
+            <span class="mono muted work-kind">13번 과제 · 앱 · 예정 · <span class="todo" data-draft="true">예정일 확정 필요</span></span>
             <h3 class="work-title">준비 중</h3>
             <p class="work-desc">13번 과제를 마친 뒤 연구 결과를 실제로 사용하는 앱을 연결합니다.</p>
             <p class="links"></p>
@@ -136,7 +168,8 @@
           <h2>경력과 과제</h2>
           <p>과제마다 능력과 상황, 행동, 결과를 같은 순서로 적었습니다.</p>
         </div>
-        <article class="exp">
+        <article class="exp reveal">
+          <span class="exp-index mono" aria-hidden="true">01</span>
           <div class="exp-meta">
             <span class="mono muted">2026.06 - 2026.08</span>
             <span class="spacer"></span>
@@ -151,7 +184,8 @@
           </dl>
           <p class="exp-foot"><span class="mono muted">React · Spring Boot · Docker · Nginx · OAuth</span><span class="links"><a href="https://github.com/Pickeslog/clov-web">프론트엔드 저장소</a><a href="https://github.com/Pickeslog/clov-api">백엔드 저장소</a></span></p>
         </article>
-        <article class="exp">
+        <article class="exp reveal">
+          <span class="exp-index mono" aria-hidden="true">02</span>
           <div class="exp-meta">
             <span class="mono muted">2026.09</span>
             <span class="spacer"></span>
@@ -166,7 +200,8 @@
           </dl>
           <p class="exp-foot"><span class="mono muted">Python · scikit-learn · XGBoost · SHAP</span><span class="links"><a href="https://github.com/myeongjundev/explainsoc-research">공개 저장소</a></span></p>
         </article>
-        <article class="exp">
+        <article class="exp reveal">
+          <span class="exp-index mono" aria-hidden="true">03</span>
           <div class="exp-meta">
             <span class="mono muted">2026.09</span>
             <span class="spacer"></span>
@@ -192,8 +227,9 @@
       </section>
 
       <footer id="contact" class="contact">
+        <p class="contact-kicker mono">LET'S BUILD SOMETHING RELIABLE.</p>
         <p class="name">김명준</p>
-        <p><a href="https://github.com/myeongjundev">GitHub 프로필</a></p>
+        <p class="contact-link"><a href="https://github.com/myeongjundev">GitHub 프로필</a></p>
         <p class="note">새 기록을 넣으면 숫자와 문장 후보를 다시 만들 수 있습니다 · 마지막 갱신 2026-09-19</p>
       </footer>
     </main>

@@ -1,0 +1,68 @@
+(() => {
+  const root = document.documentElement;
+  const progress = document.querySelector('.scroll-progress span');
+  const themeButton = document.querySelector('.theme-toggle');
+  const themeLabel = document.querySelector('.theme-label');
+  const navLinks = [...document.querySelectorAll('.entrances a')];
+  const sections = navLinks
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  function setTheme(theme) {
+    root.dataset.theme = theme;
+    const isDark = theme === 'dark';
+    if (themeButton) themeButton.setAttribute('aria-pressed', String(isDark));
+    if (themeLabel) themeLabel.textContent = isDark ? 'Light mode' : 'Dark mode';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      isDark ? '#0b1020' : '#f4f6fb'
+    );
+  }
+
+  setTheme(savedTheme || (preferredDark ? 'dark' : 'light'));
+  themeButton?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    localStorage.setItem('portfolio-theme', next);
+  });
+
+  function updateProgress() {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const value = scrollable > 0 ? window.scrollY / scrollable : 0;
+    if (progress) progress.style.transform = `scaleX(${Math.min(1, Math.max(0, value))})`;
+  }
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    }),
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+  );
+  document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => {
+          const active = link.getAttribute('href') === `#${entry.target.id}`;
+          link.classList.toggle('is-active', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      });
+    },
+    { rootMargin: '-20% 0px -65% 0px' }
+  );
+  sections.forEach((section) => sectionObserver.observe(section));
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+  requestAnimationFrame(() => document.body.classList.add('is-ready'));
+})();

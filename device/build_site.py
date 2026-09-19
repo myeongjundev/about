@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import re
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
@@ -62,18 +63,28 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
 
     return f"""    <aside class="side">
       <header class="intro">
-        <span class="mono muted">myeongjundev.github.io/about</span>
+        <div class="profile-topline">
+          <span class="avatar" aria-hidden="true">MJ</span>
+          <span class="profile-actions">
+            <span class="availability"><span aria-hidden="true"></span> Portfolio 2026</span>
+            <button class="theme-toggle" type="button" aria-label="색상 테마 바꾸기" aria-pressed="false">
+              <span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Dark mode</span>
+            </button>
+          </span>
+        </div>
+        <span class="mono muted site-id">myeongjundev / portfolio</span>
         <h1>{esc(profile['name'])}</h1>
         <p class="role">{esc(profile['role'])}</p>
         <p class="tagline">{value_or_todo(profile.get('tagline'), draft, '본인이 쓸 한 줄 소개')}</p>
+        <p class="craft-line"><span>DESIGN</span><i aria-hidden="true"></i><span>BUILD</span><i aria-hidden="true"></i><span>SHIP</span></p>
       </header>
 
       <nav class="entrances" aria-label="바로 가기">
-        <a href="#story"><span>이야기</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#numbers"><span>숫자</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#work"><span>대표작</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#experience"><span>경력</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#documents"><span>문서</span><span class="arrow" aria-hidden="true">→</span></a>
+        <a href="#story"><span class="nav-index">01</span><span>이야기</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#numbers"><span class="nav-index">02</span><span>숫자</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#work"><span class="nav-index">03</span><span>대표작</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#experience"><span class="nav-index">04</span><span>경력</span><span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#documents"><span class="nav-index">05</span><span>문서</span><span class="arrow" aria-hidden="true">↗</span></a>
       </nav>
 
       <dl class="facts">
@@ -88,7 +99,7 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
 def render_story(data: dict[str, object], draft: bool) -> str:
     story = data["story"]
     segments = []
-    for segment in story["segments"]:
+    for index, segment in enumerate(story["segments"], start=1):
         pair = ""
         paired = [
             item for item in data["numbers"] if item.get("linkedSegment") == segment["id"]
@@ -96,7 +107,8 @@ def render_story(data: dict[str, object], draft: bool) -> str:
         if paired:
             pair = f'<p class="pair">↔ 숫자 「{esc(paired[0]["label"])}」와 연결</p>'
         segments.append(
-            f"""        <article class="stage" id="story-{esc(segment['id'])}">
+            f"""        <article class="stage reveal" id="story-{esc(segment['id'])}">
+          <span class="stage-index" aria-hidden="true">0{index}</span>
           <div class="stage-meta">
             <time class="mono date" datetime="{esc(segment['date'])}">{esc(segment['period'])}</time>
             <span class="stage-name">{esc(segment['stage'])}</span>
@@ -110,7 +122,7 @@ def render_story(data: dict[str, object], draft: bool) -> str:
         )
     return f"""      <section id="story">
 {section_head('이야기', '고난에서 다시 시작한 날을 거쳐 지금의 학습 방식으로 이어집니다.')}
-        <p class="lead">{value_or_todo(story.get('firstSentence'), draft, '본인이 쓸 첫 문장')}</p>
+        <p class="lead lead-opening">{value_or_todo(story.get('firstSentence'), draft, '본인이 쓸 첫 문장')}</p>
 {chr(10).join(segments)}
         <p class="lead closing">{value_or_todo(story.get('lastSentence'), draft, '본인이 쓸 마지막 문장')}</p>
       </section>"""
@@ -118,17 +130,24 @@ def render_story(data: dict[str, object], draft: bool) -> str:
 
 def render_numbers(data: dict[str, object], draft: bool) -> str:
     cards = []
-    for item in data["numbers"]:
+    for index, item in enumerate(data["numbers"], start=1):
         detail = f'<span class="label-detail">{esc(item["detail"])}</span>' if item.get("detail") else ""
         linked = f'<span class="pair">↔ 이야기 {esc(item["linkedSegment"])}</span>' if item.get("linkedSegment") else ""
+        progress = 0
+        value = str(item.get("value") or "")
+        match = re.search(r"(\d+)\s*/\s*(\d+)", value)
+        if match and int(match.group(2)):
+            progress = round(int(match.group(1)) / int(match.group(2)) * 100)
         cards.append(
-            f"""          <div class="metric">
+            f"""          <article class="metric reveal">
+            <span class="metric-index mono">0{index}</span>
             <span class="value">{value_or_todo(item.get('value'), draft, '집계 필요')}</span>
             <span class="label">{esc(item['label'])}</span>
             {detail}
+            <span class="metric-bar" aria-hidden="true"><span style="--progress: {progress}%"></span></span>
             <span class="source">출처 · {esc(item['source'])}<br>기준 · {value_or_todo(item.get('asOf'), draft, '기준일 필요')}<br>분모 · {value_or_todo(item.get('denominator'), draft, '분모 정의 필요')}</span>
             {linked}
-          </div>"""
+          </article>"""
         )
     return f"""      <section id="numbers">
 {section_head('숫자', '13주 과정 기록에서 옮겼으며 값마다 출처와 기준일을 표시했습니다.')}
@@ -140,7 +159,7 @@ def render_numbers(data: dict[str, object], draft: bool) -> str:
 
 def render_works(data: dict[str, object], draft: bool) -> str:
     cards = []
-    for item in data["works"]:
+    for index, item in enumerate(data["works"], start=1):
         links = "".join(
             f'<a href="{safe_href(link["href"])}">{esc(link["label"])}</a>'
             for link in item.get("links") or []
@@ -148,10 +167,16 @@ def render_works(data: dict[str, object], draft: bool) -> str:
         period = item.get("period")
         if item.get("status") == "planned":
             period = f"예정 · {value_or_todo(item.get('plannedDate'), draft, '예정일 확정 필요')}"
-        pending = " pending" if item.get("status") == "planned" else ""
+        pending = " pending" if item.get("status") == "planned" else " published"
+        status_label = "NEXT" if item.get("status") == "planned" else "LIVE"
         cards.append(
-            f"""          <article class="work{pending}">
-            <span class="mono muted">{esc(item['kind'])} · {period if '<span' in str(period) else esc(period)}</span>
+            f"""          <article class="work{pending} reveal">
+            <div class="work-visual" aria-hidden="true">
+              <span class="work-number">0{index}</span>
+              <span class="work-signal"></span>
+              <span class="work-status">{status_label}</span>
+            </div>
+            <span class="mono muted work-kind">{esc(item['kind'])} · {period if '<span' in str(period) else esc(period)}</span>
             <h3 class="work-title">{esc(item['title'])}</h3>
             <p class="work-desc">{esc(item['summary'])}</p>
             <p class="links">{links}</p>
@@ -167,14 +192,15 @@ def render_works(data: dict[str, object], draft: bool) -> str:
 
 def render_experience(data: dict[str, object], draft: bool) -> str:
     entries = []
-    for item in data["experience"]:
+    for index, item in enumerate(data["experience"], start=1):
         links = "".join(
             f'<a href="{safe_href(link["href"])}">{esc(link["label"])}</a>'
             for link in item.get("links") or []
         )
         tech = " · ".join(item.get("technologies") or [])
         entries.append(
-            f"""        <article class="exp">
+            f"""        <article class="exp reveal">
+          <span class="exp-index mono" aria-hidden="true">0{index}</span>
           <div class="exp-meta">
             <span class="mono muted">{value_or_todo(item.get('period'), draft, '기간 확정 필요')}</span>
             <span class="spacer"></span>
@@ -220,8 +246,9 @@ def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
       </section>
 
       <footer id="contact" class="contact">
+        <p class="contact-kicker mono">LET'S BUILD SOMETHING RELIABLE.</p>
         <p class="name">{esc(data['profile']['name'])}</p>
-        <p>{contact_html}</p>
+        <p class="contact-link">{contact_html}</p>
         <p class="note">새 기록을 넣으면 숫자와 문장 후보를 다시 만들 수 있습니다 · 마지막 갱신 {esc(data['updatedAt'])}</p>
       </footer>"""
 

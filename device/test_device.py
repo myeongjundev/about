@@ -98,6 +98,7 @@ class ValidationTests(unittest.TestCase):
         parser.feed((REPO / "docs" / "index.html").read_text(encoding="utf-8"))
         self.assertIn("styles.css", parser.assets)
         self.assertIn("favicon.svg", parser.assets)
+        self.assertIn("app.js", parser.assets)
         for href in parser.assets:
             if not href.startswith(("http://", "https://", "data:")):
                 self.assertTrue((REPO / "docs" / href).is_file(), href)
