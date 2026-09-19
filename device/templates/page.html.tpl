@@ -5,7 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{TITLE}}</title>
   <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f4f6fb">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:url" content="https://myeongjundev.github.io/about/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://myeongjundev.github.io/about/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

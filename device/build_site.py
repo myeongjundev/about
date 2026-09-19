@@ -197,6 +197,19 @@ def render_experience(data: dict[str, object], draft: bool) -> str:
             f'<a href="{safe_href(link["href"])}">{esc(link["label"])}</a>'
             for link in item.get("links") or []
         )
+        gallery_items = []
+        for image in item.get("gallery") or []:
+            gallery_items.append(
+                f'''            <figure class="gallery-item">
+              <img src="{safe_href(image['src'])}" alt="{esc(image['alt'])}" width="{esc(image['width'])}" height="{esc(image['height'])}" loading="lazy" decoding="async">
+              <figcaption>{esc(image['label'])}</figcaption>
+            </figure>'''
+            )
+        gallery = ""
+        if gallery_items:
+            gallery = f'''          <div class="project-gallery" aria-label="{esc(item['title'])} 화면">
+{chr(10).join(gallery_items)}
+          </div>'''
         tech = " · ".join(item.get("technologies") or [])
         entries.append(
             f"""        <article class="exp reveal">
@@ -208,6 +221,7 @@ def render_experience(data: dict[str, object], draft: bool) -> str:
           </div>
           <h3 class="exp-title">{value_or_todo(item.get('title'), draft, '세 번째 경력 항목 선택 필요')}</h3>
           <p class="exp-role">{value_or_todo(item.get('role'), draft, '역할 확정 필요')}</p>
+{gallery}
           <dl class="star">
             <dt>상황</dt><dd>{value_or_todo(item.get('situation'), draft, '상황 확정 필요')}</dd>
             <dt>행동</dt><dd>{value_or_todo(item.get('action'), draft, '행동 확정 필요')}</dd>

@@ -60,6 +60,7 @@ class SiteTests(unittest.TestCase):
             self.assertIn("2024년 12월 5일", content)
             self.assertIn("CLOV 팀 프로젝트", content)
             self.assertIn("2,830,743건", content)
+            self.assertIn("CLOV 추억 피드 화면", content)
             self.assertNotIn("clovlabcalss.store", content)
 
     def test_final_site_rejects_draft_content(self) -> None:
@@ -99,6 +100,7 @@ class ValidationTests(unittest.TestCase):
         self.assertIn("styles.css", parser.assets)
         self.assertIn("favicon.svg", parser.assets)
         self.assertIn("app.js", parser.assets)
+        self.assertEqual(parser.images_without_alt, [])
         for href in parser.assets:
             if not href.startswith(("http://", "https://", "data:")):
                 self.assertTrue((REPO / "docs" / href).is_file(), href)

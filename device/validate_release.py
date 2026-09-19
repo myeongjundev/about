@@ -26,6 +26,7 @@ class LinkParser(HTMLParser):
         self.assets: list[str] = []
         self.ids: list[str] = []
         self.links: list[str] = []
+        self.images_without_alt: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
@@ -37,6 +38,8 @@ class LinkParser(HTMLParser):
             self.assets.append(str(values["href"]))
         if tag in {"img", "script"} and values.get("src"):
             self.assets.append(str(values["src"]))
+        if tag == "img" and "alt" not in values:
+            self.images_without_alt.append(str(values.get("src") or "알 수 없는 이미지"))
 
 
 def empty(value: object) -> bool:
@@ -131,6 +134,7 @@ def validate(repo: Path, allow_draft: bool, check_urls: bool) -> list[str]:
     parser.feed(site)
     duplicate_ids = sorted({value for value in parser.ids if parser.ids.count(value) > 1})
     problems.extend(f"중복 ID: {value}" for value in duplicate_ids)
+    problems.extend(f"대체 텍스트 없는 이미지: {value}" for value in parser.images_without_alt)
 
     external: list[str] = []
     for href in parser.links:
