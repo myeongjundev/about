@@ -5,7 +5,10 @@
     "role": "신입 풀스택 개발자",
     "tagline": null,
     "direction": "프론트엔드와 백엔드, 배포를 경험했고 네트워크와 보안까지 학습 범위를 넓히고 있습니다.",
-    "contact": null,
+    "contact": {
+      "label": "GitHub 프로필",
+      "href": "https://github.com/myeongjundev"
+    },
     "education": [
       {
         "name": "SKT ALEPH 네트워크 보안 과정",
@@ -20,8 +23,8 @@
     }
   },
   "story": {
-    "firstSentence": null,
-    "lastSentence": null,
+    "firstSentence": "저는 서로 다른 사람과 도구가 만든 결과를 하나의 서비스로 연결하는 개발자 김명준입니다.",
+    "lastSentence": "팀이 안심하고 다음 작업을 이어갈 수 있는 기준을 만드는 개발자가 되겠습니다.",
     "segments": [
       {
         "id": "setback",
