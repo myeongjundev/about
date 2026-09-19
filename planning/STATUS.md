@@ -32,6 +32,8 @@
 - 최종 빌드와 ZIP은 본인 확인 항목이 남아 있어 의도대로 차단된다.
 - `device/apply_numbers.py`를 추가해 집계값을 미리보기로 확인한 뒤 승인 데이터에 반영하도록 했다.
 - GitHub Actions에서 Python 컴파일, 단위 테스트, 반복 실행, 초안 빌드를 자동 검사한다.
+- GitHub Actions의 Node 20 사용 중단 경고를 없애기 위해 공식 최신 주 버전인
+  `actions/checkout@v7`과 `actions/setup-python@v7`로 갱신했다.
 - 외부 URL은 HEAD가 아닌 GET 본문을 확인해, 껍데기 응답만 200인 장애 링크도 잡도록 강화했다.
 - 최종 ZIP에 숫자 승인 도구를 포함하고 `README-FIRST.md`를 ZIP 최상단에 두도록 허용 목록을 바로잡았다.
 - 세 번째 경력 항목은 공개 증거가 있는 T08 패스키 과제로 정했다.
