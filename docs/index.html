@@ -219,7 +219,16 @@
           </div>
           <h3 class="exp-title">10번 과제 · 네트워크 침입 탐지 연구</h3>
           <p class="exp-role">연구 설계 · 구현 · 검증 · 논문 작성</p>
-
+          <div class="project-gallery" aria-label="10번 과제 · 네트워크 침입 탐지 연구 화면">
+            <figure class="gallery-item">
+              <img src="https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/docs/assets/performance-comparison.png" alt="CICIDS2017에서 무작위 분할과 날짜 기반 미관측 공격 분할의 Macro F1과 공격 Recall을 세 모델로 비교한 차트." width="1200" height="675" loading="lazy" decoding="async">
+              <figcaption>분할 방식별 성능 비교</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/docs/assets/seed-robustness.png" alt="세 개 학습 시드에서 XGBoost의 무작위 분할과 미관측 공격 분할 Macro F1이 일관되게 재현된 차트." width="1200" height="675" loading="lazy" decoding="async">
+              <figcaption>세 시드 강건성 검증</figcaption>
+            </figure>
+          </div>
           <dl class="star">
             <dt>상황</dt><dd>무작위 분할에서 높은 탐지 점수가 실제로 처음 보는 공격에 일반화되는지 확인할 필요가 있었습니다.</dd>
             <dt>행동</dt><dd>CICIDS2017 2,830,743건을 감사하고 무작위 분할과 미관측 공격 분할에서 세 모델을 비교했으며 SHAP 설명 안정성을 확인했습니다.</dd>
@@ -236,7 +245,16 @@
           </div>
           <h3 class="exp-title">8번 과제 · 패스키로 잠근 비공개 영역</h3>
           <p class="exp-role">WebAuthn 인증 설계 · 구현 · 검증 · 배포</p>
-
+          <div class="project-gallery" aria-label="8번 과제 · 패스키로 잠근 비공개 영역 화면">
+            <figure class="gallery-item">
+              <img src="https://raw.githubusercontent.com/myeongjundev/t08-passkey-portfolio/main/docs/evidence/images/01-public-first-screen.png" alt="T08 공개 포트폴리오 첫 화면. 개발자 소개와 패스키 전용 비공개 공간 진입점을 함께 보여 준다." width="1280" height="860" loading="lazy" decoding="async">
+              <figcaption>공개 포트폴리오</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="https://raw.githubusercontent.com/myeongjundev/t08-passkey-portfolio/main/docs/evidence/images/03-access-no-password-field.png" alt="비밀번호 입력란 없이 표시 이름과 패스키 이름만으로 기기 패스키를 등록하는 T08 화면." width="1280" height="860" loading="lazy" decoding="async">
+              <figcaption>비밀번호 없는 패스키 등록</figcaption>
+            </figure>
+          </div>
           <dl class="star">
             <dt>상황</dt><dd>공개 소개 페이지는 그대로 열어 두면서 비공개 자료는 비밀번호 없이 본인만 볼 수 있게 나눠야 했습니다.</dd>
             <dt>행동</dt><dd>WebAuthn 등록과 로그인을 구현하고, 일회용 질문을 데이터베이스에서 한 번만 사용하게 했습니다. 서버 세션, Origin과 CSRF 검사, 마지막 패스키 삭제 방지까지 요청 단계에서 검증했습니다.</dd>
