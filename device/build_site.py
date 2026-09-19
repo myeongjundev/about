@@ -65,7 +65,7 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         <span class="mono muted">myeongjundev.github.io/about</span>
         <h1>{esc(profile['name'])}</h1>
         <p class="role">{esc(profile['role'])}</p>
-        <p class="tagline">{value_or_todo(profile.get('tagline'), draft, '본인이 쓸 한 줄 소개')} </p>
+        <p class="tagline">{value_or_todo(profile.get('tagline'), draft, '본인이 쓸 한 줄 소개')}</p>
       </header>
 
       <nav class="entrances" aria-label="바로 가기">

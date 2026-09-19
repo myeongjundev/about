@@ -115,7 +115,7 @@ class ValidationTests(unittest.TestCase):
 
     def test_current_draft_cannot_be_released(self) -> None:
         problems = validation_module.validate(REPO, False, False)
-        self.assertTrue(any("profile.tagline" in problem for problem in problems))
+        self.assertTrue(any("numbers.submissions.value" in problem for problem in problems))
         self.assertTrue(any("t13-app.plannedDate" in problem for problem in problems))
 
 
