@@ -73,6 +73,23 @@ def required_content(data: dict[str, object]) -> list[str]:
     return missing
 
 
+def content_quality(data: dict[str, object]) -> list[str]:
+    problems: list[str] = []
+    profile = data["profile"]
+    story = data["story"]
+    tagline = str(profile.get("tagline") or "")
+    if tagline and not tagline.endswith("사람"):
+        problems.append("profile.tagline은 '사람'으로 끝나야 합니다.")
+
+    story_parts = [story.get("firstSentence") or "", story.get("lastSentence") or ""]
+    for segment in story.get("segments") or []:
+        story_parts.extend((segment.get("summary") or "", segment.get("body") or ""))
+    story_length = sum(len(str(part)) for part in story_parts)
+    if story_length < 1400 or story_length > 1700:
+        problems.append(f"이야기 분량은 1,400~1,700자여야 합니다: 현재 {story_length}자")
+    return problems
+
+
 def check_url(url: str) -> str | None:
     # A HEAD response can be healthy even when the page body fails at runtime.
     # Read one byte with GET so this check matches what an anonymous visitor opens
@@ -100,6 +117,7 @@ def validate(repo: Path, allow_draft: bool, check_urls: bool) -> list[str]:
     site_path = repo / "docs" / "index.html"
     data = json.loads(content_path.read_text(encoding="utf-8"))
     site = site_path.read_text(encoding="utf-8")
+    problems.extend(content_quality(data))
 
     if not allow_draft:
         if data.get("draft"):

@@ -89,6 +89,10 @@ class ApplyNumbersTests(unittest.TestCase):
 
 
 class ValidationTests(unittest.TestCase):
+    def test_story_meets_length_and_tagline_rules(self) -> None:
+        data = json.loads((REPO / "content" / "approved.json").read_text(encoding="utf-8"))
+        self.assertEqual(validation_module.content_quality(data), [])
+
     def test_site_assets_are_declared_and_present(self) -> None:
         parser = validation_module.LinkParser()
         parser.feed((REPO / "docs" / "index.html").read_text(encoding="utf-8"))
