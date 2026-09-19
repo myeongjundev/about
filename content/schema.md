@@ -19,8 +19,10 @@
 - `story.firstSentence`
 - `story.lastSentence`
 - `numbers[submissions]`
-- `works[t13-app].plannedDate`
 - `experience[third-project]`
+
+대표작에는 공개가 끝난 결과물만 넣는다. 대기 중인 T13은 완료 후 공개 링크와 검증 가능한
+결과가 생겼을 때 추가한다.
 
 ## 숫자 필드
 

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 import re
@@ -164,6 +165,21 @@ def render_works(data: dict[str, object], draft: bool) -> str:
             f'<a href="{safe_href(link["href"])}">{esc(link["label"])}</a>'
             for link in item.get("links") or []
         )
+        visual = item.get("visual")
+        if visual:
+            visual_class = " has-image"
+            visual_accessibility = ""
+            visual_media = (
+                f'<img src="{safe_href(visual["src"])}" alt="{esc(visual["alt"])}" '
+                f'width="{esc(visual["width"])}" height="{esc(visual["height"])}" '
+                'loading="lazy" decoding="async">'
+            )
+            signal = ""
+        else:
+            visual_class = ""
+            visual_accessibility = ' aria-hidden="true"'
+            visual_media = ""
+            signal = '<span class="work-signal"></span>'
         period = item.get("period")
         if item.get("status") == "planned":
             period = f"예정 · {value_or_todo(item.get('plannedDate'), draft, '예정일 확정 필요')}"
@@ -171,9 +187,10 @@ def render_works(data: dict[str, object], draft: bool) -> str:
         status_label = "NEXT" if item.get("status") == "planned" else "LIVE"
         cards.append(
             f"""          <article class="work{pending} reveal">
-            <div class="work-visual" aria-hidden="true">
+            <div class="work-visual{visual_class}"{visual_accessibility}>
+              {visual_media}
               <span class="work-number">0{index}</span>
-              <span class="work-signal"></span>
+              {signal}
               <span class="work-status">{status_label}</span>
             </div>
             <span class="mono muted work-kind">{esc(item['kind'])} · {period if '<span' in str(period) else esc(period)}</span>
@@ -272,6 +289,11 @@ def build(data_path: Path, output: Path, template_path: Path, draft: bool) -> No
     if data.get("draft") and not draft:
         raise ValueError("approved.json이 draft 상태입니다. 최종 빌드를 중단합니다.")
     template = template_path.read_text(encoding="utf-8")
+    repo = template_path.parents[2]
+    asset_hash = hashlib.sha256()
+    for asset in (repo / "docs" / "styles.css", repo / "docs" / "app.js"):
+        asset_hash.update(asset.read_bytes())
+    asset_version = asset_hash.hexdigest()[:12]
     banner = ""
     if draft:
         banner = '  <p class="draft-banner" role="status">작업 중인 미리보기입니다. 노란 표시는 본인 확인이 필요합니다.</p>'
@@ -287,6 +309,7 @@ def build(data_path: Path, output: Path, template_path: Path, draft: bool) -> No
     replacements = {
         "{{TITLE}}": esc(f"{data['profile']['name']} 자기소개"),
         "{{DESCRIPTION}}": esc(f"{data['profile']['name']}의 이야기와 기록, 대표작, 경력, 문서"),
+        "{{ASSET_VERSION}}": asset_version,
         "{{DRAFT_BANNER}}": banner,
         "{{SIDEBAR}}": render_sidebar(data, draft),
         "{{MAIN}}": main,

@@ -18,8 +18,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=c3253d2154d6">
+  <script src="app.js?v=c3253d2154d6" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 바로 가기</a>
@@ -147,26 +147,28 @@
         </div>
         <div class="works">
           <article class="work published reveal">
-            <div class="work-visual" aria-hidden="true">
+            <div class="work-visual has-image">
+              <img src="https://myeongjundev.github.io/assets/clov-promise.jpg" alt="CLOV 일정 계획 화면. 초대권 형태의 일정 카드와 진행 상태 탭이 보인다." width="1400" height="684" loading="lazy" decoding="async">
               <span class="work-number">01</span>
-              <span class="work-signal"></span>
+
+              <span class="work-status">LIVE</span>
+            </div>
+            <span class="mono muted work-kind">팀 프로젝트 · 풀스택 · 2026.06 - 2026.08</span>
+            <h3 class="work-title">CLOV — 함께 만드는 우정 기록 서비스</h3>
+            <p class="work-desc">4인 팀의 팀장 겸 풀스택 개발자로 이슈와 코드 리뷰 흐름을 만들고, React와 Spring Boot 서비스를 Docker·Nginx·HTTPS 환경에 배포했습니다.</p>
+            <p class="links"><a href="https://github.com/Pickeslog/clov-web">프론트엔드 저장소</a><a href="https://github.com/Pickeslog/clov-api">백엔드 저장소</a></p>
+          </article>
+          <article class="work published reveal">
+            <div class="work-visual has-image">
+              <img src="https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/docs/assets/performance-comparison.png" alt="무작위 분할과 날짜 기반 미관측 공격 분할에서 세 모델의 Macro F1과 공격 Recall을 비교한 차트." width="1200" height="675" loading="lazy" decoding="async">
+              <span class="work-number">02</span>
+
               <span class="work-status">LIVE</span>
             </div>
             <span class="mono muted work-kind">10번 과제 · 논문 · 2026.09</span>
             <h3 class="work-title">데이터 분할 방식에 따른 XAI 기반 네트워크 침입 탐지 성능과 설명 안정성 분석</h3>
             <p class="work-desc">CICIDS2017 2,830,743건에서 XGBoost의 Macro F1이 무작위 분할 0.9979에서 미관측 공격 분할 0.3871로 낮아지는 것을 확인했습니다.</p>
             <p class="links"><a href="https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/output/pdf/T10-research-paper.pdf">논문 읽기</a><a href="https://github.com/myeongjundev/explainsoc-research">공개 저장소</a></p>
-          </article>
-          <article class="work pending reveal">
-            <div class="work-visual" aria-hidden="true">
-              <span class="work-number">02</span>
-              <span class="work-signal"></span>
-              <span class="work-status">NEXT</span>
-            </div>
-            <span class="mono muted work-kind">13번 과제 · 앱 · 예정 · <span class="todo" data-draft="true">예정일 확정 필요</span></span>
-            <h3 class="work-title">준비 중</h3>
-            <p class="work-desc">13번 과제를 마친 뒤 연구 결과를 실제로 사용하는 앱을 연결합니다.</p>
-            <p class="links"></p>
           </article>
         </div>
       </section>

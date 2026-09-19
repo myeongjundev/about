@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
+from urllib.parse import urlparse
 
 
 BASE = Path(__file__).resolve().parent
@@ -97,13 +98,14 @@ class ValidationTests(unittest.TestCase):
     def test_site_assets_are_declared_and_present(self) -> None:
         parser = validation_module.LinkParser()
         parser.feed((REPO / "docs" / "index.html").read_text(encoding="utf-8"))
-        self.assertIn("styles.css", parser.assets)
-        self.assertIn("favicon.svg", parser.assets)
-        self.assertIn("app.js", parser.assets)
+        asset_paths = [urlparse(href).path for href in parser.assets]
+        self.assertIn("styles.css", asset_paths)
+        self.assertIn("favicon.svg", asset_paths)
+        self.assertIn("app.js", asset_paths)
         self.assertEqual(parser.images_without_alt, [])
         for href in parser.assets:
             if not href.startswith(("http://", "https://", "data:")):
-                self.assertTrue((REPO / "docs" / href).is_file(), href)
+                self.assertTrue((REPO / "docs" / urlparse(href).path).is_file(), href)
 
     def test_external_url_check_uses_get_and_reads_body(self) -> None:
         class Response:
@@ -132,7 +134,8 @@ class ValidationTests(unittest.TestCase):
     def test_current_draft_cannot_be_released(self) -> None:
         problems = validation_module.validate(REPO, False, False)
         self.assertFalse(any("numbers.submissions" in problem for problem in problems))
-        self.assertTrue(any("t13-app.plannedDate" in problem for problem in problems))
+        self.assertFalse(any("t13-app.plannedDate" in problem for problem in problems))
+        self.assertTrue(any("approved.json이 draft 상태" in problem for problem in problems))
 
 
 class ReleaseTests(unittest.TestCase):

@@ -89,12 +89,42 @@
   ],
   "works": [
     {
+      "id": "clov",
+      "kind": "팀 프로젝트 · 풀스택",
+      "period": "2026.06 - 2026.08",
+      "title": "CLOV — 함께 만드는 우정 기록 서비스",
+      "summary": "4인 팀의 팀장 겸 풀스택 개발자로 이슈와 코드 리뷰 흐름을 만들고, React와 Spring Boot 서비스를 Docker·Nginx·HTTPS 환경에 배포했습니다.",
+      "status": "published",
+      "visual": {
+        "src": "https://myeongjundev.github.io/assets/clov-promise.jpg",
+        "alt": "CLOV 일정 계획 화면. 초대권 형태의 일정 카드와 진행 상태 탭이 보인다.",
+        "width": 1400,
+        "height": 684
+      },
+      "links": [
+        {
+          "label": "프론트엔드 저장소",
+          "href": "https://github.com/Pickeslog/clov-web"
+        },
+        {
+          "label": "백엔드 저장소",
+          "href": "https://github.com/Pickeslog/clov-api"
+        }
+      ]
+    },
+    {
       "id": "t10-paper",
       "kind": "10번 과제 · 논문",
       "period": "2026.09",
       "title": "데이터 분할 방식에 따른 XAI 기반 네트워크 침입 탐지 성능과 설명 안정성 분석",
       "summary": "CICIDS2017 2,830,743건에서 XGBoost의 Macro F1이 무작위 분할 0.9979에서 미관측 공격 분할 0.3871로 낮아지는 것을 확인했습니다.",
       "status": "published",
+      "visual": {
+        "src": "https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/docs/assets/performance-comparison.png",
+        "alt": "무작위 분할과 날짜 기반 미관측 공격 분할에서 세 모델의 Macro F1과 공격 Recall을 비교한 차트.",
+        "width": 1200,
+        "height": 675
+      },
       "links": [
         {
           "label": "논문 읽기",
@@ -105,16 +135,6 @@
           "href": "https://github.com/myeongjundev/explainsoc-research"
         }
       ]
-    },
-    {
-      "id": "t13-app",
-      "kind": "13번 과제 · 앱",
-      "period": null,
-      "title": "준비 중",
-      "summary": "13번 과제를 마친 뒤 연구 결과를 실제로 사용하는 앱을 연결합니다.",
-      "status": "planned",
-      "plannedDate": null,
-      "links": []
     }
   ],
   "experience": [
