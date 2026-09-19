@@ -78,12 +78,12 @@
     },
     {
       "id": "submissions",
-      "value": null,
-      "label": "기한 안에 낸 과제 / 제출 대상 과제",
-      "detail": null,
-      "source": "내 제출 현황",
-      "asOf": null,
-      "denominator": null,
+      "value": "11 / 11개",
+      "label": "제출한 과제 / 현재 제출 대상 과제",
+      "detail": "공개 검증 가능 9개 · 비공개 저장소 2개",
+      "source": "내 제출 현황 · GitHub 저장소",
+      "asOf": "2026-09-20",
+      "denominator": "T01부터 T11까지. 진행 중인 T12와 대기 중인 T13은 제외",
       "linkedSegment": "setback"
     }
   ],
