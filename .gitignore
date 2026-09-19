@@ -1,5 +1,6 @@
 # Real personal records never leave this machine.
 inputs/
+private/
 *.ritual.json
 
 # Assignment source text and private manuscripts
@@ -9,6 +10,9 @@ inputs/
 # Build and run outputs that are regenerated
 device/out/
 device/tmp/
+documents/qa/
+documents/out/
+release/out/
 dist/
 *.zip
 

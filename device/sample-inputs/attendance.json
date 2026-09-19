@@ -1,0 +1,8 @@
+{
+  "course": "샘플 과정",
+  "sessions": [
+    {"date": "2026-09-01", "status": "present"},
+    {"date": "2026-09-02", "status": "present"},
+    {"date": "2026-09-03", "status": "late"}
+  ]
+}

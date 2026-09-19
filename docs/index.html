@@ -3,21 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>김명준 — 자기소개</title>
-  <meta name="description" content="김명준의 자기소개 사이트. 이야기, 13주 기록의 숫자, 대표작, 경력·과제, 이력서.">
+  <title>김명준 자기소개</title>
+  <meta name="description" content="김명준의 이야기와 기록, 대표작, 경력, 문서">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">본문으로 바로 가기</a>
+  <p class="draft-banner" role="status">작업 중인 미리보기입니다. 노란 표시는 본인 확인이 필요합니다.</p>
   <div class="layout">
     <aside class="side">
       <header class="intro">
         <span class="mono muted">myeongjundev.github.io/about</span>
         <h1>김명준</h1>
         <p class="role">신입 풀스택 개발자</p>
-        <p class="tagline"><span class="todo">[한 줄 소개 — 본인 작성]</span> …한 사람</p>
+        <p class="tagline"><span class="todo" data-draft="true">본인이 쓸 한 줄 소개</span> </p>
       </header>
 
       <nav class="entrances" aria-label="바로 가기">
@@ -25,101 +27,85 @@
         <a href="#numbers"><span>숫자</span><span class="arrow" aria-hidden="true">→</span></a>
         <a href="#work"><span>대표작</span><span class="arrow" aria-hidden="true">→</span></a>
         <a href="#experience"><span>경력</span><span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#documents"><span>이력서</span><span class="arrow" aria-hidden="true">→</span></a>
+        <a href="#documents"><span>문서</span><span class="arrow" aria-hidden="true">→</span></a>
       </nav>
 
       <dl class="facts">
-        <div>
-          <dt>방향</dt>
-          <dd>프론트엔드·백엔드·DB·배포를 경험했고, 네트워크·보안까지 관심 영역을 넓혀 가는 중</dd>
-        </div>
-        <div>
-          <dt>기술</dt>
-          <dd class="stack">
-            <span><span class="mono muted">Frontend</span><span class="todo">[예: React]</span></span>
-            <span><span class="mono muted">Backend</span><span class="todo">[예: Java · Spring]</span></span>
-            <span><span class="mono muted">DB</span><span class="todo">[예: MySQL]</span></span>
-            <span><span class="mono muted">Infra</span><span class="todo">[예: Ubuntu · Nginx · Docker]</span></span>
-            <span><span class="mono muted">Learning</span><span class="todo">[예: Network · Security]</span></span>
-          </dd>
-        </div>
-        <div>
-          <dt>교육</dt>
-          <dd>SKT ALEPH 개발 과정 <span class="mono muted">2026.08 – 2026.11</span><br><span class="todo">[학력 — 공개 범위 본인 결정]</span></dd>
-        </div>
-        <div>
-          <dt>연락</dt>
-          <dd><a href="#contact"><span class="todo">[공개 연락 수단 1개]</span></a></dd>
-        </div>
+        <div><dt>방향</dt><dd>프론트엔드와 백엔드, 배포를 경험했고 네트워크와 보안까지 학습 범위를 넓히고 있습니다.</dd></div>
+        <div><dt>기술</dt><dd class="stack"><span><span class="mono muted">Frontend</span><span>React</span></span><span><span class="mono muted">Backend</span><span>Java · Spring Boot</span></span><span><span class="mono muted">Data AI</span><span>Python · scikit-learn · XGBoost · SHAP</span></span><span><span class="mono muted">Infra Security</span><span>Ubuntu · Nginx · Docker · Network · Security</span></span></dd></div>
+        <div><dt>교육</dt><dd>SKT ALEPH 네트워크 보안 과정 <span class="mono muted">2026.08 - 2026.11</span></dd></div>
+        <div><dt>연락</dt><dd><span class="todo" data-draft="true">공개 연락 수단 확정 필요</span></dd></div>
       </dl>
     </aside>
-
-    <main class="content">
+    <main id="main-content" class="content">
       <section id="story">
         <div class="section-head">
           <h2>이야기</h2>
-          <p>요약줄만 읽어도 흐름이 보이도록 토막마다 날짜와 한 줄을 먼저 둡니다.</p>
+          <p>고난에서 다시 시작한 날을 거쳐 지금의 학습 방식으로 이어집니다.</p>
         </div>
-        <p class="lead"><span class="todo">[첫 문장 — 본인 작성]</span></p>
-
-        <article class="stage">
+        <p class="lead"><span class="todo" data-draft="true">본인이 쓸 첫 문장</span></p>
+        <article class="stage" id="story-setback">
           <div class="stage-meta">
-            <span class="mono date"><span class="todo">[2024.12]</span></span>
-            <span class="stage-name">1 · 고난</span>
+            <time class="mono date" datetime="2024-12-05">2024.12</time>
+            <span class="stage-name">고난</span>
             <span class="spacer"></span>
             <span class="ability">드러난 능력 · 자기조절력</span>
           </div>
-          <p class="summary"><span class="todo">[요약줄 후보] 프로젝트가 끝난 뒤 남은 클라우드 비용을 청구 내역부터 읽었다</span></p>
-          <p class="body"><span class="todo">[본문 약 450자 · 날짜 있는 장면에서 시작 · 사실만 — 카드 1에서 작성]</span></p>
-          <p class="pair">↔ 숫자 「출석일」과 짝지음</p>
+          <p class="summary">끝내지 못한 프로젝트 뒤에 남은 클라우드 청구서를 항목별로 읽었습니다.</p>
+          <p class="body">2024년 12월 5일, AWS에서 134,772원이 결제됐습니다. 한 달 뒤에도 94,138원이 빠져나가 모두 23만 원에 가까운 돈이었습니다. 대학 팀 프로젝트에서 백엔드와 인프라를 맡았지만 당시 실력으로는 화면과 서버를 끝내 연결하지 못했습니다. 프로젝트가 끝난 뒤에도 시드니 리전의 로드밸런서와 서버, 디스크, 공인 IP가 남아 있었습니다. 당황했지만 청구 내역부터 읽고 남은 자원을 찾아 삭제했습니다. AWS 고객지원이 요청한 월별 내역과 원인, 재발 방지 대책은 GPT에게 물어 가며 직접 정리해 제출했습니다. 환불 결과는 확인되지 않았기 때문에 결과를 보태지 않습니다.</p>
+          <p class="pair">↔ 숫자 「기한 안에 낸 과제 / 제출 대상 과제」와 연결</p>
         </article>
-
-        <article class="stage">
+        <article class="stage" id="story-recovery">
           <div class="stage-meta">
-            <span class="mono date"><span class="todo">[2025.02]</span></span>
-            <span class="stage-name">2 · 다시 일어난 날</span>
-            <span class="spacer"></span>
-            <span class="ability">드러난 능력 · 자기동기력</span>
-          </div>
-          <p class="summary"><span class="todo">[요약줄 후보] 졸업을 기다리며 시작한 일을 1년 동안 이어 간 뒤 개발 과정에 들어갔다</span></p>
-          <p class="body"><span class="todo">[본문 약 450자 · 날짜 있는 장면에서 시작 · 사실만 — 카드 1에서 작성]</span></p>
-        </article>
-
-        <article class="stage">
-          <div class="stage-meta">
-            <span class="mono date"><span class="todo">[2026.08]</span></span>
-            <span class="stage-name">3 · 더 나아진 지금</span>
+            <time class="mono date" datetime="2026-06-26">2026.06.26 - 08.04</time>
+            <span class="stage-name">다시 일어난 날</span>
             <span class="spacer"></span>
             <span class="ability">드러난 능력 · 대인관계력</span>
           </div>
-          <p class="summary"><span class="todo">[요약줄 후보] 팀 저장소의 리뷰로 동료의 작업을 합쳐 서비스를 완성했다</span></p>
-          <p class="body"><span class="todo">[본문 약 450자 · 날짜 있는 장면에서 시작 · 사실만 — 카드 1에서 작성]</span></p>
-        </article>
+          <p class="summary">첫 모임에 두 명만 나온 팀을 이슈와 리뷰로 묶어 서비스를 끝까지 연결했습니다.</p>
+          <p class="body">2026년 6월 26일, 네 명이 함께 쓸 CLOV 저장소를 만들었습니다. 저는 팀장 겸 풀스택 개발자였습니다. 첫 모임에는 저와 팀원 한 명만 나왔고, 저를 뺀 세 사람은 모두 비전공자이며 팀 프로젝트도 처음이었습니다. 설명보다 먼저 기능과 화면을 볼 수 있는 프로토타입을 만들었습니다. 팀원마다 사용하는 AI 도구가 달라 코드가 자주 부딪히자 작업 전에 이슈를 열고, 머지 전에 코드와 실행 결과를 확인한 뒤 수정 이유를 리뷰로 남기는 흐름을 만들었습니다. 8월 4일까지 이슈 152개와 PR 266개가 쌓였고, 제가 리뷰한 PR은 72개였습니다. Ubuntu, Nginx, Docker, HTTPS를 직접 구성해 대학 때 끝내지 못했던 서버 연결도 실제 주소에서 마쳤습니다.</p>
 
-        <p class="lead closing"><span class="todo">[마지막 문장 — 본인 작성]</span></p>
+        </article>
+        <article class="stage" id="story-now">
+          <div class="stage-meta">
+            <time class="mono date" datetime="2026-08-11">2026.08.11 - 현재</time>
+            <span class="stage-name">더 나아진 지금</span>
+            <span class="spacer"></span>
+            <span class="ability">드러난 능력 · 자기동기력</span>
+          </div>
+          <p class="summary">익숙한 개발을 벗어나 네트워크와 보안 과정에서 다시 초보자로 시작했습니다.</p>
+          <p class="body">2026년 8월 11일, SKT ALEPH 네트워크 보안 과정에서 다시 초보자가 되었습니다. VLAN, 라우팅, ACL과 pfSense는 모두 처음이었습니다. VMware와 pfSense 실습에서 연결이 끊길 때마다 ping, 로그, IP 대역과 설정값 순으로 확인하며 원인을 좁혔습니다. 8월 31일에는 새로 만난 팀원들에게 먼저 말을 걸었고, 9월 4일에는 수업을 따라가기 힘들어하던 옆 팀원을 도왔습니다. 9월 13일에는 침입 탐지 모델이 처음 보는 공격에서도 성능을 유지하는지 CICIDS2017 2,830,743건으로 검증한 논문을 제출했습니다.</p>
+          <p class="pair">↔ 숫자 「아침 리추얼 작성 수업일 / 확정 수업일」와 연결</p>
+        </article>
+        <p class="lead closing"><span class="todo" data-draft="true">본인이 쓸 마지막 문장</span></p>
       </section>
 
       <section id="numbers">
         <div class="section-head">
           <h2>숫자</h2>
-          <p>13주 과정(2026.08.11 – 2026.11.12)의 기록에서 옮긴 숫자입니다. 작은 숫자도 그대로 적습니다.</p>
+          <p>13주 과정 기록에서 옮겼으며 값마다 출처와 기준일을 표시했습니다.</p>
         </div>
         <div class="metrics">
           <div class="metric">
             <span class="value">27 / 27일</span>
-            <span class="label">출석일 / 수업일 · 지각 0 · 결석 0</span>
-            <span class="source">출처 · 내 출석 기록<br>기준 · 2026.09.17 (6주차)</span>
-            <span class="pair">↔ 고난 토막과 짝</span>
+            <span class="label">출석일 / 확정 수업일</span>
+            <span class="label-detail">지각 0 · 결석 0</span>
+            <span class="source">출처 · 내 출석 기록<br>기준 · 2026-09-17<br>분모 · 2026-08-11부터 2026-09-17까지 확정된 수업일</span>
+
           </div>
           <div class="metric">
             <span class="value">27 / 27일</span>
-            <span class="label">아침 리추얼을 쓴 수업일 / 수업일</span>
-            <span class="source">출처 · 리추얼 기록<br>기준 · 2026.09.17 (6주차)</span>
+            <span class="label">아침 리추얼 작성 수업일 / 확정 수업일</span>
+
+            <span class="source">출처 · 내 리추얼 기록<br>기준 · 2026-09-17<br>분모 · 2026-08-11부터 2026-09-17까지 확정된 수업일</span>
+            <span class="pair">↔ 이야기 now</span>
           </div>
           <div class="metric">
-            <span class="value"><span class="todo">[숫자]</span></span>
-            <span class="label">기한 안에 낸 과제 / 전체</span>
-            <span class="source">출처 · 내 제출 현황<br>기준 · <span class="todo">[YYYY.MM.DD]</span></span>
+            <span class="value"><span class="todo" data-draft="true">집계 필요</span></span>
+            <span class="label">기한 안에 낸 과제 / 제출 대상 과제</span>
+
+            <span class="source">출처 · 내 제출 현황<br>기준 · <span class="todo" data-draft="true">기준일 필요</span><br>분모 · <span class="todo" data-draft="true">분모 정의 필요</span></span>
+            <span class="pair">↔ 이야기 setback</span>
           </div>
         </div>
       </section>
@@ -129,100 +115,85 @@
           <h2>대표작</h2>
         </div>
         <div class="works">
-          <div class="work">
+          <article class="work">
             <span class="mono muted">10번 과제 · 논문 · 2026.09</span>
-            <p class="work-title">데이터 분할 방식에 따른 XAI 기반 네트워크 침입 탐지 성능과 설명 안정성 분석</p>
-            <p class="work-desc">무작위로 나눈 데이터에서 Macro F1 0.9979였던 XGBoost가 처음 보는 공격 유형에서는 0.3871로 떨어지는 것을 CICIDS2017 2,830,743건으로 검증했습니다.</p>
-            <p class="links">
-              <a href="https://github.com/myeongjundev/explainsoc-research/blob/main/output/pdf/T10-research-paper.pdf">논문 읽기 (로그인 없이)</a>
-              <a href="https://github.com/myeongjundev/explainsoc-research">저장소</a>
-            </p>
-          </div>
-          <div class="work pending">
-            <span class="mono muted">13번 과제 · 앱</span>
-            <p class="work-title">준비 중</p>
-            <p class="work-desc">13번 과제를 마친 뒤 채웁니다.<br>예정일 <span class="mono"><span class="todo">[YYYY.MM.DD]</span></span></p>
-          </div>
+            <h3 class="work-title">데이터 분할 방식에 따른 XAI 기반 네트워크 침입 탐지 성능과 설명 안정성 분석</h3>
+            <p class="work-desc">CICIDS2017 2,830,743건에서 XGBoost의 Macro F1이 무작위 분할 0.9979에서 미관측 공격 분할 0.3871로 낮아지는 것을 확인했습니다.</p>
+            <p class="links"><a href="https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/output/pdf/T10-research-paper.pdf">논문 읽기</a><a href="https://github.com/myeongjundev/explainsoc-research">공개 저장소</a></p>
+          </article>
+          <article class="work pending">
+            <span class="mono muted">13번 과제 · 앱 · 예정 · <span class="todo" data-draft="true">예정일 확정 필요</span></span>
+            <h3 class="work-title">준비 중</h3>
+            <p class="work-desc">13번 과제를 마친 뒤 연구 결과를 실제로 사용하는 앱을 연결합니다.</p>
+            <p class="links"></p>
+          </article>
         </div>
       </section>
 
       <section id="experience">
         <div class="section-head">
-          <h2>경력·과제</h2>
-          <p>경력기술서와 같은 내용입니다. 과제마다 능력 · 상황 · 행동 · 결과.</p>
+          <h2>경력과 과제</h2>
+          <p>과제마다 능력과 상황, 행동, 결과를 같은 순서로 적었습니다.</p>
         </div>
-
         <article class="exp">
           <div class="exp-meta">
-            <span class="mono muted">2026.06 – 2026.08</span>
+            <span class="mono muted">2026.06 - 2026.08</span>
             <span class="spacer"></span>
             <span class="ability">대인관계력</span>
           </div>
-          <p class="exp-title">CLOV 팀 프로젝트</p>
-          <p class="exp-role">팀장 · 풀스택 개발자 (4인 팀)</p>
+          <h3 class="exp-title">CLOV 팀 프로젝트</h3>
+          <p class="exp-role">팀장 · 풀스택 개발자 · 4인 팀</p>
           <dl class="star">
-            <dt>상황</dt><dd><span class="todo">[어떤 문제가 있었나]</span></dd>
-            <dt>행동</dt><dd><span class="todo">[내가 한 일]</span></dd>
-            <dt>결과</dt><dd><span class="todo">[결과 — 숫자로]</span></dd>
+            <dt>상황</dt><dd>비전공자 세 명이 포함된 팀의 첫 모임에 두 명만 참석했고, 서로 다른 AI 도구에서 만든 코드가 자주 충돌했습니다.</dd>
+            <dt>행동</dt><dd>기능을 볼 수 있는 프로토타입을 먼저 만들고 이슈 작성, 실행 확인, 코드 리뷰 뒤 머지하는 흐름을 운영했습니다.</dd>
+            <dt>결과</dt><dd>2026년 8월 4일까지 이슈 152개와 PR 266개를 기록했고, 직접 리뷰한 PR 72개를 포함해 서비스를 HTTPS 환경에 배포했습니다.</dd>
           </dl>
-          <p class="exp-foot">
-            <span class="mono muted">React · Spring Boot · Docker · Nginx · OAuth</span>
-            <span class="links">
-              <a href="https://github.com/Pickeslog/clov-web">확인 · 저장소</a>
-              <a href="https://clovlabcalss.store/">서비스 (로그인 필요)</a>
-            </span>
-          </p>
+          <p class="exp-foot"><span class="mono muted">React · Spring Boot · Docker · Nginx · OAuth</span><span class="links"><a href="https://github.com/Pickeslog/clov-web">프론트엔드 저장소</a><a href="https://github.com/Pickeslog/clov-api">백엔드 저장소</a></span></p>
         </article>
-
         <article class="exp">
           <div class="exp-meta">
             <span class="mono muted">2026.09</span>
             <span class="spacer"></span>
             <span class="ability">자기동기력</span>
           </div>
-          <p class="exp-title">10번 과제 · 논문</p>
-          <p class="exp-role"><span class="todo">[맡은 역할]</span></p>
+          <h3 class="exp-title">10번 과제 · 네트워크 침입 탐지 연구</h3>
+          <p class="exp-role">연구 설계 · 구현 · 검증 · 논문 작성</p>
           <dl class="star">
-            <dt>상황</dt><dd><span class="todo">[어떤 문제가 있었나]</span></dd>
-            <dt>행동</dt><dd><span class="todo">[내가 한 일]</span></dd>
-            <dt>결과</dt><dd><span class="todo">[결과 — 숫자로]</span></dd>
+            <dt>상황</dt><dd>무작위 분할에서 높은 탐지 점수가 실제로 처음 보는 공격에 일반화되는지 확인할 필요가 있었습니다.</dd>
+            <dt>행동</dt><dd>CICIDS2017 2,830,743건을 감사하고 무작위 분할과 미관측 공격 분할에서 세 모델을 비교했으며 SHAP 설명 안정성을 확인했습니다.</dd>
+            <dt>결과</dt><dd>XGBoost Macro F1이 0.9979에서 0.3871로 낮아지는 격차를 재현 자료와 함께 논문으로 제출했습니다.</dd>
           </dl>
-          <p class="exp-foot"><span class="mono muted">Python · scikit-learn · XGBoost · SHAP</span><a href="https://github.com/myeongjundev/explainsoc-research">확인 · 저장소</a></p>
+          <p class="exp-foot"><span class="mono muted">Python · scikit-learn · XGBoost · SHAP</span><span class="links"><a href="https://github.com/myeongjundev/explainsoc-research">공개 저장소</a></span></p>
         </article>
-
         <article class="exp">
           <div class="exp-meta">
-            <span class="mono muted"><span class="todo">[YYYY.MM – YYYY.MM]</span></span>
+            <span class="mono muted"><span class="todo" data-draft="true">기간 확정 필요</span></span>
             <span class="spacer"></span>
             <span class="ability">자기조절력</span>
           </div>
-          <p class="exp-title"><span class="todo">[세 번째 과제]</span></p>
-          <p class="exp-role"><span class="todo">[맡은 역할]</span></p>
+          <h3 class="exp-title"><span class="todo" data-draft="true">세 번째 경력 항목 선택 필요</span></h3>
+          <p class="exp-role"><span class="todo" data-draft="true">역할 확정 필요</span></p>
           <dl class="star">
-            <dt>상황</dt><dd><span class="todo">[어떤 문제가 있었나]</span></dd>
-            <dt>행동</dt><dd><span class="todo">[내가 한 일]</span></dd>
-            <dt>결과</dt><dd><span class="todo">[결과 — 숫자로]</span></dd>
+            <dt>상황</dt><dd><span class="todo" data-draft="true">상황 확정 필요</span></dd>
+            <dt>행동</dt><dd><span class="todo" data-draft="true">행동 확정 필요</span></dd>
+            <dt>결과</dt><dd><span class="todo" data-draft="true">결과 확정 필요</span></dd>
           </dl>
-          <p class="exp-foot"><span class="mono muted"><span class="todo">[기술 스택]</span></span><a href="#experience">확인 · 저장소</a></p>
+          <p class="exp-foot"><span class="mono muted"><span class="todo" data-draft="true">기술 확정 필요</span></span><span class="links"></span></p>
         </article>
       </section>
 
       <section id="documents">
         <div class="section-head">
-          <h2>이력서 · 문서</h2>
-          <p>로그인·비밀번호 없이 받습니다.</p>
+          <h2>문서</h2>
+          <p>로그인과 비밀번호 없이 내려받을 수 있습니다.</p>
         </div>
-        <div class="doc-list">
-          <a href="#documents"><span>이력서</span><span class="fmt"><span class="todo">DOCX 준비 중</span></span></a>
-          <a href="#documents"><span>자기소개서</span><span class="fmt"><span class="todo">DOCX 준비 중</span></span></a>
-          <a href="#documents"><span>경력기술서</span><span class="fmt"><span class="todo">DOCX 준비 중</span></span></a>
-        </div>
+        <div class="doc-list"><div class="document-pending"><span>이력서</span><span class="fmt todo" data-draft="true">파일 생성 전</span></div><div class="document-pending"><span>자기소개서</span><span class="fmt todo" data-draft="true">파일 생성 전</span></div><div class="document-pending"><span>경력기술서</span><span class="fmt todo" data-draft="true">파일 생성 전</span></div></div>
       </section>
 
       <footer id="contact" class="contact">
         <p class="name">김명준</p>
-        <p><a href="#contact"><span class="todo">[공개 연락 수단 1개]</span></a></p>
-        <p class="note">새 기록을 넣으면 숫자와 문단 후보가 다시 만들어집니다 · 마지막 갱신 2026.09.18</p>
+        <p><span class="todo" data-draft="true">공개 연락 수단 확정 필요</span></p>
+        <p class="note">새 기록을 넣으면 숫자와 문장 후보를 다시 만들 수 있습니다 · 마지막 갱신 2026-09-19</p>
       </footer>
     </main>
   </div>

@@ -7,12 +7,25 @@ SKT ALEPH 마지막 과제 A(12번)의 작업 저장소입니다.
 
 ## 현재 상태
 
-**설계 준비 (2026-09-17)** — 저장소 생성, 요구사항 분석, 설계 초안 작성.
-리추얼 기록은 본인 과제 화면이 열린 뒤 받아서 넣습니다.
+**전체 재설계와 공통 기반 구현 완료, 본인 확인 대기 (2026-09-19)** — 승인 데이터에서 사이트와
+문서 3종을 만들고, 기록 집계·반복 실행·릴리스 검사를 수행하는 구조를 구현했습니다. 실제 T12
+원문과 학원 PC의 최신 비공개 입력, 본인이 직접 쓸 문장을 확보한 뒤 최종 공개합니다.
 
 - 요구사항·통과 기준 정리: [`planning/REQUIREMENTS.md`](planning/REQUIREMENTS.md)
-- 설계 초안: [`planning/DESIGN.md`](planning/DESIGN.md)
+- 새 단일 기준 설계: [`planning/T12-MASTER-PLAN.md`](planning/T12-MASTER-PLAN.md)
+- 이전 설계 초안: [`planning/DESIGN.md`](planning/DESIGN.md)
 - 진행 기록: [`planning/STATUS.md`](planning/STATUS.md)
+
+## 개발 검사
+
+```text
+python -m unittest device/test_device.py -v
+python device/check_repeat.py
+python device/build_site.py --draft
+python device/validate_release.py --allow-draft
+```
+
+최종 승인 전에는 `--draft`와 `--allow-draft`를 제거한 빌드가 실패하는 것이 정상입니다.
 
 ## 예정 구조
 
