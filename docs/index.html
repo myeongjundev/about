@@ -167,18 +167,18 @@
         </article>
         <article class="exp">
           <div class="exp-meta">
-            <span class="mono muted"><span class="todo" data-draft="true">기간 확정 필요</span></span>
+            <span class="mono muted">2026.09</span>
             <span class="spacer"></span>
             <span class="ability">자기조절력</span>
           </div>
-          <h3 class="exp-title"><span class="todo" data-draft="true">세 번째 경력 항목 선택 필요</span></h3>
-          <p class="exp-role"><span class="todo" data-draft="true">역할 확정 필요</span></p>
+          <h3 class="exp-title">8번 과제 · 패스키로 잠근 비공개 영역</h3>
+          <p class="exp-role">WebAuthn 인증 설계 · 구현 · 검증 · 배포</p>
           <dl class="star">
-            <dt>상황</dt><dd><span class="todo" data-draft="true">상황 확정 필요</span></dd>
-            <dt>행동</dt><dd><span class="todo" data-draft="true">행동 확정 필요</span></dd>
-            <dt>결과</dt><dd><span class="todo" data-draft="true">결과 확정 필요</span></dd>
+            <dt>상황</dt><dd>공개 소개 페이지는 그대로 열어 두면서 비공개 자료는 비밀번호 없이 본인만 볼 수 있게 나눠야 했습니다.</dd>
+            <dt>행동</dt><dd>WebAuthn 등록과 로그인을 구현하고, 일회용 질문을 데이터베이스에서 한 번만 사용하게 했습니다. 서버 세션, Origin과 CSRF 검사, 마지막 패스키 삭제 방지까지 요청 단계에서 검증했습니다.</dd>
+            <dt>결과</dt><dd>판정 기준 47개를 모두 충족하고 자동 테스트 50개를 통과했습니다. 공개 화면의 비밀번호 입력 칸은 0개이며, 로그인하지 않은 비공개 요청은 401로 거절합니다.</dd>
           </dl>
-          <p class="exp-foot"><span class="mono muted"><span class="todo" data-draft="true">기술 확정 필요</span></span><span class="links"></span></p>
+          <p class="exp-foot"><span class="mono muted">Java 25 · Spring Boot · WebAuthn4J · PostgreSQL · Vercel</span><span class="links"><a href="https://github.com/myeongjundev/t08-passkey-portfolio">공개 저장소</a></span></p>
         </article>
       </section>
 

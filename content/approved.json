@@ -155,16 +155,21 @@
     },
     {
       "id": "third-project",
-      "period": null,
-      "title": null,
-      "role": null,
+      "period": "2026.09",
+      "title": "8번 과제 · 패스키로 잠근 비공개 영역",
+      "role": "WebAuthn 인증 설계 · 구현 · 검증 · 배포",
       "ability": "자기조절력",
-      "situation": null,
-      "action": null,
-      "result": null,
-      "technologies": [],
-      "links": [],
-      "status": "user_required"
+      "situation": "공개 소개 페이지는 그대로 열어 두면서 비공개 자료는 비밀번호 없이 본인만 볼 수 있게 나눠야 했습니다.",
+      "action": "WebAuthn 등록과 로그인을 구현하고, 일회용 질문을 데이터베이스에서 한 번만 사용하게 했습니다. 서버 세션, Origin과 CSRF 검사, 마지막 패스키 삭제 방지까지 요청 단계에서 검증했습니다.",
+      "result": "판정 기준 47개를 모두 충족하고 자동 테스트 50개를 통과했습니다. 공개 화면의 비밀번호 입력 칸은 0개이며, 로그인하지 않은 비공개 요청은 401로 거절합니다.",
+      "technologies": ["Java 25", "Spring Boot", "WebAuthn4J", "PostgreSQL", "Vercel"],
+      "links": [
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/t08-passkey-portfolio"
+        }
+      ],
+      "status": "published"
     }
   ],
   "documents": [
