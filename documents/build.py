@@ -365,8 +365,13 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
     for category, items in (profile.get("technologies") or {}).items():
         add_line(document, category, " · ".join(items), keep=False)
 
+    # 이력서는 두 쪽을 넘기지 않는다. 앞선 작업은 자세히, 나머지는 한 덩어리로 줄여 싣는다.
+    experience = data["experience"]
+    detailed = [item for item in experience if item.get("resumeDetail", "full") != "compact"]
+    compact = [item for item in experience if item.get("resumeDetail") == "compact"]
+
     add_section(document, "프로젝트와 연구")
-    for item in data["experience"]:
+    for item in detailed:
         add_entry(
             document,
             text(item.get("title"), draft, "세 번째 항목 확정 필요"),
@@ -383,6 +388,13 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
             keep=bool(item.get("links")),
         )
         add_links(document, item.get("links"))
+
+    if compact:
+        add_section(document, "그 외 과제")
+        for item in compact:
+            add_entry(document, text(item.get("title"), draft), text(item.get("period"), draft))
+            add_line(document, "결과", text(item.get("result"), draft), keep=bool(item.get("links")))
+            add_links(document, item.get("links"))
 
     add_section(document, "교육")
     for item in profile.get("education") or []:

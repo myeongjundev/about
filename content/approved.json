@@ -269,7 +269,8 @@
           "label": "백엔드 저장소",
           "href": "https://github.com/Pickeslog/clov-api"
         }
-      ]
+      ],
+      "resumeDetail": "full"
     },
     {
       "id": "t10",
@@ -313,7 +314,8 @@
           "label": "공개 저장소",
           "href": "https://github.com/myeongjundev/explainsoc-research"
         }
-      ]
+      ],
+      "resumeDetail": "full"
     },
     {
       "id": "third-project",
@@ -355,7 +357,8 @@
           "href": "https://github.com/myeongjundev/t08-passkey-portfolio"
         }
       ],
-      "status": "published"
+      "status": "published",
+      "resumeDetail": "full"
     },
     {
       "id": "t03-card-studio",
@@ -400,7 +403,93 @@
           "href": "https://github.com/myeongjundev/t03-card-studio"
         }
       ],
-      "status": "published"
+      "status": "published",
+      "resumeDetail": "compact"
+    },
+    {
+      "id": "t04-info-board",
+      "period": "2026.08 - 2026.09",
+      "title": "4번 과제 · GAME PULSE 데이터 보드",
+      "role": "데이터 수집 설계 · 프론트엔드 구현 · 검증 · 배포",
+      "scope": "Steam 동시접속·매출·할인·방송 네 갈래 수집과 저장, React 19 화면 구현, 장애 재현과 복구 처리, GitHub Pages 배포",
+      "ability": "자기조절력",
+      "situation": "여러 곳에서 모은 숫자를 한 화면에 모으면, 그 값이 언제 어디서 왔는지와 수집이 실패했을 때 무엇이 보이는지가 불분명해집니다.",
+      "rationale": "숫자를 많이 모으기보다 원자료에서 화면값까지 한 자리에서 대조할 수 있게 만들고, 수집이 실패하면 모르는 값을 지어내지 않고 마지막 정상값과 그 시각을 그대로 보여 주기로 했습니다.",
+      "action": "값마다 출처·측정 시각·데이터 상태·계산 근거를 함께 저장하고, timeout을 포함한 장애 5가지를 재현해 복구 흐름을 검사했습니다.",
+      "result": "회귀 테스트 317개를 모두 통과하고 과제 조건 35개의 감사 경로를 남겼습니다. 공개 화면에서 원자료·저장값·계산값·화면값을 손으로 대조할 수 있습니다.",
+      "technologies": [
+        "React 19",
+        "Vite 8",
+        "Node 22",
+        "GitHub Actions",
+        "GitHub Pages"
+      ],
+      "gallery": [
+        {
+          "src": "assets/t04-overview.webp",
+          "alt": "GAME PULSE 공개 화면. 동시접속, 매출 순위, 할인·무료, 시청 순위를 한 화면에서 비교한다.",
+          "label": "네 갈래 지표 한 화면",
+          "width": 1265,
+          "height": 712
+        }
+      ],
+      "links": [
+        {
+          "label": "사이트 체험",
+          "href": "https://myeongjundev.github.io/info-board/"
+        },
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/info-board"
+        }
+      ],
+      "status": "published",
+      "resumeDetail": "compact"
+    },
+    {
+      "id": "t02-mini-game",
+      "period": "2026.08",
+      "title": "2번 과제 · SOC SHIFT:30 관제 판단 게임",
+      "role": "기획 · 프론트엔드 구현 · 테스트 · 배포",
+      "scope": "30초 판정 규칙 설계, React 18·TypeScript 구현, 키보드·마우스·터치 조작, 서버 없이 GitHub Pages 배포",
+      "ability": "자기동기력",
+      "situation": "보안 관제의 판단을 짧게 체험하게 하려면, 정답률 하나로만 점수를 매겨서는 실제로 무엇을 잘못했는지 드러나지 않습니다.",
+      "rationale": "틀리는 방식을 오탐과 미탐으로 나누어 따로 세면, 아무거나 막아서 버틴 판과 제대로 가려낸 판이 같은 점수가 되지 않는다고 판단했습니다.",
+      "action": "경보 한 건을 3초 안에 통과·차단으로 정하는 30초 근무를 만들고, 결과 화면에서 오탐과 미탐을 따로 세어 막대로 보여 주었습니다.",
+      "result": "서버 없이 동작하는 구조로 만들고 자동 테스트 291개를 통과했으며, 설치나 로그인 없이 링크만으로 플레이할 수 있게 공개했습니다.",
+      "technologies": [
+        "React 18",
+        "TypeScript",
+        "Vite 8"
+      ],
+      "gallery": [
+        {
+          "src": "assets/t02-lobby.webp",
+          "alt": "SOC SHIFT:30 로비 화면. 새벽 관제실 책상 위 CRT 모니터에 근무 시작 메뉴가 떠 있다.",
+          "label": "근무 시작 화면",
+          "width": 900,
+          "height": 935
+        },
+        {
+          "src": "assets/t02-result.webp",
+          "alt": "근무 결과 화면. 점수와 함께 오탐과 미탐을 따로 센 막대가 보인다.",
+          "label": "오탐·미탐 분리 집계",
+          "width": 900,
+          "height": 1474
+        }
+      ],
+      "links": [
+        {
+          "label": "게임 실행",
+          "href": "https://myeongjundev.github.io/mini-game/"
+        },
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/mini-game"
+        }
+      ],
+      "status": "published",
+      "resumeDetail": "compact"
     }
   ],
   "documents": [
