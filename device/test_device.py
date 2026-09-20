@@ -123,6 +123,9 @@ class SiteTests(unittest.TestCase):
             self.assertIn('id="work-t03-card-studio"', content)
             self.assertIn('href="#experience-third-project"', content)
             self.assertIn('id="experience-third-project"', content)
+            self.assertEqual(content.count('class="work-case"'), 3)
+            self.assertEqual(content.count('class="case-step"'), 12)
+            self.assertIn("문제부터 검증까지 보기", content)
 
 
 class ApplyNumbersTests(unittest.TestCase):

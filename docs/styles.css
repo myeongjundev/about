@@ -86,7 +86,8 @@ a {
 a:hover { text-decoration-color: transparent; }
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
 }
@@ -775,6 +776,104 @@ p { margin: 0; }
 .work-title { margin: 18px 0 0; font-size: clamp(23px, 2.9vw, 34px); font-weight: 680; letter-spacing: -0.045em; line-height: 1.28; }
 .work-desc { margin-top: 18px; color: var(--muted); font-size: 15px; line-height: 1.78; }
 .work .links { margin-top: auto; padding-top: 24px; }
+
+.work-case {
+  grid-column: 1 / -1;
+  order: 3;
+  border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface-soft) 56%, transparent);
+}
+
+.work-case summary {
+  display: flex;
+  min-height: 70px;
+  padding: 18px 28px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.work-case summary::-webkit-details-marker { display: none; }
+
+.work-case summary > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.work-case summary .mono {
+  color: var(--accent-strong);
+  letter-spacing: 0.07em;
+}
+
+.case-summary-open,
+.case-summary-close {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.case-summary-close { display: none; }
+.work-case[open] .case-summary-open { display: none; }
+.work-case[open] .case-summary-close { display: inline; }
+
+.case-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--accent-strong);
+  font-size: 20px;
+  transition: transform 220ms ease, background-color 220ms ease;
+}
+
+.work-case[open] .case-icon {
+  background: var(--accent-soft);
+  transform: rotate(45deg);
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 28px 28px;
+  animation: case-reveal 260ms ease both;
+}
+
+.case-step {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface-solid) 86%, transparent);
+}
+
+.case-step-index {
+  color: var(--faint);
+  letter-spacing: 0.04em;
+}
+
+.case-step h4 {
+  margin: 14px 0 8px;
+  font-size: 17px;
+  letter-spacing: -0.025em;
+}
+
+.case-step p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.72;
+}
+
+@keyframes case-reveal {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .links { display: flex; flex-wrap: wrap; gap: 8px; }
 .links a { padding: 7px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-solid); font-size: 12px; font-weight: 700; text-decoration: none; }
 .links a:hover { border-color: var(--accent); color: var(--accent); }
@@ -999,6 +1098,8 @@ p { margin: 0; }
   .work-visual { min-height: 260px; }
   .work-copy { padding: 26px 24px 24px; }
   .work-title { font-size: 26px; }
+  .work-case summary { padding: 16px 22px; }
+  .case-grid { grid-template-columns: 1fr; padding: 0 22px 22px; }
 
   .exp { padding: 24px 22px; }
   .exp-index { position: static; margin-bottom: 6px; }
@@ -1036,6 +1137,9 @@ p { margin: 0; }
   .metric { padding: 15px; }
   .work-visual { min-height: 220px; }
   .work-copy { padding: 22px 18px 20px; }
+  .work-case summary { padding-inline: 18px; }
+  .work-case summary > span:first-child { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .case-grid { padding: 0 18px 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1046,7 +1150,7 @@ p { margin: 0; }
 
 @media print {
   body { background: #fff; color: #111; }
-  body::before, .scroll-progress, .theme-toggle, .entrances, .draft-banner, .build-reel { display: none; }
+  body::before, .scroll-progress, .theme-toggle, .entrances, .draft-banner, .build-reel, .work-case { display: none; }
   .layout { display: block; max-width: none; padding: 0; }
   .side { position: static; max-height: none; margin-bottom: 28px; box-shadow: none; }
   .content { gap: 48px; padding: 0; }

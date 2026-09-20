@@ -268,6 +268,33 @@ def render_works(data: dict[str, object], draft: bool) -> str:
             period = f"예정 · {value_or_todo(item.get('plannedDate'), draft, '예정일 확정 필요')}"
         pending = " pending" if item.get("status") == "planned" else " published"
         status_label = "NEXT" if item.get("status") == "planned" else "LIVE"
+        case_study = item.get("caseStudy") or {}
+        case_html = ""
+        if case_study:
+            steps = (
+                ("01", "문제", "PROBLEM", case_study.get("problem")),
+                ("02", "판단", "DECISION", case_study.get("decision")),
+                ("03", "구현", "BUILD", case_study.get("implementation")),
+                ("04", "검증", "VERIFY", case_study.get("validation")),
+            )
+            step_html = []
+            for step_number, label, english, value in steps:
+                step_html.append(
+                    f'''                <section class="case-step">
+                  <span class="case-step-index mono">{step_number} / {esc(english)}</span>
+                  <h4>{esc(label)}</h4>
+                  <p>{value_or_todo(value, draft, f'{label} 확정 필요')}</p>
+                </section>'''
+                )
+            case_html = f'''            <details class="work-case">
+              <summary>
+                <span><span class="mono">CASE NOTES</span><span class="case-summary-open">문제부터 검증까지 보기</span><span class="case-summary-close">사례 노트 접기</span></span>
+                <span class="case-icon" aria-hidden="true">＋</span>
+              </summary>
+              <div class="case-grid">
+{chr(10).join(step_html)}
+              </div>
+            </details>'''
         cards.append(
             f"""          <article id="work-{esc(item['id'])}" class="work{pending} reveal">
             <div class="work-visual{visual_class}"{visual_accessibility}>
@@ -282,6 +309,7 @@ def render_works(data: dict[str, object], draft: bool) -> str:
               <p class="work-desc">{esc(item['summary'])}</p>
               <p class="links">{links}</p>
             </div>
+{case_html}
           </article>"""
         )
     return f"""      <section id="work">
