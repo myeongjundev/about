@@ -76,7 +76,7 @@ def render_project_rail(data: dict[str, object]) -> str:
         )
 
     cards = []
-    for index, item in enumerate(projects[:4], start=1):
+    for index, item in enumerate(projects, start=1):
         visual = item.get("visual")
         image = ""
         image_class = ""

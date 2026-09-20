@@ -176,7 +176,17 @@ class SiteTests(unittest.TestCase):
             )
             content = output.read_text(encoding="utf-8")
             self.assertIn("SELECTED BUILDS", content)
-            self.assertEqual(content.count('class="build-card"'), 4)
+            # 왼쪽 카드는 공개된 작업을 빠지지 않고 다 싣는다. 수를 적어 두면 과제를 늘렸을 때 조용히 잘린다.
+            approved = json.loads((REPO / "content" / "approved.json").read_text(encoding="utf-8"))
+            work_ids = {item["id"] for item in approved["works"] if item.get("status") == "published"}
+            expected_cards = len(work_ids) + sum(
+                1
+                for item in approved["experience"]
+                if item.get("status") == "published" and item["id"] not in work_ids
+            )
+            self.assertEqual(content.count('class="build-card"'), expected_cards)
+            self.assertIn('href="#experience-t04-info-board"', content)
+            self.assertIn('href="#experience-t02-mini-game"', content)
             self.assertIn('href="#work-clov"', content)
             self.assertIn('id="work-clov"', content)
             self.assertIn('href="#work-t03-card-studio"', content)

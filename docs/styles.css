@@ -288,6 +288,8 @@ p { margin: 0; }
 .build-card:nth-child(2) { --card-accent: #7c3aed; }
 .build-card:nth-child(3) { --card-accent: #0f9f74; }
 .build-card:nth-child(4) { --card-accent: #d97706; }
+.build-card:nth-child(5) { --card-accent: #be123c; }
+.build-card:nth-child(6) { --card-accent: #0e7490; }
 .build-card:last-child { margin-bottom: 0; }
 
 .build-card:hover {
