@@ -17,7 +17,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
 
 
-FONT = "Noto Sans CJK KR"
+FONT = "Malgun Gothic"
 INK = "1C1917"
 MUTED = "57534E"
 BLUE = "1D4ED8"
@@ -125,6 +125,8 @@ def base_document(title: str, name: str) -> Document:
     styles = document.styles
     normal = styles["Normal"]
     normal.font.name = FONT
+    normal._element.rPr.rFonts.set(qn("w:ascii"), FONT)
+    normal._element.rPr.rFonts.set(qn("w:hAnsi"), FONT)
     normal._element.rPr.rFonts.set(qn("w:eastAsia"), FONT)
     normal.font.size = Pt(10.8)
     normal.font.color.rgb = RGBColor.from_string(INK)
@@ -139,6 +141,8 @@ def base_document(title: str, name: str) -> Document:
     for style_name, (size, _weight, before, after) in style_specs.items():
         style = styles[style_name]
         style.font.name = FONT
+        style._element.rPr.rFonts.set(qn("w:ascii"), FONT)
+        style._element.rPr.rFonts.set(qn("w:hAnsi"), FONT)
         style._element.rPr.rFonts.set(qn("w:eastAsia"), FONT)
         style.font.size = Pt(size)
         style.font.bold = True

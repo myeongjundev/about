@@ -106,7 +106,7 @@ def render_story(data: dict[str, object], draft: bool) -> str:
             item for item in data["numbers"] if item.get("linkedSegment") == segment["id"]
         ]
         if paired:
-            pair = f'<p class="pair">↔ 숫자 「{esc(paired[0]["label"])}」와 연결</p>'
+            pair = f'<p class="pair">↔ 숫자 · 「{esc(paired[0]["label"])}」</p>'
         segments.append(
             f"""        <article class="stage reveal" id="story-{esc(segment['id'])}">
           <span class="stage-index" aria-hidden="true">0{index}</span>
@@ -131,9 +131,17 @@ def render_story(data: dict[str, object], draft: bool) -> str:
 
 def render_numbers(data: dict[str, object], draft: bool) -> str:
     cards = []
+    story_titles = {
+        str(segment["id"]): str(segment["stage"])
+        for segment in data["story"]["segments"]
+    }
     for index, item in enumerate(data["numbers"], start=1):
         detail = f'<span class="label-detail">{esc(item["detail"])}</span>' if item.get("detail") else ""
-        linked = f'<span class="pair">↔ 이야기 {esc(item["linkedSegment"])}</span>' if item.get("linkedSegment") else ""
+        linked_segment = item.get("linkedSegment")
+        linked = ""
+        if linked_segment:
+            linked_title = story_titles[str(linked_segment)]
+            linked = f'<span class="pair">↔ 이야기 · 「{esc(linked_title)}」</span>'
         progress = 0
         value = str(item.get("value") or "")
         match = re.search(r"(\d+)\s*/\s*(\d+)", value)

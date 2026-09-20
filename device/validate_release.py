@@ -19,6 +19,9 @@ SECRET_PATTERNS = {
     "token": re.compile(r"(?i)(api[_-]?key|secret|password|passwd)\s*[:=]\s*[^\s]+"),
 }
 
+FONT_DECLARATION = re.compile(r"(?<![-\w])font(?:-size)?\s*:\s*([^;}]+)", re.IGNORECASE)
+PIXEL_SIZE = re.compile(r"(\d+(?:\.\d+)?)px", re.IGNORECASE)
+
 
 class LinkParser(HTMLParser):
     def __init__(self) -> None:
@@ -27,6 +30,7 @@ class LinkParser(HTMLParser):
         self.ids: list[str] = []
         self.links: list[str] = []
         self.images_without_alt: list[str] = []
+        self.text_nodes: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
@@ -40,6 +44,36 @@ class LinkParser(HTMLParser):
             self.assets.append(str(values["src"]))
         if tag == "img" and "alt" not in values:
             self.images_without_alt.append(str(values.get("src") or "알 수 없는 이미지"))
+
+    def handle_data(self, data: str) -> None:
+        if data.strip():
+            self.text_nodes.append(data.strip())
+
+
+def undersized_font_declarations(css: str) -> list[str]:
+    problems: list[str] = []
+    for declaration in FONT_DECLARATION.finditer(css):
+        sizes = [float(value) for value in PIXEL_SIZE.findall(declaration.group(1))]
+        if any(size < 12 for size in sizes):
+            line = css.count("\n", 0, declaration.start()) + 1
+            problems.append(f"12px 미만 글자: docs/styles.css:{line}")
+    return problems
+
+
+def exposed_internal_story_ids(site: str, data: dict[str, object]) -> list[str]:
+    parser = LinkParser()
+    parser.feed(site)
+    visible_text = " ".join(parser.text_nodes)
+    problems: list[str] = []
+    for segment in data["story"].get("segments") or []:
+        internal_id = str(segment["id"])
+        pattern = re.compile(
+            rf"↔\s*이야기\s*(?:[·:]\s*)?(?:「\s*)?{re.escape(internal_id)}(?:\s*」)?\b",
+            re.IGNORECASE,
+        )
+        if pattern.search(visible_text):
+            problems.append(f"내부 id 노출: {internal_id}")
+    return problems
 
 
 def empty(value: object) -> bool:
@@ -125,6 +159,10 @@ def validate(repo: Path, allow_draft: bool, check_urls: bool) -> list[str]:
     data = json.loads(content_path.read_text(encoding="utf-8"))
     site = site_path.read_text(encoding="utf-8")
     problems.extend(content_quality(data))
+    problems.extend(
+        undersized_font_declarations((repo / "docs" / "styles.css").read_text(encoding="utf-8"))
+    )
+    problems.extend(exposed_internal_story_ids(site, data))
 
     if not allow_draft:
         if data.get("draft"):

@@ -62,6 +62,10 @@ class SiteTests(unittest.TestCase):
             self.assertIn("CLOV 팀 프로젝트", content)
             self.assertIn("2,830,743건", content)
             self.assertIn("CLOV 추억 피드 화면", content)
+            self.assertIn("↔ 숫자 · 「제출한 과제 / 현재 제출 대상 과제」", content)
+            self.assertIn("↔ 이야기 · 「더 나아진 지금」", content)
+            self.assertNotIn("↔ 이야기 now", content)
+            self.assertNotIn("↔ 이야기 setback", content)
             self.assertNotIn("clovlabcalss.store", content)
 
     def test_final_site_rejects_draft_content(self) -> None:
@@ -127,6 +131,19 @@ class ValidationTests(unittest.TestCase):
         request = open_url.call_args.args[0]
         self.assertEqual(request.get_method(), "GET")
         self.assertEqual(response.read_size, 1)
+
+    def test_undersized_font_declarations_are_rejected(self) -> None:
+        css = ".meta { font-size: 11px; }\n.badge { font: 600 9px monospace; }"
+        problems = validation_module.undersized_font_declarations(css)
+        self.assertEqual(len(problems), 2)
+        self.assertTrue(all("12px 미만 글자" in problem for problem in problems))
+
+    def test_visible_internal_story_id_is_rejected(self) -> None:
+        data = json.loads((REPO / "content" / "approved.json").read_text(encoding="utf-8"))
+        problems = validation_module.exposed_internal_story_ids(
+            "<p>↔ 이야기 now</p>", data
+        )
+        self.assertEqual(problems, ["내부 id 노출: now"])
 
     def test_current_draft_passes_structural_validation(self) -> None:
         self.assertEqual(validation_module.validate(REPO, True, False), [])
