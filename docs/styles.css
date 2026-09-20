@@ -130,6 +130,18 @@ p { margin: 0; }
   will-change: transform;
 }
 
+@keyframes scroll-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress span {
+    animation: scroll-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
 .draft-banner {
   margin: 0;
   padding: 10px 20px;

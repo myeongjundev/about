@@ -79,16 +79,24 @@
     window.addEventListener('scroll', () => { profileRect = null; }, { passive: true });
   }
 
-  let scrollable = 0;
+  const nativeScrollProgress = CSS.supports('animation-timeline: scroll()');
 
-  function updateProgress() {
-    const value = scrollable > 0 ? window.scrollY / scrollable : 0;
-    if (progress) progress.style.transform = `scaleX(${Math.min(1, Math.max(0, value))})`;
-  }
-
-  function measureProgress() {
-    scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    updateProgress();
+  if (progress && !nativeScrollProgress) {
+    let scrollable = 0;
+    const updateProgress = () => {
+      const value = scrollable > 0 ? window.scrollY / scrollable : 0;
+      progress.style.transform = `scaleX(${Math.min(1, Math.max(0, value))})`;
+    };
+    const measureProgress = () => {
+      scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      updateProgress();
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', measureProgress, { passive: true });
+    document.querySelectorAll('.work-case').forEach((item) => {
+      item.addEventListener('toggle', () => requestAnimationFrame(measureProgress));
+    });
+    requestAnimationFrame(measureProgress);
   }
 
   const revealObserver = new IntersectionObserver(
@@ -118,13 +126,5 @@
   );
   sections.forEach((section) => sectionObserver.observe(section));
 
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  window.addEventListener('resize', measureProgress, { passive: true });
-  document.querySelectorAll('.work-case').forEach((item) => {
-    item.addEventListener('toggle', () => requestAnimationFrame(measureProgress));
-  });
-  requestAnimationFrame(() => {
-    measureProgress();
-    document.body.classList.add('is-ready');
-  });
+  requestAnimationFrame(() => document.body.classList.add('is-ready'));
 })();
