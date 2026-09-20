@@ -214,6 +214,32 @@ class SiteTests(unittest.TestCase):
             self.assertIn("문제부터 검증까지 보기", content)
 
 
+    def test_share_preview_image_exists_and_matches_declared_size(self) -> None:
+        # 공유 미리보기는 링크를 붙여 보기 전에는 빠진 걸 모른다. 여기서 잡는다.
+        import re as _re4
+
+        page = (REPO / "docs" / "index.html").read_text(encoding="utf-8")
+        found = _re4.search(r'property="og:image" content="([^"]+)"', page)
+        self.assertIsNotNone(found, "og:image가 없다")
+        url = found.group(1)
+        self.assertTrue(url.startswith("https://"), "og:image는 절대 주소여야 한다")
+        self.assertIn('content="summary_large_image"', page)
+
+        name = url.rsplit("/", 1)[-1]
+        card = REPO / "docs" / "assets" / name
+        self.assertTrue(card.exists(), f"{name}이 없다")
+        # 링크를 읽어 가는 쪽 가운데 WebP를 못 다루는 데가 있다.
+        self.assertEqual(card.suffix, ".png")
+
+        head = card.read_bytes()[:24]
+        self.assertEqual(head[:8], bytes.fromhex("89504e470d0a1a0a"), "PNG가 아니다")
+        width = int.from_bytes(head[16:20], "big")
+        height = int.from_bytes(head[20:24], "big")
+        self.assertEqual((width, height), (1200, 630))
+        for axis, value in (("width", width), ("height", height)):
+            self.assertIn(f'property="og:image:{axis}" content="{value}"', page)
+
+
 class ApplyNumbersTests(unittest.TestCase):
     def test_applies_only_metric_fields_and_updated_date(self) -> None:
         content = json.loads((REPO / "content" / "approved.json").read_text(encoding="utf-8"))
@@ -288,17 +314,16 @@ class ValidationTests(unittest.TestCase):
             shutil.copytree(REPO / "device", repo / "device")
             shutil.copytree(REPO / "submission", repo / "submission")
             site = (repo / "docs" / "index.html").read_text(encoding="utf-8")
-            site = site.replace(
-                'src="assets/clov-promise.jpg"',
-                'src="https://example.com/clov-promise.jpg"',
-                1,
-            )
+            # 파일 이름을 적어 두지 않는다. 그림 형식을 바꾸면 조용히 어긋난다.
+            import re as _re3
+
+            first = _re3.search(r'src="(assets/[^"]+)"', site)
+            self.assertIsNotNone(first, "사이트에 그림이 하나도 없다")
+            outside = f"https://example.com/{first.group(1).split('/')[-1]}"
+            site = site.replace(f'src="{first.group(1)}"', f'src="{outside}"', 1)
             (repo / "docs" / "index.html").write_text(site, encoding="utf-8")
             problems = validation_module.validate(repo, False, False)
-            self.assertIn(
-                "외부 호스트 이미지: https://example.com/clov-promise.jpg",
-                problems,
-            )
+            self.assertIn(f"외부 호스트 이미지: {outside}", problems)
 
     def test_current_content_passes_structural_validation(self) -> None:
         self.assertEqual(validation_module.validate(REPO, True, False), [])

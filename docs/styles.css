@@ -728,6 +728,14 @@ p { margin: 0; }
 }
 
 .facts dd { margin: 0; font-size: 12px; line-height: 1.72; }
+/* 혼자 선 링크는 누르는 자리를 24px로 넓힌다. 문장 속 링크가 아니라 예외에 안 든다.
+   바깥 여백을 같은 만큼 빼서 보이는 자리는 그대로 둔다. */
+.facts dd > a:only-child,
+.contact-link > a {
+  display: inline-block;
+  padding-block: 5px;
+  margin-block: -5px;
+}
 .stack { display: flex; flex-direction: column; gap: 4px; }
 .stack > span { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 7px; min-width: 0; }
 .stack > span > span { min-width: 0; overflow-wrap: anywhere; }
