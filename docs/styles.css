@@ -157,21 +157,26 @@ p { margin: 0; }
 }
 
 .side {
-  position: sticky;
-  top: 28px;
+  position: static;
   display: flex;
   flex-direction: column;
   align-self: start;
   min-width: 0;
   gap: 26px;
-  max-height: calc(100vh - 56px);
   padding: 30px;
-  overflow: auto;
+  overflow: visible;
   border: 1px solid var(--line);
   border-radius: 28px;
   background: var(--surface);
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
+}
+
+@media (min-width: 761px) and (min-height: 1100px) {
+  .side {
+    position: sticky;
+    top: 28px;
+  }
 }
 
 .content {
