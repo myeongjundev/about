@@ -124,6 +124,31 @@ class SiteTests(unittest.TestCase):
                 content.index('</main>'),
             )
 
+    def test_entrances_use_the_story_path_card_shape(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            output_dir = Path(temp)
+            shutil.copytree(REPO / "docs" / "files", output_dir / "files")
+            output = output_dir / "index.html"
+            site_module.build(
+                REPO / "content" / "approved.json",
+                output,
+                BASE / "templates" / "page.html.tpl",
+                False,
+            )
+            content = output.read_text(encoding="utf-8")
+            self.assertIn('class="entrances-head"', content)
+            self.assertIn("SECTIONS", content)
+            self.assertIn("01 — 05", content)
+            self.assertEqual(content.count('class="nav-index mono"'), 5)
+            self.assertEqual(content.count('class="entrance-copy"'), 5)
+            for anchor in ("story", "numbers", "work", "experience", "documents"):
+                self.assertIn(f'href="#{anchor}"', content)
+
+            styles = (REPO / "docs" / "styles.css").read_text(encoding="utf-8")
+            mobile = styles[styles.index("@media (max-width: 880px)") :]
+            side_rule = mobile[mobile.index("  .side {") : mobile.index("  .side {") + 420]
+            self.assertIn("backdrop-filter: none", side_rule)
+
     def test_selected_builds_link_to_existing_project_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             output_dir = Path(temp)

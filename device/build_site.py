@@ -115,6 +115,40 @@ def render_project_rail(data: dict[str, object]) -> str:
     </section>'''
 
 
+SECTION_ENTRANCES = (
+    ("story", "이야기"),
+    ("numbers", "숫자"),
+    ("work", "대표작"),
+    ("experience", "경력"),
+    ("documents", "문서"),
+)
+
+
+def render_entrances() -> str:
+    items = []
+    for index, (anchor, label) in enumerate(SECTION_ENTRANCES, start=1):
+        items.append(
+            f'''          <li>
+            <a href="#{anchor}">
+              <span class="nav-index mono" aria-hidden="true">{index:02d}</span>
+              <span class="entrance-copy">{esc(label)}</span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>'''
+        )
+
+    last = f"{len(SECTION_ENTRANCES):02d}"
+    return f'''      <nav class="entrances" aria-label="바로 가기">
+        <div class="entrances-head">
+          <span class="mono">SECTIONS</span>
+          <span class="mono">01 — {last}</span>
+        </div>
+        <ol>
+{chr(10).join(items)}
+        </ol>
+      </nav>'''
+
+
 def render_story_steps(data: dict[str, object]) -> str:
     story_steps = []
     for index, segment in enumerate(data["story"]["segments"], start=1):
@@ -189,13 +223,7 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         </div>
       </header>
 
-      <nav class="entrances" aria-label="바로 가기">
-        <a href="#story"><span class="nav-index">01</span><span>이야기</span><span class="arrow" aria-hidden="true">↗</span></a>
-        <a href="#numbers"><span class="nav-index">02</span><span>숫자</span><span class="arrow" aria-hidden="true">↗</span></a>
-        <a href="#work"><span class="nav-index">03</span><span>대표작</span><span class="arrow" aria-hidden="true">↗</span></a>
-        <a href="#experience"><span class="nav-index">04</span><span>경력</span><span class="arrow" aria-hidden="true">↗</span></a>
-        <a href="#documents"><span class="nav-index">05</span><span>문서</span><span class="arrow" aria-hidden="true">↗</span></a>
-      </nav>
+{render_entrances()}
 
       <dl class="facts">
         <div><dt>방향</dt><dd>{esc(profile['direction'])}</dd></div>
