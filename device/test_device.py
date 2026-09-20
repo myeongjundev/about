@@ -5,9 +5,11 @@ import json
 import shutil
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 from unittest import mock
 from urllib.parse import urlparse
+from xml.etree import ElementTree
 
 
 BASE = Path(__file__).resolve().parent
@@ -106,8 +108,11 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(content.count('data-craft="design"'), 1)
             self.assertIn('data-craft="design" data-index="01"', content)
             self.assertIn('aria-pressed="true"', content)
+            self.assertNotIn('aria-label="색상 테마 바꾸기"', content)
             self.assertNotIn("fonts.googleapis.com", content)
             self.assertNotIn("fonts.gstatic.com", content)
+            self.assertNotIn("raw.githubusercontent.com", content)
+            self.assertNotIn("myeongjundev.github.io/assets", content)
 
     def test_selected_builds_link_to_existing_project_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -200,6 +205,26 @@ class ValidationTests(unittest.TestCase):
         )
         self.assertEqual(problems, ["내부 id 노출: now"])
 
+    def test_external_hosted_image_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            repo = Path(temp)
+            shutil.copytree(REPO / "content", repo / "content")
+            shutil.copytree(REPO / "docs", repo / "docs")
+            shutil.copytree(REPO / "device", repo / "device")
+            shutil.copytree(REPO / "submission", repo / "submission")
+            site = (repo / "docs" / "index.html").read_text(encoding="utf-8")
+            site = site.replace(
+                'src="assets/clov-promise.jpg"',
+                'src="https://example.com/clov-promise.jpg"',
+                1,
+            )
+            (repo / "docs" / "index.html").write_text(site, encoding="utf-8")
+            problems = validation_module.validate(repo, False, False)
+            self.assertIn(
+                "외부 호스트 이미지: https://example.com/clov-promise.jpg",
+                problems,
+            )
+
     def test_current_content_passes_structural_validation(self) -> None:
         self.assertEqual(validation_module.validate(REPO, True, False), [])
 
@@ -207,11 +232,40 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual(validation_module.validate(REPO, False, False), [])
 
 
+class DocumentTests(unittest.TestCase):
+    def test_generated_documents_use_a4_and_fit_tables_within_body(self) -> None:
+        namespace = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+        width_key = f"{{{namespace['w']}}}w"
+        for name in (
+            "resume-kim-myeongjun.docx",
+            "personal-statement-kim-myeongjun.docx",
+            "career-description-kim-myeongjun.docx",
+        ):
+            with self.subTest(name=name), zipfile.ZipFile(REPO / "docs" / "files" / name) as archive:
+                root = ElementTree.fromstring(archive.read("word/document.xml"))
+                page_sizes = root.findall(".//w:sectPr/w:pgSz", namespace)
+                self.assertTrue(page_sizes)
+                for page_size in page_sizes:
+                    self.assertAlmostEqual(int(page_size.attrib[width_key]), 11906, delta=1)
+                    self.assertAlmostEqual(int(page_size.attrib[f"{{{namespace['w']}}}h"]), 16838, delta=1)
+                for grid in root.findall(".//w:tblGrid", namespace):
+                    table_width = sum(
+                        int(column.attrib[width_key])
+                        for column in grid.findall("w:gridCol", namespace)
+                    )
+                    self.assertLessEqual(table_width, 9360)
+
+
 class ReleaseTests(unittest.TestCase):
     def test_release_allowlist_contains_full_device_and_root_readme(self) -> None:
         targets = {str(target) for _, target in release_module.required_files(REPO)}
         self.assertIn("T12-KimMyeongjun/README-FIRST.md", targets)
         self.assertIn("T12-KimMyeongjun/device/apply_numbers.py", targets)
+        self.assertIn("T12-KimMyeongjun/device/test_device.py", targets)
+        self.assertEqual(
+            len([target for target in targets if target.startswith("T12-KimMyeongjun/docs/assets/")]),
+            9,
+        )
         self.assertFalse(
             any(
                 target.startswith("T12-KimMyeongjun/private/")

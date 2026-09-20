@@ -14,7 +14,7 @@ from docx.enum.table import WD_ALIGN_VERTICAL, WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Inches, Pt, RGBColor
+from docx.shared import Inches, Mm, Pt, RGBColor
 
 
 FONT = "Malgun Gothic"
@@ -23,6 +23,7 @@ MUTED = "57534E"
 BLUE = "1D4ED8"
 LINE = "D9D9D9"
 PALE = "F5F7FA"
+MAX_TABLE_WIDTH = Inches(6.5)
 
 
 def set_cell_shading(cell, fill: str) -> None:
@@ -72,6 +73,38 @@ def set_repeat_table_header(row) -> None:
     properties.append(repeat)
 
 
+def validate_document_layout(path: Path) -> None:
+    document = Document(path)
+    for section_index, section in enumerate(document.sections, start=1):
+        if (
+            abs(section.page_width - Mm(210)) > 1000
+            or abs(section.page_height - Mm(297)) > 1000
+        ):
+            raise ValueError(f"A4 용지 크기 검사 실패: 섹션 {section_index}")
+
+    body_width = min(
+        section.page_width - section.left_margin - section.right_margin
+        for section in document.sections
+    )
+    allowed_width = min(body_width, MAX_TABLE_WIDTH)
+    for table_index, table in enumerate(document.tables, start=1):
+        widths = [column.width for column in table.columns]
+        if any(width is None for width in widths):
+            raise ValueError(f"표 열 너비가 지정되지 않았습니다: 표 {table_index}")
+        table_width = sum(int(width) for width in widths if width is not None)
+        if table_width > allowed_width:
+            raise ValueError(
+                f"표 너비가 본문 폭을 넘습니다: 표 {table_index} "
+                f"{table_width / Inches(1):.2f}in > {allowed_width / Inches(1):.2f}in"
+            )
+
+
+def save_document(document: Document, output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    document.save(output)
+    validate_document_layout(output)
+
+
 def set_run_font(run, size: float | None = None, bold: bool | None = None, color: str | None = None) -> None:
     run.font.name = FONT
     run._element.get_or_add_rPr().rFonts.set(qn("w:eastAsia"), FONT)
@@ -115,8 +148,8 @@ def add_hyperlink(paragraph, text: str, url: str) -> None:
 def base_document(title: str, name: str) -> Document:
     document = Document()
     section = document.sections[0]
-    section.page_width = Inches(8.5)
-    section.page_height = Inches(11)
+    section.page_width = Mm(210)
+    section.page_height = Mm(297)
     section.top_margin = Inches(0.72)
     section.bottom_margin = Inches(0.72)
     section.left_margin = Inches(0.78)
@@ -226,8 +259,8 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
     table = document.add_table(rows=1, cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = False
-    table.columns[0].width = Inches(1.45)
-    table.columns[1].width = Inches(5.25)
+    table.columns[0].width = Inches(1.4)
+    table.columns[1].width = Inches(5.0)
     table.rows[0].cells[0].text = "영역"
     table.rows[0].cells[1].text = "사용 기술"
     style_header_row(table.rows[0])
@@ -258,8 +291,7 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
             paragraph = document.add_paragraph()
             add_hyperlink(paragraph, link["label"], link["href"])
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    document.save(output)
+    save_document(document, output)
 
 
 def build_personal_statement(data: dict[str, object], output: Path, draft: bool) -> None:
@@ -301,8 +333,7 @@ def build_personal_statement(data: dict[str, object], output: Path, draft: bool)
     closing.paragraph_format.space_before = Pt(14)
     for run in closing.runs:
         set_run_font(run, 11.2, True)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    document.save(output)
+    save_document(document, output)
 
 
 def build_career_description(data: dict[str, object], output: Path, draft: bool) -> None:
@@ -320,7 +351,7 @@ def build_career_description(data: dict[str, object], output: Path, draft: bool)
         table.alignment = WD_TABLE_ALIGNMENT.CENTER
         table.autofit = False
         table.columns[0].width = Inches(1.0)
-        table.columns[1].width = Inches(5.7)
+        table.columns[1].width = Inches(5.4)
         table.rows[0].cells[0].text = "구분"
         table.rows[0].cells[1].text = "내용"
         style_header_row(table.rows[0])
@@ -351,8 +382,7 @@ def build_career_description(data: dict[str, object], output: Path, draft: bool)
             paragraph = document.add_paragraph()
             add_hyperlink(paragraph, link["label"], link["href"])
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    document.save(output)
+    save_document(document, output)
 
 
 def main() -> int:

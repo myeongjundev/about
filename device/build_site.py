@@ -141,7 +141,7 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
           <span class="avatar" aria-hidden="true">MJ</span>
           <span class="profile-actions">
             <span class="availability"><span aria-hidden="true"></span> Portfolio 2026</span>
-            <button class="theme-toggle" type="button" aria-label="색상 테마 바꾸기" aria-pressed="false">
+            <button class="theme-toggle" type="button" aria-pressed="false">
               <span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Dark mode</span>
             </button>
           </span>

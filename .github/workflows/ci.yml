@@ -30,6 +30,7 @@ jobs:
           device/check_repeat.py
           device/validate_release.py
           device/test_device.py
+          documents/build.py
           release/build_release.py
 
       - name: Run unit tests

@@ -41,6 +41,7 @@ def required_files(repo: Path) -> list[tuple[Path, PurePosixPath]]:
         "apply_numbers.py",
         "build_site.py",
         "check_repeat.py",
+        "test_device.py",
         "validate_release.py",
         "templates/page.html.tpl",
     ):
@@ -51,6 +52,10 @@ def required_files(repo: Path) -> list[tuple[Path, PurePosixPath]]:
             for source in sorted(path for path in base.rglob("*") if path.is_file()):
                 relative = PurePosixPath(*source.relative_to(repo / "device").parts)
                 files.append((source, root / "device" / relative))
+    assets = repo / "docs" / "assets"
+    for source in sorted(path for path in assets.rglob("*") if path.is_file()):
+        relative = PurePosixPath(*source.relative_to(repo / "docs").parts)
+        files.append((source, root / "docs" / relative))
     return files
 
 
