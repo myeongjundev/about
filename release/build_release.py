@@ -38,16 +38,9 @@ def required_files(repo: Path) -> list[tuple[Path, PurePosixPath]]:
         files.append((repo / "docs" / "files" / name, root / "documents" / name))
     files.append((repo / "content" / "approved.json", root / "device" / "approved.json"))
 
-    for relative in (
-        "README.md",
-        "refresh.py",
-        "apply_numbers.py",
-        "build_site.py",
-        "check_repeat.py",
-        "test_device.py",
-        "validate_release.py",
-        "templates/page.html.tpl",
-    ):
+    # 스크립트를 하나씩 적어 두지 않는다. 새로 만든 스크립트가 조용히 빠진다.
+    device_scripts = sorted(path.name for path in (repo / "device").glob("*.py"))
+    for relative in ["README.md", *device_scripts, "templates/page.html.tpl"]:
         files.append((repo / "device" / relative, root / "device" / relative))
     for folder in ("sample-inputs", "expected", "last-result"):
         base = repo / "device" / folder

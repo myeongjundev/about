@@ -379,8 +379,15 @@ class ReleaseTests(unittest.TestCase):
     def test_release_allowlist_contains_full_device_and_root_readme(self) -> None:
         targets = {str(target) for _, target in release_module.required_files(REPO)}
         self.assertIn("T12-KimMyeongjun/README-FIRST.md", targets)
-        self.assertIn("T12-KimMyeongjun/device/apply_numbers.py", targets)
-        self.assertIn("T12-KimMyeongjun/device/test_device.py", targets)
+        # 장치 스크립트는 하나도 빠지면 안 된다. README가 가리키는 명령이 없어진다.
+        bundled_scripts = {
+            target.removeprefix("T12-KimMyeongjun/device/")
+            for target in targets
+            if target.startswith("T12-KimMyeongjun/device/") and target.endswith(".py")
+        }
+        device_scripts = {path.name for path in (REPO / "device").glob("*.py")}
+        self.assertEqual(bundled_scripts, device_scripts)
+        self.assertIn("test_device.py", device_scripts)
         bundled_assets = {
             target.removeprefix("T12-KimMyeongjun/docs/assets/")
             for target in targets
