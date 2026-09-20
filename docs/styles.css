@@ -260,8 +260,12 @@ p { margin: 0; }
   display: flex;
   min-height: calc(100% - 150px);
   padding-top: 28px;
+  padding-bottom: 40px;
   flex: 1;
   flex-direction: column;
+  /* 카드 사이는 margin이 아니라 gap으로 벌린다. margin은 sticky가 멈추는 자리를 함께
+     끌어올려, 맨 아래에서 가운데 카드 여럿이 같은 높이에 겹쳐 섰다. */
+  gap: clamp(300px, 52vh, 520px);
 }
 
 .build-card {
@@ -271,7 +275,6 @@ p { margin: 0; }
   z-index: calc(10 + var(--stack-order));
   display: flex;
   min-height: 330px;
-  margin-bottom: clamp(300px, 52vh, 520px);
   padding: 14px;
   flex-direction: column;
   gap: 10px;
@@ -290,7 +293,6 @@ p { margin: 0; }
 .build-card:nth-child(4) { --card-accent: #d97706; }
 .build-card:nth-child(5) { --card-accent: #be123c; }
 .build-card:nth-child(6) { --card-accent: #0e7490; }
-.build-card:last-child { margin-bottom: 0; }
 
 .build-card:hover {
   border-color: color-mix(in srgb, var(--card-accent) 62%, var(--line));

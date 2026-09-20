@@ -88,7 +88,7 @@ def render_project_rail(data: dict[str, object]) -> str:
                 'loading="lazy" decoding="async">'
             )
         cards.append(
-            f'''        <a class="build-card" href="#{esc(item['target'])}" style="--stack-order: {index - 1}; --stack-top: {28 + (index - 1) * 18}px">
+            f'''        <a class="build-card" href="#{esc(item['target'])}" style="--stack-order: {index - 1}; --stack-top: {28 + (index - 1) * 26}px">
           <span class="build-card-visual{image_class}" aria-hidden="true">
             {image}
             <span class="build-card-number">{index:02d}</span>

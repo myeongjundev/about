@@ -187,6 +187,22 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(content.count('class="build-card"'), expected_cards)
             self.assertIn('href="#experience-t04-info-board"', content)
             self.assertIn('href="#experience-t02-mini-game"', content)
+
+            styles = (REPO / "docs" / "styles.css").read_text(encoding="utf-8")
+            stack = styles[styles.index(".build-stack {") : styles.index(".build-card {")]
+            card = styles[styles.index(".build-card {") : styles.index(".build-card:nth-child(2)")]
+            # 카드 사이를 margin으로 벌리면 sticky가 멈추는 자리까지 함께 올라가,
+            # 맨 아래에서 가운데 카드들이 같은 높이에 겹쳐 선다. 간격은 gap으로만 준다.
+            self.assertIn("gap:", stack)
+            self.assertNotIn("margin-bottom", card)
+            import re as _re2
+
+            offsets = [int(v) for v in _re2.findall(r"--stack-top: (\d+)px", content)]
+            self.assertEqual(len(offsets), expected_cards)
+            steps = {b - a for a, b in zip(offsets, offsets[1:])}
+            self.assertEqual(len(steps), 1, "카드가 같은 간격으로 겹쳐야 한다")
+            # 카드 높이 330px을 더해도 낮은 창 안에 들어와야 맨 아래에서 다 보인다.
+            self.assertLessEqual(offsets[-1] + 330, 560)
             self.assertIn('href="#work-clov"', content)
             self.assertIn('id="work-clov"', content)
             self.assertIn('href="#work-t05-ai-handoff"', content)

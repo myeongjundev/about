@@ -139,7 +139,8 @@ def read_report(report: Path) -> dict[str, dict]:
 def main() -> int:
     base = Path(__file__).resolve().parent
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input-dir", type=Path, default=base.parent / "docs" / "files")
+    published = base.parent / "docs" / "files"
+    parser.add_argument("--input-dir", type=Path, default=published)
     parser.add_argument("--output-dir", type=Path, default=base / "qa" / "latest")
     parser.add_argument("--pdf-dir", type=Path, default=None, help="PDF를 따로 복사할 위치")
     parser.add_argument("--image", default=DEFAULT_IMAGE)
@@ -191,8 +192,12 @@ def main() -> int:
 
     payload = json.dumps(manifest, ensure_ascii=False, indent=2) + "\n"
     (work / "manifest.json").write_text(payload, encoding="utf-8")
-    # 저장소에도 남긴다. 테스트가 이 파일을 보고 쪽 수와 빈 쪽을 검사한다.
-    (base / "render-manifest.json").write_text(payload, encoding="utf-8", newline="\n")
+    # 저장소 기록은 공개 문서를 렌더링했을 때만 덮는다. 초안을 한 번 재 보고 나면
+    # 기록이 초안 지문으로 바뀌어, 고치지도 않은 문서가 테스트에서 어긋난다.
+    if args.input_dir.resolve() == published.resolve():
+        (base / "render-manifest.json").write_text(payload, encoding="utf-8", newline="\n")
+    else:
+        print(f"초안이라 저장소 기록은 그대로 둔다: {args.input_dir}")
     for name, info in manifest.items():
         print(f"{name}: {info['pages']}쪽, 마지막 쪽 채움 {info['lastPageFill']}")
     print(f"PASS: {work}")
