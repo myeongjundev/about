@@ -181,32 +181,36 @@
       ]
     },
     {
-      "id": "t03-card-studio",
-      "kind": "3번 과제 · 프론트엔드",
-      "period": "2026.08",
-      "title": "ALTER / EGO — 시대를 가르는 카드 스튜디오",
-      "summary": "같은 사진과 문구를 2004·2012·2026의 인터넷 문법으로 다시 만드는 local-first Canvas 편집기입니다. 미리보기와 PNG를 같은 Canvas로 통일하고 단위 테스트 70개와 E2E 28개로 검증했습니다.",
+      "id": "t05-ai-handoff",
+      "kind": "5번 과제 · 프론트엔드 · AI 인계",
+      "period": "2026.08 - 2026.09",
+      "title": "ALTER / EGO — 대화 없이 넘긴 AI 인계",
+      "summary": "3번 과제로 만든 카드 스튜디오에 원본과 완성 카드를 겹쳐 보는 비교 슬라이더를 더하면서, 앞선 AI의 대화를 넘기지 않고 인계 문서만으로 다음 AI가 이어받게 한 실험입니다. 고정 검사 10개를 모두 통과하고 단위 85개와 Chromium E2E 38개로 전체를 다시 검증했습니다.",
       "caseStudy": {
-        "problem": "기능이 많아질수록 첫 사용자가 무엇부터 해야 할지 모르게 되고, Canvas 편집기는 화면 미리보기와 내려받은 파일이 어긋날 수 있었습니다.",
-        "decision": "첫 흐름을 모습·시대·내 사진 세 단계로 제한하고, 화면용과 저장용 렌더러를 나누지 않고 같은 Canvas를 사용했습니다.",
-        "implementation": "Temporal Scanner로 한 프레임 안의 두 시대를 직접 가르게 만들고, 2004 이미지 보정만 캐시하면서 문구는 최신 상태로 동기 렌더했습니다.",
-        "validation": "단위 테스트 70개와 실제 브라우저 E2E 28개로 픽셀·모바일·상호작용·대비를 검사하고 GitHub Pages에 공개했습니다."
+        "problem": "AI를 바꿀 때마다 사람이 같은 맥락을 다시 설명해야 했고, 대화를 넘기지 않고도 다음 AI가 같은 프로젝트를 안전하게 이어갈 수 있는지는 확인된 적이 없었습니다.",
+        "decision": "누가 더 빠른지 겨루는 대신 기능 범위와 고정 검사 10개를 먼저 정하고, 대화를 넘기지 않은 채 코드·검사·인계 문서만으로 다음 AI가 이어받는지 확인하기로 했습니다.",
+        "implementation": "인계 문서에 목표·현재 상태·실행 명령·통과한 검사·남은 문제·다음 행동·주의 사항 7개 항목을 담아 앞선 AI를 계획한 지점에서 멈추고, 다음 AI가 첫 대화 없이 남은 검사와 전체 회귀 검사를 맡게 했습니다. 비교 상태는 미리보기 안에만 두어 내려받는 PNG와 템플릿, 되돌리기 이력에는 섞이지 않게 했습니다.",
+        "validation": "고정 검사 10개를 모두 통과하고 단위 테스트 85개와 Chromium E2E 38개를 유지했으며, 사람이 코드를 다시 고치거나 같은 내용을 재설명한 일은 없었습니다."
       },
       "status": "published",
       "visual": {
-        "src": "assets/t03-hero.webp",
-        "alt": "ALTER EGO 첫 화면. 왼쪽에 같은 사진, 다른 시대, 다른 나라는 제목이 있고 오른쪽에서 2004·2012·2026 시대를 탐색한다.",
-        "width": 1400,
-        "height": 958
+        "src": "assets/t05-studio.webp",
+        "alt": "ALTER EGO 스튜디오. 왼쪽에서 모습·시대·내 사진 세 단계를 고르고, 오른쪽 결과 화면에서 경계선을 사이에 두고 원본과 완성 카드를 반반으로 비교한다.",
+        "width": 1200,
+        "height": 767
       },
       "links": [
         {
           "label": "사이트 체험",
-          "href": "https://myeongjundev.github.io/t03-card-studio/"
+          "href": "https://myeongjundev.github.io/t05-ai-handoff/"
+        },
+        {
+          "label": "인계 결과 보기",
+          "href": "https://github.com/myeongjundev/t05-ai-handoff/blob/main/docs/FINAL_COMPARISON.md"
         },
         {
           "label": "공개 저장소",
-          "href": "https://github.com/myeongjundev/t03-card-studio"
+          "href": "https://github.com/myeongjundev/t05-ai-handoff"
         }
       ]
     }
@@ -361,16 +365,16 @@
       "resumeDetail": "full"
     },
     {
-      "id": "t03-card-studio",
-      "period": "2026.08",
-      "title": "3번 과제 · ALTER / EGO 카드 스튜디오",
-      "role": "기획 · 프론트엔드 구현 · 테스트 · 배포",
-      "scope": "React 19·Vite 8 기반 편집기 전체 구현, Canvas 렌더링과 시대별 이미지 보정, 단위·E2E 테스트 작성, GitHub Pages 배포",
+      "id": "t05-ai-handoff",
+      "period": "2026.08 - 2026.09",
+      "title": "5번 과제 · 대화 없이 넘긴 AI 인계",
+      "role": "실험 설계 · 프론트엔드 구현 · 검증 · 배포",
+      "scope": "고정 검사 10개 설계, 원본과 완성 카드를 겹쳐 보는 비교 슬라이더 구현, 인계 문서 7개 항목 구성, 단위·E2E 회귀 검증, GitHub Pages 배포",
       "ability": "자기조절력",
-      "situation": "기능이 많아질수록 첫 사용자가 무엇부터 해야 할지 모르게 되고, Canvas 편집기는 화면 미리보기와 내려받은 파일이 어긋날 수 있었습니다.",
-      "rationale": "첫 흐름을 모습·시대·내 사진 세 단계로 제한하고, 화면용과 저장용 렌더러를 나누지 않고 같은 Canvas를 사용했습니다.",
-      "action": "첫 흐름을 모습·시대·내 사진 세 단계로 제한하고, 화면용과 저장용 렌더러를 나누지 않고 같은 Canvas를 1080px 출력 해상도로 렌더했습니다.",
-      "result": "런타임 의존성을 2개로 유지하면서 단위 테스트 70개와 실제 브라우저 E2E 28개로 픽셀·모바일·상호작용·대비를 검사하고 GitHub Pages에 공개했습니다.",
+      "situation": "AI를 바꿀 때마다 사람이 같은 맥락을 다시 설명해야 했고, 대화를 넘기지 않고도 다음 AI가 같은 프로젝트를 안전하게 이어갈 수 있는지는 확인된 적이 없었습니다.",
+      "rationale": "누가 더 빠른지 겨루는 대신 기능 범위와 고정 검사 10개를 먼저 정하고, 대화를 넘기지 않은 채 코드·검사·인계 문서만으로 다음 AI가 이어받는지 확인하기로 했습니다.",
+      "action": "실행하지 않은 검사는 통과로 적지 않는다는 기준을 먼저 세우고, 앞선 AI가 검사 1~3까지만 구현한 뒤 계획대로 멈추게 했습니다. 다음 AI는 인계 문서만 읽고 검사 4~10과 전체 회귀 검사를 마쳤습니다.",
+      "result": "고정 검사 10개를 모두 통과하고 단위 테스트 85개와 Chromium E2E 38개를 유지했으며, 사람이 코드를 다시 고치거나 같은 내용을 재설명한 일은 없었습니다.",
       "technologies": [
         "React 19",
         "Vite 8",
@@ -379,28 +383,32 @@
       ],
       "gallery": [
         {
-          "src": "assets/t03-hero.webp",
-          "alt": "ALTER EGO 첫 화면. 왼쪽에 같은 사진, 다른 시대, 다른 나라는 제목이 있고 오른쪽에서 2004·2012·2026 시대를 탐색한다.",
-          "label": "첫 화면 시대 탐색",
-          "width": 1400,
-          "height": 958
+          "src": "assets/t05-studio.webp",
+          "alt": "ALTER EGO 스튜디오. 왼쪽에서 모습·시대·내 사진 세 단계를 고르고, 오른쪽 결과 화면에서 경계선을 사이에 두고 원본과 완성 카드를 반반으로 비교한다.",
+          "width": 1200,
+          "height": 767,
+          "label": "원본과 카드 비교"
         },
         {
-          "src": "assets/t03-studio.webp",
-          "alt": "ALTER EGO Studio 화면. 왼쪽에서 스타일을 편집하고 가운데에서 출력 해상도 그대로의 결과를 미리 보며 오른쪽에서 템플릿을 저장한다.",
-          "label": "편집과 미리보기",
-          "width": 1200,
-          "height": 386
+          "src": "assets/t05-hero.webp",
+          "alt": "ALTER EGO 첫 화면. 왼쪽에 같은 사진, 다른 시대, 다른 나라는 제목이 있고 오른쪽에서 2004·2012·2026 시대를 탐색한다.",
+          "width": 1400,
+          "height": 958,
+          "label": "첫 화면 시대 탐색"
         }
       ],
       "links": [
         {
           "label": "사이트 체험",
-          "href": "https://myeongjundev.github.io/t03-card-studio/"
+          "href": "https://myeongjundev.github.io/t05-ai-handoff/"
+        },
+        {
+          "label": "인계 결과 보기",
+          "href": "https://github.com/myeongjundev/t05-ai-handoff/blob/main/docs/FINAL_COMPARISON.md"
         },
         {
           "label": "공개 저장소",
-          "href": "https://github.com/myeongjundev/t03-card-studio"
+          "href": "https://github.com/myeongjundev/t05-ai-handoff"
         }
       ],
       "status": "published",
