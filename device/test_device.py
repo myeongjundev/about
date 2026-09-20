@@ -262,10 +262,14 @@ class ReleaseTests(unittest.TestCase):
         self.assertIn("T12-KimMyeongjun/README-FIRST.md", targets)
         self.assertIn("T12-KimMyeongjun/device/apply_numbers.py", targets)
         self.assertIn("T12-KimMyeongjun/device/test_device.py", targets)
-        self.assertEqual(
-            len([target for target in targets if target.startswith("T12-KimMyeongjun/docs/assets/")]),
-            9,
-        )
+        bundled_assets = {
+            target.removeprefix("T12-KimMyeongjun/docs/assets/")
+            for target in targets
+            if target.startswith("T12-KimMyeongjun/docs/assets/")
+        }
+        site_assets = {path.name for path in (REPO / "docs" / "assets").iterdir() if path.is_file()}
+        self.assertEqual(bundled_assets, site_assets)
+        self.assertTrue(site_assets)
         self.assertFalse(
             any(
                 target.startswith("T12-KimMyeongjun/private/")

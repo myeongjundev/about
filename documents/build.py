@@ -145,7 +145,7 @@ def add_hyperlink(paragraph, text: str, url: str) -> None:
     paragraph._p.append(hyperlink)
 
 
-def base_document(title: str, name: str) -> Document:
+def base_document(title: str, name: str, subtitle: str | None = None) -> Document:
     document = Document()
     section = document.sections[0]
     section.page_width = Mm(210)
@@ -191,9 +191,9 @@ def base_document(title: str, name: str) -> Document:
 
     title_paragraph = document.add_paragraph(style="Title")
     title_paragraph.add_run(title)
-    subtitle = document.add_paragraph()
-    subtitle.paragraph_format.space_after = Pt(14)
-    run = subtitle.add_run(name)
+    subtitle_paragraph = document.add_paragraph()
+    subtitle_paragraph.paragraph_format.space_after = Pt(14)
+    run = subtitle_paragraph.add_run(subtitle or name)
     set_run_font(run, 11, True, MUTED)
 
     document.core_properties.title = title
@@ -225,6 +225,18 @@ def add_label_value(document: Document, label: str, value: str) -> None:
     set_run_font(value_run, 10.5)
 
 
+def add_highlights(document: Document, items: list[str]) -> None:
+    for item in items:
+        paragraph = document.add_paragraph()
+        paragraph.paragraph_format.space_after = Pt(5)
+        paragraph.paragraph_format.left_indent = Inches(0.16)
+        paragraph.paragraph_format.first_line_indent = Inches(-0.16)
+        marker = paragraph.add_run("· ")
+        set_run_font(marker, 10.5, True, BLUE)
+        run = paragraph.add_run(item)
+        set_run_font(run, 10.5)
+
+
 def style_header_row(row) -> None:
     set_repeat_table_header(row)
     for cell in row.cells:
@@ -238,8 +250,15 @@ def style_header_row(row) -> None:
 
 def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
     profile = data["profile"]
-    document = base_document("김명준 이력서", profile["name"])
+    document = base_document(
+        "김명준 이력서", profile["name"], f"{profile['name']}  ·  {profile['role']}"
+    )
     add_intro(document, profile["direction"])
+
+    highlights = profile.get("highlights") or []
+    if highlights:
+        document.add_heading("핵심 역량", level=1)
+        add_highlights(document, highlights)
 
     document.add_heading("연락", level=1)
     contact = profile.get("contact")
@@ -247,6 +266,10 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
     if contact and contact.get("href"):
         paragraph = document.add_paragraph()
         add_hyperlink(paragraph, contact.get("label") or "연락 링크", contact["href"])
+    site = profile.get("site")
+    if site and site.get("href"):
+        paragraph = document.add_paragraph()
+        add_hyperlink(paragraph, site.get("label") or "공개 사이트", site["href"])
 
     document.add_heading("교육", level=1)
     for item in profile.get("education") or []:
@@ -284,6 +307,8 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
         document.add_heading(text(item.get("title"), draft, "세 번째 항목 확정 필요"), level=2)
         add_label_value(document, "기간", text(item.get("period"), draft))
         add_label_value(document, "역할", text(item.get("role"), draft))
+        if item.get("scope"):
+            add_label_value(document, "담당", item["scope"])
         add_label_value(document, "핵심 결과", text(item.get("result"), draft))
         technologies = text(" · ".join(item.get("technologies") or []), draft)
         add_label_value(document, "기술", technologies)
@@ -297,7 +322,9 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
 def build_personal_statement(data: dict[str, object], output: Path, draft: bool) -> None:
     profile = data["profile"]
     story = data["story"]
-    document = base_document("김명준 자기소개서", profile["name"])
+    document = base_document(
+        "김명준 자기소개서", profile["name"], f"{profile['name']}  ·  {profile['role']}"
+    )
     add_intro(
         document,
         text(
@@ -333,18 +360,31 @@ def build_personal_statement(data: dict[str, object], output: Path, draft: bool)
     closing.paragraph_format.space_before = Pt(14)
     for run in closing.runs:
         set_run_font(run, 11.2, True)
+
+    document.add_heading("확인 링크", level=1)
+    for link in (profile.get("site"), profile.get("contact")):
+        if link and link.get("href"):
+            paragraph = document.add_paragraph()
+            add_hyperlink(paragraph, link["label"], link["href"])
     save_document(document, output)
 
 
 def build_career_description(data: dict[str, object], output: Path, draft: bool) -> None:
     profile = data["profile"]
-    document = base_document("김명준 경력기술서", profile["name"])
-    add_intro(document, "프로젝트마다 맡은 역할과 상황, 행동, 결과를 확인 가능한 사실로 정리했습니다.")
+    document = base_document(
+        "김명준 경력기술서", profile["name"], f"{profile['name']}  ·  {profile['role']}"
+    )
+    add_intro(
+        document,
+        "프로젝트마다 맡은 역할과 담당 범위, 상황·행동·결과를 확인 가능한 사실로 정리했습니다.",
+    )
 
     for item in data["experience"]:
         document.add_heading(text(item.get("title"), draft, "세 번째 항목 확정 필요"), level=1)
         add_label_value(document, "기간", text(item.get("period"), draft))
         add_label_value(document, "역할", text(item.get("role"), draft))
+        if item.get("scope"):
+            add_label_value(document, "담당", item["scope"])
         add_label_value(document, "능력", text(item.get("ability"), draft))
 
         table = document.add_table(rows=1, cols=2)

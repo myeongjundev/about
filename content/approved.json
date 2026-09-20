@@ -13,14 +13,43 @@
       {
         "name": "SKT ALEPH 네트워크 보안 과정",
         "period": "2026.08 - 2026.11"
+      },
+      {
+        "name": "컴퓨터소프트웨어공학 학사",
+        "period": "2025년 졸업"
       }
     ],
     "technologies": {
-      "Frontend": ["React"],
-      "Backend": ["Java", "Spring Boot"],
-      "Data AI": ["Python", "scikit-learn", "XGBoost", "SHAP"],
-      "Infra Security": ["Ubuntu", "Nginx", "Docker", "Network", "Security"]
-    }
+      "Frontend": [
+        "React"
+      ],
+      "Backend": [
+        "Java",
+        "Spring Boot"
+      ],
+      "Data AI": [
+        "Python",
+        "scikit-learn",
+        "XGBoost",
+        "SHAP"
+      ],
+      "Infra Security": [
+        "Ubuntu",
+        "Nginx",
+        "Docker",
+        "Network",
+        "Security"
+      ]
+    },
+    "site": {
+      "label": "공개 소개 사이트",
+      "href": "https://myeongjundev.github.io/about/"
+    },
+    "highlights": [
+      "4인 팀의 팀장으로 이슈 152개와 PR 266개를 운영하고 그중 72개를 직접 리뷰했으며, React·Spring Boot 서비스를 Ubuntu·Docker·Nginx·HTTPS 환경에 직접 배포했습니다.",
+      "WebAuthn 패스키 인증을 설계·구현해 판정 기준 47개를 모두 충족하고 자동 테스트 50개를 통과했으며, 공개 화면의 비밀번호 입력 칸을 0개로 유지했습니다.",
+      "CICIDS2017 2,830,743건으로 분할 방식에 따른 탐지 성능 격차(Macro F1 0.9979 → 0.3871)를 검증하고 재현 자료와 논문을 공개했습니다."
+    ]
   },
   "story": {
     "firstSentence": "저는 서로 다른 사람과 도구가 만든 결과를 하나의 서비스로 연결하는 개발자 김명준입니다.",
@@ -188,11 +217,18 @@
       "period": "2026.06 - 2026.08",
       "title": "CLOV 팀 프로젝트",
       "role": "팀장 · 풀스택 개발자 · 4인 팀",
+      "scope": "서비스 구조 설계, React 화면과 Spring Boot API 구현, Ubuntu·Docker·Nginx·HTTPS 배포, 이슈와 코드 리뷰 운영",
       "ability": "대인관계력",
       "situation": "비전공자 세 명이 포함된 팀의 첫 모임에 두 명만 참석했고, 서로 다른 AI 도구에서 만든 코드가 자주 충돌했습니다.",
       "action": "기능을 볼 수 있는 프로토타입을 먼저 만들고 이슈 작성, 실행 확인, 코드 리뷰 뒤 머지하는 흐름을 운영했습니다.",
       "result": "2026년 8월 4일까지 이슈 152개와 PR 266개를 기록했고, 직접 리뷰한 PR 72개를 포함해 서비스를 HTTPS 환경에 배포했습니다.",
-      "technologies": ["React", "Spring Boot", "Docker", "Nginx", "OAuth"],
+      "technologies": [
+        "React",
+        "Spring Boot",
+        "Docker",
+        "Nginx",
+        "OAuth"
+      ],
       "gallery": [
         {
           "src": "assets/clov-promise.jpg",
@@ -239,11 +275,17 @@
       "period": "2026.09",
       "title": "10번 과제 · 네트워크 침입 탐지 연구",
       "role": "연구 설계 · 구현 · 검증 · 논문 작성",
+      "scope": "연구 설계, 데이터 감사, 세 모델 학습과 비교 실험, SHAP 설명 안정성 검증, 논문 작성과 재현 자료 공개",
       "ability": "자기동기력",
       "situation": "무작위 분할에서 높은 탐지 점수가 실제로 처음 보는 공격에 일반화되는지 확인할 필요가 있었습니다.",
       "action": "CICIDS2017 2,830,743건을 감사하고 무작위 분할과 미관측 공격 분할에서 세 모델을 비교했으며 SHAP 설명 안정성을 확인했습니다.",
       "result": "XGBoost Macro F1이 0.9979에서 0.3871로 낮아지는 격차를 재현 자료와 함께 논문으로 제출했습니다.",
-      "technologies": ["Python", "scikit-learn", "XGBoost", "SHAP"],
+      "technologies": [
+        "Python",
+        "scikit-learn",
+        "XGBoost",
+        "SHAP"
+      ],
       "gallery": [
         {
           "src": "assets/t10-performance-comparison.png",
@@ -262,6 +304,10 @@
       ],
       "links": [
         {
+          "label": "논문 읽기",
+          "href": "https://github.com/myeongjundev/explainsoc-research/blob/main/output/pdf/T10-research-paper.pdf"
+        },
+        {
           "label": "공개 저장소",
           "href": "https://github.com/myeongjundev/explainsoc-research"
         }
@@ -272,11 +318,18 @@
       "period": "2026.09",
       "title": "8번 과제 · 패스키로 잠근 비공개 영역",
       "role": "WebAuthn 인증 설계 · 구현 · 검증 · 배포",
+      "scope": "WebAuthn 등록·로그인 흐름 설계와 구현, 세션과 Origin·CSRF 검증, 데이터베이스 설계, 공개 배포",
       "ability": "자기조절력",
       "situation": "공개 소개 페이지는 그대로 열어 두면서 비공개 자료는 비밀번호 없이 본인만 볼 수 있게 나눠야 했습니다.",
       "action": "WebAuthn 등록과 로그인을 구현하고, 일회용 질문을 데이터베이스에서 한 번만 사용하게 했습니다. 서버 세션, Origin과 CSRF 검사, 마지막 패스키 삭제 방지까지 요청 단계에서 검증했습니다.",
       "result": "판정 기준 47개를 모두 충족하고 자동 테스트 50개를 통과했습니다. 공개 화면의 비밀번호 입력 칸은 0개이며, 로그인하지 않은 비공개 요청은 401로 거절합니다.",
-      "technologies": ["Java 25", "Spring Boot", "WebAuthn4J", "PostgreSQL", "Vercel"],
+      "technologies": [
+        "Java 25",
+        "Spring Boot",
+        "WebAuthn4J",
+        "PostgreSQL",
+        "Vercel"
+      ],
       "gallery": [
         {
           "src": "assets/t08-public-first-screen.png",
@@ -297,6 +350,50 @@
         {
           "label": "공개 저장소",
           "href": "https://github.com/myeongjundev/t08-passkey-portfolio"
+        }
+      ],
+      "status": "published"
+    },
+    {
+      "id": "t03-card-studio",
+      "period": "2026.08",
+      "title": "3번 과제 · ALTER / EGO 카드 스튜디오",
+      "role": "기획 · 프론트엔드 구현 · 테스트 · 배포",
+      "scope": "React 19·Vite 8 기반 편집기 전체 구현, Canvas 렌더링과 시대별 이미지 보정, 단위·E2E 테스트 작성, GitHub Pages 배포",
+      "ability": "자기조절력",
+      "situation": "기능이 많아질수록 첫 사용자가 무엇부터 해야 할지 모르게 되고, Canvas 편집기는 화면 미리보기와 내려받은 파일이 어긋날 수 있었습니다.",
+      "action": "첫 흐름을 모습·시대·내 사진 세 단계로 제한하고, 화면용과 저장용 렌더러를 나누지 않고 같은 Canvas를 1080px 출력 해상도로 렌더했습니다.",
+      "result": "런타임 의존성을 2개로 유지하면서 단위 테스트 70개와 실제 브라우저 E2E 28개로 픽셀·모바일·상호작용·대비를 검사하고 GitHub Pages에 공개했습니다.",
+      "technologies": [
+        "React 19",
+        "Vite 8",
+        "Canvas API",
+        "Playwright"
+      ],
+      "gallery": [
+        {
+          "src": "assets/t03-hero.webp",
+          "alt": "ALTER EGO 첫 화면. 왼쪽에 같은 사진, 다른 시대, 다른 나라는 제목이 있고 오른쪽에서 2004·2012·2026 시대를 탐색한다.",
+          "label": "첫 화면 시대 탐색",
+          "width": 1400,
+          "height": 958
+        },
+        {
+          "src": "assets/t03-studio.webp",
+          "alt": "ALTER EGO Studio 화면. 왼쪽에서 스타일을 편집하고 가운데에서 출력 해상도 그대로의 결과를 미리 보며 오른쪽에서 템플릿을 저장한다.",
+          "label": "편집과 미리보기",
+          "width": 1200,
+          "height": 386
+        }
+      ],
+      "links": [
+        {
+          "label": "사이트 체험",
+          "href": "https://myeongjundev.github.io/t03-card-studio/"
+        },
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/t03-card-studio"
         }
       ],
       "status": "published"
