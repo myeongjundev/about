@@ -113,6 +113,12 @@ class SiteTests(unittest.TestCase):
             self.assertNotIn("fonts.gstatic.com", content)
             self.assertNotIn("raw.githubusercontent.com", content)
             self.assertNotIn("myeongjundev.github.io/assets", content)
+            self.assertEqual(content.count('class="story-step-link'), 3)
+            self.assertIn('href="#story-setback"', content)
+            self.assertIn('href="#story-recovery"', content)
+            self.assertIn('href="#story-now"', content)
+            self.assertIn('aria-label="이야기 단계 바로가기"', content)
+            self.assertIn('aria-current="step"', content)
 
     def test_selected_builds_link_to_existing_project_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

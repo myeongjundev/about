@@ -8,6 +8,10 @@
   const craftCaption = document.querySelector('.craft-caption');
   const craftOutput = document.querySelector('.craft-output');
   const navLinks = [...document.querySelectorAll('.entrances a')];
+  const storyStepLinks = [...document.querySelectorAll('.story-step-link')];
+  const storyStages = storyStepLinks
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
   const sections = navLinks
     .map((link) => document.querySelector(link.getAttribute('href')))
     .filter(Boolean);
@@ -125,6 +129,38 @@
     { rootMargin: '-20% 0px -65% 0px' }
   );
   sections.forEach((section) => sectionObserver.observe(section));
+
+  function selectStoryStep(activeLink) {
+    storyStepLinks.forEach((link) => {
+      const active = link === activeLink;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'step');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  storyStepLinks.forEach((link) => {
+    link.addEventListener('click', () => selectStoryStep(link));
+  });
+
+  const hashStoryLink = storyStepLinks.find(
+    (link) => link.getAttribute('href') === window.location.hash
+  );
+  if (hashStoryLink) selectStoryStep(hashStoryLink);
+
+  const storyStepObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const activeLink = storyStepLinks.find(
+          (link) => link.getAttribute('href') === `#${entry.target.id}`
+        );
+        if (activeLink) selectStoryStep(activeLink);
+      });
+    },
+    { rootMargin: '-22% 0px -62% 0px', threshold: 0.05 }
+  );
+  storyStages.forEach((stage) => storyStepObserver.observe(stage));
 
   requestAnimationFrame(() => document.body.classList.add('is-ready'));
 })();

@@ -117,6 +117,18 @@ def render_project_rail(data: dict[str, object]) -> str:
 
 def render_sidebar(data: dict[str, object], draft: bool) -> str:
     profile = data["profile"]
+    story_steps = []
+    for index, segment in enumerate(data["story"]["segments"], start=1):
+        current = ' class="story-step-link is-active" aria-current="step"' if index == 1 else ' class="story-step-link"'
+        story_steps.append(
+            f'''          <li>
+            <a{current} href="#story-{esc(segment['id'])}" data-story-step="{esc(segment['id'])}">
+              <span class="story-step-marker mono" aria-hidden="true">0{index}</span>
+              <span class="story-step-copy"><strong>{esc(segment['stage'])}</strong><small class="mono">{esc(segment['period'])}</small></span>
+              <span class="story-step-arrow" aria-hidden="true">↘</span>
+            </a>
+          </li>'''
+        )
     technologies = profile.get("technologies") or {}
     stack = []
     for category, items in technologies.items():
@@ -170,6 +182,16 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         <a href="#work"><span class="nav-index">03</span><span>대표작</span><span class="arrow" aria-hidden="true">↗</span></a>
         <a href="#experience"><span class="nav-index">04</span><span>경력</span><span class="arrow" aria-hidden="true">↗</span></a>
         <a href="#documents"><span class="nav-index">05</span><span>문서</span><span class="arrow" aria-hidden="true">↗</span></a>
+      </nav>
+
+      <nav class="story-steps" aria-label="이야기 단계 바로가기">
+        <div class="story-steps-head">
+          <span class="mono">STORY PATH</span>
+          <span class="mono">01 — 03</span>
+        </div>
+        <ol>
+{chr(10).join(story_steps)}
+        </ol>
       </nav>
 
       <dl class="facts">
