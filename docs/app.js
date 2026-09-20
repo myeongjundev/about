@@ -124,7 +124,7 @@
     item.addEventListener('toggle', () => requestAnimationFrame(measureProgress));
   });
   requestAnimationFrame(() => {
+    measureProgress();
     document.body.classList.add('is-ready');
-    requestAnimationFrame(measureProgress);
   });
 })();
