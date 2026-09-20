@@ -14,6 +14,12 @@
   --accent-soft: #dfe7ff;
   --signal: #a8f0cc;
   --signal-ink: #07583c;
+  /* 작업 단계 색: 설계 → 구현 → 배포 순으로 옮겨 간다. */
+  --step-1: #2457ff;
+  --step-2: #6d28d9;
+  --step-3: #0b7a5e;
+  /* 강조색 위에 올리는 글자색. 다크에서는 강조색이 밝아지므로 뒤집는다. */
+  --on-accent: #ffffff;
   --warning: #fff0bf;
   --warning-ink: #704b00;
   --shadow: 0 24px 70px rgba(30, 42, 70, 0.1);
@@ -39,6 +45,10 @@
   --signal-ink: #c4f9e4;
   --warning: #4c3b12;
   --warning-ink: #ffdf84;
+  --step-1: #7d9cff;
+  --step-2: #b79cff;
+  --step-3: #5fd7ab;
+  --on-accent: #0b1020;
   --shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
 }
 
@@ -394,7 +404,8 @@ p { margin: 0; }
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
   border-radius: 17px;
-  background: linear-gradient(145deg, var(--accent), #6c40e8);
+  /* 테마를 타지 않는 고정 색이어야 흰 글자가 두 테마에서 모두 읽힌다. */
+  background: linear-gradient(145deg, #2457ff, #6c40e8);
   box-shadow: 0 12px 26px color-mix(in srgb, var(--accent) 22%, transparent);
   color: #fff;
   font-family: var(--mono);
@@ -474,33 +485,20 @@ p { margin: 0; }
 .craft-output { color: var(--accent-strong); }
 
 .craft-path {
-  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding: 7px;
-}
-
-.craft-path::before {
-  position: absolute;
-  left: 17%;
-  right: 17%;
-  top: 29px;
-  height: 1px;
-  background: var(--line-strong);
-  content: '';
-  pointer-events: none;
+  padding: 9px 7px 7px;
 }
 
 .craft-path button {
   position: relative;
-  z-index: 1;
   display: flex;
-  min-height: 54px;
-  padding: 7px 4px;
+  min-height: 62px;
+  padding: 8px 4px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
-  gap: 5px;
+  gap: 7px;
   border: 0;
   border-radius: 11px;
   background: transparent;
@@ -511,40 +509,74 @@ p { margin: 0; }
   transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
-.craft-path button::before {
-  position: absolute;
-  left: 50%;
-  top: 20px;
-  z-index: -1;
-  width: 9px;
-  height: 9px;
-  border: 2px solid var(--surface-soft);
-  border-radius: 50%;
-  background: var(--faint);
-  content: '';
-  transform: translate(-50%, -50%);
-  transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-}
+.craft-path button[data-craft='design'] { --step: var(--step-1); }
+.craft-path button[data-craft='build'] { --step: var(--step-2); }
+.craft-path button[data-craft='ship'] { --step: var(--step-3); }
 
+/* 번호를 그대로 배지로 쓴다. 예전에는 번호와 점이 겹쳐 찍혔다. */
 .craft-path button span {
-  margin-bottom: 12px;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid var(--step);
+  border-radius: 50%;
+  background: var(--surface-solid);
+  color: var(--step);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
-.craft-path button:hover { color: var(--ink); transform: translateY(-1px); }
+/* 단계 사이를 잇는 선. 지나온 구간은 그 단계 색으로 남는다. */
+.craft-path button::after {
+  position: absolute;
+  left: calc(50% + 17px);
+  right: calc(-50% + 17px);
+  top: 21px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--step);
+  content: '';
+  pointer-events: none;
+  transition: background-color 180ms ease;
+}
 
+.craft-path button:last-child::after { content: none; }
+
+/* 현재 단계: 색을 채우고 테를 두른다. */
 .craft-path button[aria-pressed='true'] {
   background: var(--surface-solid);
-  color: var(--accent-strong);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--ink);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--step) 14%, transparent);
 }
 
-.craft-path button[aria-pressed='true']::before {
-  background: var(--accent);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 16%, transparent);
-  transform: translate(-50%, -50%) scale(1.08);
+.craft-path button[aria-pressed='true'] span {
+  background: var(--step);
+  color: var(--on-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--step) 18%, transparent);
+  transform: scale(1.06);
 }
+
+/* 아직 오지 않은 단계는 회색으로 물러나 있는다. */
+.craft-path button[aria-pressed='true'] ~ button { color: var(--faint); }
+
+.craft-path button[aria-pressed='true'] ~ button span {
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--faint);
+}
+
+.craft-path button[aria-pressed='true']::after,
+.craft-path button[aria-pressed='true'] ~ button::after { background: var(--line-strong); }
+
+.craft-path button:hover { color: var(--ink); transform: translateY(-1px); }
+.craft-path button:hover span { border-color: var(--step); color: var(--step); }
+
+/* 머리말의 현재 단계 표시도 같은 색을 따른다. */
+.craft-console:has([data-craft='design'][aria-pressed='true']) .craft-output { color: var(--step-1); }
+.craft-console:has([data-craft='build'][aria-pressed='true']) .craft-output { color: var(--step-2); }
+.craft-console:has([data-craft='ship'][aria-pressed='true']) .craft-output { color: var(--step-3); }
 
 .craft-caption {
   min-height: 54px;
@@ -663,7 +695,7 @@ p { margin: 0; }
 .entrances a.is-active .nav-index {
   border-color: var(--accent);
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
