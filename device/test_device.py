@@ -119,6 +119,10 @@ class SiteTests(unittest.TestCase):
             self.assertIn('href="#story-now"', content)
             self.assertIn('aria-label="이야기 단계 바로가기"', content)
             self.assertIn('aria-current="step"', content)
+            self.assertGreater(
+                content.index('class="story-steps story-steps-rail"'),
+                content.index('</main>'),
+            )
 
     def test_selected_builds_link_to_existing_project_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

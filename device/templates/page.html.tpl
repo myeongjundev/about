@@ -27,6 +27,7 @@
     <main id="main-content" class="content">
 {{MAIN}}
     </main>
+{{STORY_STEPS}}
   </div>
 </body>
 </html>
