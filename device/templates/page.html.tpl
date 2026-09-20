@@ -27,7 +27,7 @@
     <main id="main-content" class="content">
 {{MAIN}}
     </main>
-{{STORY_STEPS}}
+{{SECTION_RAIL}}
   </div>
 </body>
 </html>

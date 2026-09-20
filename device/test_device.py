@@ -113,18 +113,13 @@ class SiteTests(unittest.TestCase):
             self.assertNotIn("fonts.gstatic.com", content)
             self.assertNotIn("raw.githubusercontent.com", content)
             self.assertNotIn("myeongjundev.github.io/assets", content)
-            self.assertEqual(content.count('class="story-step-link'), 3)
-            self.assertIn('href="#story-setback"', content)
-            self.assertIn('href="#story-recovery"', content)
-            self.assertIn('href="#story-now"', content)
-            self.assertIn('aria-label="이야기 단계 바로가기"', content)
-            self.assertIn('aria-current="step"', content)
+            self.assertIn('aria-label="섹션 바로가기"', content)
             self.assertGreater(
-                content.index('class="story-steps story-steps-rail"'),
+                content.index('class="entrances entrances-rail"'),
                 content.index('</main>'),
             )
 
-    def test_entrances_use_the_story_path_card_shape(self) -> None:
+    def test_both_section_navigations_list_the_same_five_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             output_dir = Path(temp)
             shutil.copytree(REPO / "docs" / "files", output_dir / "files")
@@ -136,18 +131,24 @@ class SiteTests(unittest.TestCase):
                 False,
             )
             content = output.read_text(encoding="utf-8")
-            self.assertIn('class="entrances-head"', content)
-            self.assertIn("SECTIONS", content)
-            self.assertIn("01 — 05", content)
-            self.assertEqual(content.count('class="nav-index mono"'), 5)
-            self.assertEqual(content.count('class="entrance-copy"'), 5)
+            self.assertEqual(content.count('class="entrances-head"'), 2)
+            self.assertEqual(content.count("01 — 05"), 2)
+            self.assertEqual(content.count('class="entrance-indicator"'), 2)
+            self.assertEqual(content.count('class="nav-index mono"'), 10)
+            self.assertEqual(content.count('class="entrance-copy"'), 10)
             for anchor in ("story", "numbers", "work", "experience", "documents"):
-                self.assertIn(f'href="#{anchor}"', content)
+                self.assertEqual(content.count(f'href="#{anchor}"'), 2)
 
             styles = (REPO / "docs" / "styles.css").read_text(encoding="utf-8")
             mobile = styles[styles.index("@media (max-width: 880px)") :]
             side_rule = mobile[mobile.index("  .side {") : mobile.index("  .side {") + 420]
             self.assertIn("backdrop-filter: none", side_rule)
+            # 레일도 .entrances라서, 하단 고정 바 규칙보다 뒤에서 접어야 한다.
+            self.assertIn(".entrances.entrances-rail { display: none; }", mobile)
+            self.assertGreater(
+                mobile.index(".entrances.entrances-rail { display: none; }"),
+                mobile.index("  .entrances {"),
+            )
 
     def test_selected_builds_link_to_existing_project_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

@@ -124,54 +124,34 @@ SECTION_ENTRANCES = (
 )
 
 
-def render_entrances() -> str:
+def render_entrances(variant: str = "side") -> str:
+    rail = variant == "rail"
+    indent = "    " if rail else "      "
     items = []
     for index, (anchor, label) in enumerate(SECTION_ENTRANCES, start=1):
         items.append(
-            f'''          <li>
-            <a href="#{anchor}">
-              <span class="nav-index mono" aria-hidden="true">{index:02d}</span>
-              <span class="entrance-copy">{esc(label)}</span>
-              <span class="arrow" aria-hidden="true">↗</span>
-            </a>
-          </li>'''
+            f'''{indent}    <li>
+{indent}      <a href="#{anchor}">
+{indent}        <span class="nav-index mono" aria-hidden="true">{index:02d}</span>
+{indent}        <span class="entrance-copy">{esc(label)}</span>
+{indent}        <span class="arrow" aria-hidden="true">↗</span>
+{indent}      </a>
+{indent}    </li>'''
         )
 
     last = f"{len(SECTION_ENTRANCES):02d}"
-    return f'''      <nav class="entrances" aria-label="바로 가기">
-        <div class="entrances-head">
-          <span class="mono">SECTIONS</span>
-          <span class="mono">01 — {last}</span>
-        </div>
-        <ol>
+    classes = "entrances entrances-rail" if rail else "entrances"
+    label_text = "섹션 바로가기" if rail else "바로 가기"
+    return f'''{indent}<nav class="{classes}" aria-label="{label_text}">
+{indent}  <div class="entrances-head">
+{indent}    <span class="mono">SECTIONS</span>
+{indent}    <span class="mono">01 — {last}</span>
+{indent}  </div>
+{indent}  <ol>
+{indent}    <span class="entrance-indicator" aria-hidden="true"></span>
 {chr(10).join(items)}
-        </ol>
-      </nav>'''
-
-
-def render_story_steps(data: dict[str, object]) -> str:
-    story_steps = []
-    for index, segment in enumerate(data["story"]["segments"], start=1):
-        current = ' class="story-step-link is-active" aria-current="step"' if index == 1 else ' class="story-step-link"'
-        story_steps.append(
-            f'''          <li>
-            <a{current} href="#story-{esc(segment['id'])}" data-story-step="{esc(segment['id'])}">
-              <span class="story-step-marker mono" aria-hidden="true">0{index}</span>
-              <span class="story-step-copy"><strong>{esc(segment['stage'])}</strong><small class="mono">{esc(segment['period'])}</small></span>
-              <span class="story-step-arrow" aria-hidden="true">↘</span>
-            </a>
-          </li>'''
-        )
-
-    return f'''    <nav class="story-steps story-steps-rail" aria-label="이야기 단계 바로가기">
-      <div class="story-steps-head">
-        <span class="mono">STORY PATH</span>
-        <span class="mono">01 — 03</span>
-      </div>
-      <ol>
-{chr(10).join(story_steps)}
-      </ol>
-    </nav>'''
+{indent}  </ol>
+{indent}</nav>'''
 
 
 def render_sidebar(data: dict[str, object], draft: bool) -> str:
@@ -490,7 +470,7 @@ def build(data_path: Path, output: Path, template_path: Path, draft: bool) -> No
         "{{DRAFT_BANNER}}": banner,
         "{{SIDEBAR}}": render_sidebar(data, draft),
         "{{MAIN}}": main,
-        "{{STORY_STEPS}}": render_story_steps(data),
+        "{{SECTION_RAIL}}": render_entrances("rail"),
     }
     for token, replacement in replacements.items():
         template = template.replace(token, replacement)

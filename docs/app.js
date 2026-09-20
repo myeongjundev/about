@@ -8,10 +8,6 @@
   const craftCaption = document.querySelector('.craft-caption');
   const craftOutput = document.querySelector('.craft-output');
   const navLinks = [...document.querySelectorAll('.entrances a')];
-  const storyStepLinks = [...document.querySelectorAll('.story-step-link')];
-  const storyStages = storyStepLinks
-    .map((link) => document.querySelector(link.getAttribute('href')))
-    .filter(Boolean);
   const sections = navLinks
     .map((link) => document.querySelector(link.getAttribute('href')))
     .filter(Boolean);
@@ -114,6 +110,29 @@
   );
   document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
 
+  const navs = [...document.querySelectorAll('.entrances')].filter((nav) =>
+    nav.querySelector('.entrance-indicator')
+  );
+  navs.forEach((nav) => nav.classList.add('has-indicator'));
+
+  function moveIndicator(nav) {
+    const indicator = nav.querySelector('.entrance-indicator');
+    const active = nav.querySelector('a.is-active');
+    if (!active) {
+      indicator.style.opacity = '0';
+      return;
+    }
+    const item = active.parentElement;
+    indicator.style.width = `${item.offsetWidth}px`;
+    indicator.style.height = `${item.offsetHeight}px`;
+    indicator.style.transform = `translate(${item.offsetLeft}px, ${item.offsetTop}px)`;
+    indicator.style.opacity = '1';
+  }
+
+  function moveIndicators() {
+    navs.forEach(moveIndicator);
+  }
+
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -125,42 +144,43 @@
           else link.removeAttribute('aria-current');
         });
       });
+      moveIndicators();
     },
     { rootMargin: '-20% 0px -65% 0px' }
   );
   sections.forEach((section) => sectionObserver.observe(section));
 
-  function selectStoryStep(activeLink) {
-    storyStepLinks.forEach((link) => {
-      const active = link === activeLink;
-      link.classList.toggle('is-active', active);
-      if (active) link.setAttribute('aria-current', 'step');
-      else link.removeAttribute('aria-current');
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      const target = link.getAttribute('href');
+      navLinks.forEach((other) => {
+        const active = other.getAttribute('href') === target;
+        other.classList.toggle('is-active', active);
+        if (active) other.setAttribute('aria-current', 'location');
+        else other.removeAttribute('aria-current');
+      });
+      moveIndicators();
     });
-  }
-
-  storyStepLinks.forEach((link) => {
-    link.addEventListener('click', () => selectStoryStep(link));
   });
 
-  const hashStoryLink = storyStepLinks.find(
-    (link) => link.getAttribute('href') === window.location.hash
-  );
-  if (hashStoryLink) selectStoryStep(hashStoryLink);
+  // 관찰자가 처음 반응하기 전에도 표시가 보이도록, 주소의 앵커나 첫 항목을 켜 둔다.
+  if (navLinks.length && !navLinks.some((link) => link.classList.contains('is-active'))) {
+    const fromHash = navLinks.find((link) => link.getAttribute('href') === window.location.hash);
+    const target = (fromHash || navLinks[0]).getAttribute('href');
+    navLinks.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === target));
+  }
 
-  const storyStepObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const activeLink = storyStepLinks.find(
-          (link) => link.getAttribute('href') === `#${entry.target.id}`
-        );
-        if (activeLink) selectStoryStep(activeLink);
-      });
-    },
-    { rootMargin: '-22% 0px -62% 0px', threshold: 0.05 }
-  );
-  storyStages.forEach((stage) => storyStepObserver.observe(stage));
+  // 글꼴 적용이나 폭 변화로 목록 크기가 달라지면 표시도 다시 맞춘다.
+  let resizeFrame = 0;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(moveIndicators);
+  });
+  if ('ResizeObserver' in window) {
+    const listObserver = new ResizeObserver(() => moveIndicators());
+    navs.forEach((nav) => listObserver.observe(nav.querySelector('ol')));
+  }
+  moveIndicators();
 
   requestAnimationFrame(() => document.body.classList.add('is-ready'));
 })();
