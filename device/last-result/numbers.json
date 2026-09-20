@@ -1,0 +1,26 @@
+{
+  "attendance": {
+    "asOf": "2026-09-03",
+    "denominator": "attendance.json의 확정 수업일",
+    "detail": "지각 1 · 결석 0",
+    "label": "출석일 / 확정 수업일",
+    "source": "내 출석 기록",
+    "value": "3 / 3일"
+  },
+  "ritual": {
+    "asOf": "2026-09-03",
+    "denominator": "ritual.json에 포함된 기록일",
+    "detail": "마무리 리추얼 2일",
+    "label": "아침 리추얼 작성일 / 기록일",
+    "source": "내 리추얼 기록",
+    "value": "3 / 3일"
+  },
+  "submissions": {
+    "asOf": "2026-09-03",
+    "denominator": "submissions.csv의 제출 대상 과제",
+    "detail": "제출 완료 3건",
+    "label": "기한 안에 낸 과제 / 제출 대상 과제",
+    "source": "내 제출 현황",
+    "value": "2 / 3건"
+  }
+}

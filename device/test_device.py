@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -70,13 +71,37 @@ class SiteTests(unittest.TestCase):
 
     def test_final_site_rejects_draft_content(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
+            content = json.loads(
+                (REPO / "content" / "approved.json").read_text(encoding="utf-8")
+            )
+            content["draft"] = True
+            content_path = Path(temp) / "draft.json"
+            content_path.write_text(
+                json.dumps(content, ensure_ascii=False), encoding="utf-8"
+            )
             with self.assertRaises(ValueError):
                 site_module.build(
-                    REPO / "content" / "approved.json",
+                    content_path,
                     Path(temp) / "index.html",
                     BASE / "templates" / "page.html.tpl",
                     False,
                 )
+
+    def test_final_site_builds_without_draft_markers(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            output_dir = Path(temp)
+            shutil.copytree(REPO / "docs" / "files", output_dir / "files")
+            output = output_dir / "index.html"
+            site_module.build(
+                REPO / "content" / "approved.json",
+                output,
+                BASE / "templates" / "page.html.tpl",
+                False,
+            )
+            content = output.read_text(encoding="utf-8")
+            self.assertNotIn("data-draft=", content)
+            self.assertNotIn("작업 중인 미리보기", content)
+            self.assertIn('href="files/resume-kim-myeongjun.docx"', content)
 
 
 class ApplyNumbersTests(unittest.TestCase):
@@ -145,14 +170,11 @@ class ValidationTests(unittest.TestCase):
         )
         self.assertEqual(problems, ["내부 id 노출: now"])
 
-    def test_current_draft_passes_structural_validation(self) -> None:
+    def test_current_content_passes_structural_validation(self) -> None:
         self.assertEqual(validation_module.validate(REPO, True, False), [])
 
-    def test_current_draft_cannot_be_released(self) -> None:
-        problems = validation_module.validate(REPO, False, False)
-        self.assertFalse(any("numbers.submissions" in problem for problem in problems))
-        self.assertFalse(any("t13-app.plannedDate" in problem for problem in problems))
-        self.assertTrue(any("approved.json이 draft 상태" in problem for problem in problems))
+    def test_current_content_passes_release_validation(self) -> None:
+        self.assertEqual(validation_module.validate(REPO, False, False), [])
 
 
 class ReleaseTests(unittest.TestCase):

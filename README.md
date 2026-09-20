@@ -7,9 +7,9 @@ SKT ALEPH 마지막 과제 A(12번)의 작업 저장소입니다.
 
 ## 현재 상태
 
-**전체 재설계와 공통 기반 구현 완료, 본인 확인 대기 (2026-09-20)** — 승인 데이터에서 사이트와
-문서 3종을 만들고, 기록 집계·반복 실행·릴리스 검사를 수행하는 구조를 구현했습니다. 사이트는
-반응형 편집형 포트폴리오로 다시 설계했으며, 남은 사실값을 확보한 뒤 최종 공개합니다.
+**최종 공개 빌드 완료 (2026-09-20)** — 승인 데이터에서 반응형 포트폴리오와 DOCX 문서 3종을
+생성했고, 기록 집계·반복 실행·접근성·외부 링크·릴리스 검사를 통과했습니다. `docs/`에는
+GitHub Pages용 최종 사이트와 내려받을 문서가 있으며, 제출용 ZIP은 로컬에서 재현할 수 있습니다.
 
 - 요구사항·통과 기준 정리: [`planning/REQUIREMENTS.md`](planning/REQUIREMENTS.md)
 - 새 단일 기준 설계: [`planning/T12-MASTER-PLAN.md`](planning/T12-MASTER-PLAN.md)
@@ -21,13 +21,15 @@ SKT ALEPH 마지막 과제 A(12번)의 작업 저장소입니다.
 ```text
 python -m unittest device/test_device.py -v
 python device/check_repeat.py
-python device/build_site.py --draft
-python device/validate_release.py --allow-draft
+python documents/build.py
+python device/build_site.py
+python device/validate_release.py --check-urls
+python release/build_release.py
 ```
 
-최종 승인 전에는 `--draft`와 `--allow-draft`를 제거한 빌드가 실패하는 것이 정상입니다.
+승인 데이터가 다시 초안 상태가 되거나 문서가 누락되면 최종 빌드와 릴리스 생성이 실패합니다.
 
-## 예정 구조
+## 저장소 구조
 
 ```text
 docs/              공개 사이트 (GitHub Pages: main 브랜치 /docs)

@@ -150,6 +150,11 @@ def base_document(title: str, name: str) -> Document:
         style.paragraph_format.space_before = Pt(before)
         style.paragraph_format.space_after = Pt(after)
         style.paragraph_format.keep_with_next = True
+        if style_name == "Title":
+            paragraph_properties = style._element.get_or_add_pPr()
+            border = paragraph_properties.find(qn("w:pBdr"))
+            if border is not None:
+                paragraph_properties.remove(border)
 
     title_paragraph = document.add_paragraph(style="Title")
     title_paragraph.add_run(title)
@@ -276,9 +281,11 @@ def build_personal_statement(data: dict[str, object], output: Path, draft: bool)
         )
         meta = document.add_paragraph()
         meta.paragraph_format.space_after = Pt(5)
+        meta.paragraph_format.keep_with_next = True
         meta_run = meta.add_run(f"{segment['period']}  ·  {segment['ability']}")
         set_run_font(meta_run, 9.8, True, BLUE)
         summary = document.add_paragraph()
+        summary.paragraph_format.keep_with_next = True
         run = summary.add_run(segment["summary"])
         set_run_font(run, 11.5, True)
         body = document.add_paragraph(segment["body"])
