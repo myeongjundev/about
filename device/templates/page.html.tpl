@@ -15,9 +15,6 @@
   <meta name="twitter:card" content="summary">
   <link rel="canonical" href="https://myeongjundev.github.io/about/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="styles.css?v={{ASSET_VERSION}}">
   <script src="app.js?v={{ASSET_VERSION}}" defer></script>
 </head>

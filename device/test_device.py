@@ -106,6 +106,8 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(content.count('data-craft="design"'), 1)
             self.assertIn('data-craft="design" data-index="01"', content)
             self.assertIn('aria-pressed="true"', content)
+            self.assertNotIn("fonts.googleapis.com", content)
+            self.assertNotIn("fonts.gstatic.com", content)
 
     def test_selected_builds_link_to_existing_project_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

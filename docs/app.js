@@ -56,25 +56,39 @@
 
   if (profileCard && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     let pointerFrame = 0;
+    let profileRect = null;
+    profileCard.addEventListener('pointerenter', () => {
+      profileRect = profileCard.getBoundingClientRect();
+    });
     profileCard.addEventListener('pointermove', (event) => {
+      if (!profileRect) profileRect = profileCard.getBoundingClientRect();
+      const pointerX = event.clientX - profileRect.left;
+      const pointerY = event.clientY - profileRect.top;
       cancelAnimationFrame(pointerFrame);
       pointerFrame = requestAnimationFrame(() => {
-        const rect = profileCard.getBoundingClientRect();
-        profileCard.style.setProperty('--pointer-x', `${event.clientX - rect.left}px`);
-        profileCard.style.setProperty('--pointer-y', `${event.clientY - rect.top}px`);
+        profileCard.style.setProperty('--pointer-x', `${pointerX}px`);
+        profileCard.style.setProperty('--pointer-y', `${pointerY}px`);
         profileCard.classList.add('is-pointer-active');
       });
     });
     profileCard.addEventListener('pointerleave', () => {
       cancelAnimationFrame(pointerFrame);
+      profileRect = null;
       profileCard.classList.remove('is-pointer-active');
     });
+    window.addEventListener('scroll', () => { profileRect = null; }, { passive: true });
   }
 
+  let scrollable = 0;
+
   function updateProgress() {
-    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const value = scrollable > 0 ? window.scrollY / scrollable : 0;
     if (progress) progress.style.transform = `scaleX(${Math.min(1, Math.max(0, value))})`;
+  }
+
+  function measureProgress() {
+    scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    updateProgress();
   }
 
   const revealObserver = new IntersectionObserver(
@@ -105,6 +119,12 @@
   sections.forEach((section) => sectionObserver.observe(section));
 
   window.addEventListener('scroll', updateProgress, { passive: true });
-  updateProgress();
-  requestAnimationFrame(() => document.body.classList.add('is-ready'));
+  window.addEventListener('resize', measureProgress, { passive: true });
+  document.querySelectorAll('.work-case').forEach((item) => {
+    item.addEventListener('toggle', () => requestAnimationFrame(measureProgress));
+  });
+  requestAnimationFrame(() => {
+    document.body.classList.add('is-ready');
+    requestAnimationFrame(measureProgress);
+  });
 })();
