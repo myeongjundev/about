@@ -11,13 +11,17 @@ from pathlib import Path
 from docx import Document
 from docx.enum.section import WD_SECTION
 from docx.enum.table import WD_ALIGN_VERTICAL, WD_TABLE_ALIGNMENT
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Inches, Mm, Pt, RGBColor
 
 
 FONT = "Malgun Gothic"
+# A4 210mm에서 좌우 여백을 뺀 본문 폭. 날짜를 오른쪽 끝에 세울 때 기준이 된다.
+PAGE_MARGIN = Inches(0.75)
+BODY_WIDTH = Mm(210) - PAGE_MARGIN * 2
+LABEL_INDENT = Inches(0.52)
 INK = "1C1917"
 MUTED = "57534E"
 BLUE = "1D4ED8"
@@ -145,15 +149,17 @@ def add_hyperlink(paragraph, text: str, url: str) -> None:
     paragraph._p.append(hyperlink)
 
 
-def base_document(title: str, name: str, subtitle: str | None = None) -> Document:
+def base_document(
+    title: str, name: str, subtitle: str | None = None, links: list[dict] | None = None
+) -> Document:
     document = Document()
     section = document.sections[0]
     section.page_width = Mm(210)
     section.page_height = Mm(297)
-    section.top_margin = Inches(0.72)
-    section.bottom_margin = Inches(0.72)
-    section.left_margin = Inches(0.78)
-    section.right_margin = Inches(0.78)
+    section.top_margin = Inches(0.7)
+    section.bottom_margin = Inches(0.7)
+    section.left_margin = PAGE_MARGIN
+    section.right_margin = PAGE_MARGIN
 
     styles = document.styles
     normal = styles["Normal"]
@@ -189,14 +195,31 @@ def base_document(title: str, name: str, subtitle: str | None = None) -> Documen
             if border is not None:
                 paragraph_properties.remove(border)
 
-    title_paragraph = document.add_paragraph(style="Title")
-    title_paragraph.add_run(title)
-    subtitle_paragraph = document.add_paragraph()
-    subtitle_paragraph.paragraph_format.space_after = Pt(14)
-    run = subtitle_paragraph.add_run(subtitle or name)
-    set_run_font(run, 11, True, MUTED)
+    # 이름을 가장 크게 두고 문서 종류를 오른쪽에 작게 붙인다. 그 아래 한 줄에 직무와 확인
+    # 링크를 모으고 강조색 선으로 닫는다. 해외 이력서의 머리글 구성을 그대로 따랐다.
+    header = document.add_paragraph()
+    header.paragraph_format.space_after = Pt(3)
+    header.paragraph_format.keep_with_next = True
+    header.paragraph_format.tab_stops.add_tab_stop(BODY_WIDTH, WD_TAB_ALIGNMENT.RIGHT)
+    name_run = header.add_run(name)
+    set_run_font(name_run, 23, True, INK)
+    kind_run = header.add_run(f"\t{title}")
+    set_run_font(kind_run, 11, True, MUTED)
 
-    document.core_properties.title = title
+    meta = document.add_paragraph()
+    meta.paragraph_format.space_after = Pt(12)
+    meta.paragraph_format.keep_with_next = True
+    if subtitle:
+        role_run = meta.add_run(subtitle)
+        set_run_font(role_run, 10.5, True, MUTED)
+    for link in links or []:
+        if meta.runs or link is not (links or [])[0]:
+            separator = meta.add_run("   ·   ")
+            set_run_font(separator, 10.5, False, MUTED)
+        add_hyperlink(meta, link["label"], link["href"])
+    set_bottom_border(meta, color=BLUE, size=10)
+
+    document.core_properties.title = f"{name} {title}"
     document.core_properties.author = name
     return document
 
@@ -237,6 +260,69 @@ def add_highlights(document: Document, items: list[str]) -> None:
         set_run_font(run, 10.5)
 
 
+def set_bottom_border(paragraph, color: str = LINE, size: int = 6) -> None:
+    properties = paragraph._p.get_or_add_pPr()
+    borders = OxmlElement("w:pBdr")
+    bottom = OxmlElement("w:bottom")
+    bottom.set(qn("w:val"), "single")
+    bottom.set(qn("w:sz"), str(size))
+    bottom.set(qn("w:space"), "4")
+    bottom.set(qn("w:color"), color)
+    borders.append(bottom)
+    properties.append(borders)
+
+
+def add_section(document: Document, title: str) -> None:
+    """절 제목과 그 아래 가는 선. 해외 이력서가 절을 나누는 가장 흔한 방식이다."""
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.space_before = Pt(15)
+    paragraph.paragraph_format.space_after = Pt(7)
+    paragraph.paragraph_format.keep_with_next = True
+    run = paragraph.add_run(title)
+    set_run_font(run, 11.5, True, INK)
+    set_bottom_border(paragraph)
+
+
+def add_entry(document: Document, title: str, period: str | None) -> None:
+    """항목 제목과 기간. 날짜는 줄 앞이 아니라 오른쪽 끝에 세운다."""
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.space_before = Pt(10)
+    paragraph.paragraph_format.space_after = Pt(2)
+    paragraph.paragraph_format.keep_with_next = True
+    paragraph.paragraph_format.tab_stops.add_tab_stop(BODY_WIDTH, WD_TAB_ALIGNMENT.RIGHT)
+    run = paragraph.add_run(title)
+    set_run_font(run, 11, True, INK)
+    if period:
+        tail = paragraph.add_run(f"\t{period}")
+        set_run_font(tail, 10, False, MUTED)
+
+
+def add_line(document: Document, label: str, value: str, keep: bool = True) -> None:
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.space_after = Pt(2)
+    paragraph.paragraph_format.left_indent = LABEL_INDENT
+    paragraph.paragraph_format.first_line_indent = -LABEL_INDENT
+    paragraph.paragraph_format.keep_with_next = keep
+    label_run = paragraph.add_run(f"{label}  ")
+    set_run_font(label_run, 10, True, MUTED)
+    value_run = paragraph.add_run(value)
+    set_run_font(value_run, 10)
+
+
+def add_links(document: Document, links: list[dict] | None, keep: bool = False) -> None:
+    """확인 링크를 한 줄에 모은다. 줄이 늘어지지 않게 하려는 목적도 있다."""
+    if not links:
+        return
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.space_after = Pt(2)
+    paragraph.paragraph_format.keep_with_next = keep
+    for index, link in enumerate(links):
+        if index:
+            separator = paragraph.add_run("   ·   ")
+            set_run_font(separator, 10, False, MUTED)
+        add_hyperlink(paragraph, link["label"], link["href"])
+
+
 def style_header_row(row) -> None:
     set_repeat_table_header(row)
     for cell in row.cells:
@@ -248,73 +334,59 @@ def style_header_row(row) -> None:
                 set_run_font(run, 9.5, True, "FFFFFF")
 
 
+def header_links(profile: dict, draft: bool) -> list[dict]:
+    """머리글 한 줄에 모을 연락 수단과 공개 주소."""
+    links = []
+    contact = profile.get("contact")
+    if contact and contact.get("href"):
+        links.append(contact)
+    elif not draft:
+        raise ValueError("공개 연락 수단 확정 필요")
+    site = profile.get("site")
+    if site and site.get("href"):
+        links.append(site)
+    return links
+
+
 def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
     profile = data["profile"]
     document = base_document(
-        "김명준 이력서", profile["name"], f"{profile['name']}  ·  {profile['role']}"
+        "이력서", profile["name"], profile["role"], header_links(profile, draft)
     )
     add_intro(document, profile["direction"])
 
     highlights = profile.get("highlights") or []
     if highlights:
-        document.add_heading("핵심 역량", level=1)
+        add_section(document, "핵심 역량")
         add_highlights(document, highlights)
 
-    document.add_heading("연락", level=1)
-    contact = profile.get("contact")
-    add_label_value(document, "연락 수단", text(contact.get("label") if contact else None, draft))
-    if contact and contact.get("href"):
-        paragraph = document.add_paragraph()
-        add_hyperlink(paragraph, contact.get("label") or "연락 링크", contact["href"])
-    site = profile.get("site")
-    if site and site.get("href"):
-        paragraph = document.add_paragraph()
-        add_hyperlink(paragraph, site.get("label") or "공개 사이트", site["href"])
+    # 기술은 표 대신 줄로 적는다. 채용 시스템이 표를 잘못 읽는 일이 있고 줄 수도 아낀다.
+    add_section(document, "기술")
+    for category, items in (profile.get("technologies") or {}).items():
+        add_line(document, category, " · ".join(items), keep=False)
 
-    document.add_heading("교육", level=1)
-    for item in profile.get("education") or []:
-        paragraph = document.add_paragraph()
-        run = paragraph.add_run(item["name"])
-        set_run_font(run, 11, True)
-        paragraph.add_run(f"  {item['period']}")
-
-    document.add_heading("기술", level=1)
-    table = document.add_table(rows=1, cols=2)
-    table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    table.autofit = False
-    table.columns[0].width = Inches(1.4)
-    table.columns[1].width = Inches(5.0)
-    table.rows[0].cells[0].text = "영역"
-    table.rows[0].cells[1].text = "사용 기술"
-    style_header_row(table.rows[0])
-    for index, (category, items) in enumerate(profile.get("technologies", {}).items()):
-        cells = table.add_row().cells
-        cells[0].text = category
-        cells[1].text = " · ".join(items)
-        if index % 2:
-            for cell in cells:
-                set_cell_shading(cell, PALE)
-        for cell in cells:
-            set_cell_margins(cell)
-            cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
-            for paragraph in cell.paragraphs:
-                for run in paragraph.runs:
-                    set_run_font(run, 10)
-    set_table_borders(table)
-
-    document.add_heading("프로젝트와 연구", level=1)
+    add_section(document, "프로젝트와 연구")
     for item in data["experience"]:
-        document.add_heading(text(item.get("title"), draft, "세 번째 항목 확정 필요"), level=2)
-        add_label_value(document, "기간", text(item.get("period"), draft))
-        add_label_value(document, "역할", text(item.get("role"), draft))
+        add_entry(
+            document,
+            text(item.get("title"), draft, "세 번째 항목 확정 필요"),
+            text(item.get("period"), draft),
+        )
+        add_line(document, "역할", text(item.get("role"), draft))
         if item.get("scope"):
-            add_label_value(document, "담당", item["scope"])
-        add_label_value(document, "핵심 결과", text(item.get("result"), draft))
-        technologies = text(" · ".join(item.get("technologies") or []), draft)
-        add_label_value(document, "기술", technologies)
-        for link in item.get("links") or []:
-            paragraph = document.add_paragraph()
-            add_hyperlink(paragraph, link["label"], link["href"])
+            add_line(document, "담당", item["scope"])
+        add_line(document, "결과", text(item.get("result"), draft))
+        add_line(
+            document,
+            "기술",
+            text(" · ".join(item.get("technologies") or []), draft),
+            keep=bool(item.get("links")),
+        )
+        add_links(document, item.get("links"))
+
+    add_section(document, "교육")
+    for item in profile.get("education") or []:
+        add_entry(document, item["name"], item["period"])
 
     save_document(document, output)
 
@@ -323,7 +395,7 @@ def build_personal_statement(data: dict[str, object], output: Path, draft: bool)
     profile = data["profile"]
     story = data["story"]
     document = base_document(
-        "김명준 자기소개서", profile["name"], f"{profile['name']}  ·  {profile['role']}"
+        "자기소개서", profile["name"], profile["role"], header_links(profile, draft)
     )
     add_intro(
         document,
@@ -334,22 +406,25 @@ def build_personal_statement(data: dict[str, object], output: Path, draft: bool)
         ),
     )
     for segment in story["segments"]:
-        document.add_heading(
+        add_entry(
+            document,
             text(segment.get("statementTitle"), draft, f"{segment['stage']}의 자기소개서 제목"),
-            level=1,
+            f"{segment['period']}  ·  {segment['ability']}",
         )
-        meta = document.add_paragraph()
-        meta.paragraph_format.space_after = Pt(5)
-        meta.paragraph_format.keep_with_next = True
-        meta_run = meta.add_run(f"{segment['period']}  ·  {segment['ability']}")
-        set_run_font(meta_run, 9.8, True, BLUE)
         summary = document.add_paragraph()
+        summary.paragraph_format.space_before = Pt(3)
+        summary.paragraph_format.space_after = Pt(4)
         summary.paragraph_format.keep_with_next = True
         run = summary.add_run(segment["summary"])
-        set_run_font(run, 11.5, True)
+        set_run_font(run, 11, True, BLUE)
         body = document.add_paragraph(segment["body"])
-        body.paragraph_format.space_after = Pt(12)
-    document.add_heading("앞으로의 방향", level=1)
+        # 세 장면과 마지막 문장이 한 쪽에 들어가도록 본문만 조금 좁게 짠다.
+        body.paragraph_format.space_after = Pt(7)
+        body.paragraph_format.line_spacing = 1.16
+        for run in body.runs:
+            set_run_font(run, 10.5)
+
+    add_section(document, "앞으로의 방향")
     closing = document.add_paragraph(
         text(
             story.get("lastSentence"),
@@ -357,70 +432,50 @@ def build_personal_statement(data: dict[str, object], output: Path, draft: bool)
             "마지막 문장은 제출자가 직접 작성한 뒤 이 자리에 들어갑니다.",
         )
     )
-    closing.paragraph_format.space_before = Pt(14)
     for run in closing.runs:
-        set_run_font(run, 11.2, True)
-
-    document.add_heading("확인 링크", level=1)
-    for link in (profile.get("site"), profile.get("contact")):
-        if link and link.get("href"):
-            paragraph = document.add_paragraph()
-            add_hyperlink(paragraph, link["label"], link["href"])
+        set_run_font(run, 11, True)
     save_document(document, output)
 
 
 def build_career_description(data: dict[str, object], output: Path, draft: bool) -> None:
     profile = data["profile"]
     document = base_document(
-        "김명준 경력기술서", profile["name"], f"{profile['name']}  ·  {profile['role']}"
+        "경력기술서", profile["name"], profile["role"], header_links(profile, draft)
     )
     add_intro(
         document,
-        "프로젝트마다 맡은 역할과 담당 범위, 상황·행동·결과를 확인 가능한 사실로 정리했습니다.",
+        "프로젝트마다 맡은 역할과 담당 범위, 상황에서 판단과 행동을 거쳐 결과에 이른 과정을"
+        " 확인 가능한 사실로 정리했습니다.",
     )
 
     for item in data["experience"]:
-        document.add_heading(text(item.get("title"), draft, "세 번째 항목 확정 필요"), level=1)
-        add_label_value(document, "기간", text(item.get("period"), draft))
-        add_label_value(document, "역할", text(item.get("role"), draft))
+        add_entry(
+            document,
+            text(item.get("title"), draft, "세 번째 항목 확정 필요"),
+            text(item.get("period"), draft),
+        )
+        add_line(document, "역할", text(item.get("role"), draft))
         if item.get("scope"):
-            add_label_value(document, "담당", item["scope"])
-        add_label_value(document, "능력", text(item.get("ability"), draft))
-
-        table = document.add_table(rows=1, cols=2)
-        table.alignment = WD_TABLE_ALIGNMENT.CENTER
-        table.autofit = False
-        table.columns[0].width = Inches(1.0)
-        table.columns[1].width = Inches(5.4)
-        table.rows[0].cells[0].text = "구분"
-        table.rows[0].cells[1].text = "내용"
-        style_header_row(table.rows[0])
-        for index, (label, field) in enumerate((('상황', 'situation'), ('행동', 'action'), ('결과', 'result'))):
-            cells = table.add_row().cells
-            cells[0].text = label
-            cells[1].text = text(item.get(field), draft)
-            if index % 2:
-                for cell in cells:
-                    set_cell_shading(cell, PALE)
-            for cell in cells:
-                set_cell_margins(cell, top=150, bottom=150)
-                cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
-                for paragraph in cell.paragraphs:
-                    for run in paragraph.runs:
-                        set_run_font(run, 10)
-            for run in cells[0].paragraphs[0].runs:
-                set_run_font(run, 10, True, MUTED)
-        set_table_borders(table)
-
-        technology = document.add_paragraph()
-        technology.paragraph_format.space_before = Pt(6)
-        run = technology.add_run("기술  ")
-        set_run_font(run, 10, True, MUTED)
-        run = technology.add_run(text(" · ".join(item.get("technologies") or []), draft))
-        set_run_font(run, 10)
-        for link in item.get("links") or []:
-            paragraph = document.add_paragraph()
-            add_hyperlink(paragraph, link["label"], link["href"])
+            add_line(document, "담당", item["scope"])
+        add_line(document, "능력", text(item.get("ability"), draft))
+        # 표 대신 줄로 적는다. 판단을 따로 보여 주는 편이 면접에서 이어 말하기 좋다.
+        for label, field in (
+            ("상황", "situation"),
+            ("판단", "rationale"),
+            ("행동", "action"),
+            ("결과", "result"),
+        ):
+            value = item.get(field)
+            if field == "rationale" and not value:
+                continue
+            add_line(document, label, text(value, draft))
+        add_line(
+            document,
+            "기술",
+            text(" · ".join(item.get("technologies") or []), draft),
+            keep=bool(item.get("links")),
+        )
+        add_links(document, item.get("links"))
 
     save_document(document, output)
 

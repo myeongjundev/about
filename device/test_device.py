@@ -104,6 +104,14 @@ class SiteTests(unittest.TestCase):
             self.assertNotIn("data-draft=", content)
             self.assertNotIn("작업 중인 미리보기", content)
             self.assertIn('href="files/resume-kim-myeongjun.docx"', content)
+            # 워드가 없는 사람을 위해 같은 문서를 PDF로도 둔다.
+            self.assertEqual(content.count('class="doc-card"'), 3)
+            for name in (
+                "resume-kim-myeongjun",
+                "personal-statement-kim-myeongjun",
+                "career-description-kim-myeongjun",
+            ):
+                self.assertIn(f'href="files/{name}.pdf"', content)
             self.assertEqual(content.count('data-craft="'), 3)
             self.assertEqual(content.count('data-craft="design"'), 1)
             self.assertIn('data-craft="design" data-index="01"', content)
@@ -295,6 +303,25 @@ class DocumentTests(unittest.TestCase):
                         for column in grid.findall("w:gridCol", namespace)
                     )
                     self.assertLessEqual(table_width, 9360)
+
+    def test_render_manifest_matches_documents_and_has_no_stray_page(self) -> None:
+        """렌더 결과 기록을 검사한다. 쪽 수와 마지막 쪽 채움은 눈으로만 알 수 있던 값이다."""
+        import hashlib
+
+        manifest = json.loads(
+            (REPO / "documents" / "render-manifest.json").read_text(encoding="utf-8")
+        )
+        limits = {"resume-kim-myeongjun": 2, "personal-statement-kim-myeongjun": 2}
+        for name, info in manifest.items():
+            with self.subTest(name=name):
+                source = REPO / "docs" / "files" / f"{name}.docx"
+                with zipfile.ZipFile(source) as archive:
+                    digest = hashlib.sha256(archive.read("word/document.xml")).hexdigest()[:16]
+                # 문서를 고치고 다시 렌더링하지 않으면 여기서 걸린다.
+                self.assertEqual(info["sourceDigest"], digest, "문서를 다시 렌더링해야 합니다")
+                self.assertLessEqual(info["pages"], limits.get(name, 3))
+                # 마지막 쪽에 몇 줄만 남으면 덜 만든 문서로 보인다.
+                self.assertGreater(info["lastPageFill"], 0.25)
 
 
 class ReleaseTests(unittest.TestCase):

@@ -413,13 +413,23 @@ def render_experience(data: dict[str, object], draft: bool) -> str:
 def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
     links = []
     for item in data["documents"]:
-        target = output.parent / item["href"]
-        if target.exists():
-            link = f'<a href="{safe_href(item["href"])}"><span>{esc(item["label"])}</span><span class="fmt">{esc(item["format"])} 내려받기</span></a>'
+        # 워드가 없는 사람도 볼 수 있도록 같은 문서를 DOCX와 PDF로 함께 둔다.
+        formats = [(item["format"], item["href"])]
+        if item.get("pdfHref"):
+            formats.append(("PDF", item["pdfHref"]))
+        missing = [href for _, href in formats if not (output.parent / href).exists()]
+        if not missing:
+            buttons = "".join(
+                f'<a href="{safe_href(href)}">{esc(label)}</a>' for label, href in formats
+            )
+            link = (
+                f'<div class="doc-card"><span class="doc-name">{esc(item["label"])}</span>'
+                f'<span class="doc-formats">{buttons}</span></div>'
+            )
         elif draft:
             link = f'<div class="document-pending"><span>{esc(item["label"])}</span><span class="fmt todo" data-draft="true">파일 생성 전</span></div>'
         else:
-            raise ValueError(f"문서 파일이 없습니다: {item['href']}")
+            raise ValueError(f"문서 파일이 없습니다: {', '.join(missing)}")
         links.append(link)
 
     contact = data["profile"].get("contact")

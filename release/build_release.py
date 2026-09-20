@@ -13,8 +13,11 @@ from pathlib import Path, PurePosixPath
 FIXED_DATE = (2026, 9, 19, 0, 0, 0)
 DOCUMENTS = (
     "resume-kim-myeongjun.docx",
+    "resume-kim-myeongjun.pdf",
     "personal-statement-kim-myeongjun.docx",
+    "personal-statement-kim-myeongjun.pdf",
     "career-description-kim-myeongjun.docx",
+    "career-description-kim-myeongjun.pdf",
 )
 
 

@@ -1,0 +1,28 @@
+{
+  "resume-kim-myeongjun": {
+    "pages": 2,
+    "charsPerPage": [
+      1734,
+      1088
+    ],
+    "lastPageFill": 0.627,
+    "sourceDigest": "7e8a7806286eafce"
+  },
+  "personal-statement-kim-myeongjun": {
+    "pages": 1,
+    "charsPerPage": [
+      3697
+    ],
+    "lastPageFill": 1.0,
+    "sourceDigest": "7bec4402a6922b10"
+  },
+  "career-description-kim-myeongjun": {
+    "pages": 2,
+    "charsPerPage": [
+      2019,
+      2052
+    ],
+    "lastPageFill": 1.016,
+    "sourceDigest": "f3bf978667524402"
+  }
+}

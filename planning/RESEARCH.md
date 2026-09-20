@@ -51,8 +51,25 @@
 - 튜토리얼성 결과물보다 협업(CLOV)과 연구(10번 논문)처럼 **왜 그렇게 했는지** 설명할 수 있는 작업을 앞에 둔다.
 - 이력서 문서는 첫 화면에서 한 번에 받을 수 있게 한다.
 
+## 문서 3종 지면 조사 (2026-09-20)
+
+사이트와 달리 문서는 해외 채용 문서 관례를 따랐다. 조사에서 반복해서 나온 기준은 다음과 같다.
+
+| 기준 | 내용 | 문서에 반영한 방식 |
+|---|---|---|
+| 분량 | 신입·초기 경력은 1쪽, 길어도 2쪽 | 이력서 2쪽, 자기소개서 1쪽, 경력기술서 2쪽 |
+| 단 구성 | 한 열. 표로 본문을 배치하지 않는다(채용 시스템이 잘못 읽음) | 기술 표와 상황·행동·결과 표를 줄 목록으로 교체 |
+| 날짜 | 줄 앞에 두지 않고 오른쪽 끝에 맞춘다 | 오른쪽 탭 정렬 |
+| 글자 | 10~12pt, 여백 0.5~1인치 | 본문 10~10.5pt, 여백 0.7~0.75인치 |
+| 머리글 | 이름을 크게, 그 아래 직무와 연락·포트폴리오 링크 한 줄 | 세 문서 공통 머리글 |
+| 서술 | 행동과 결과를 수치와 함께 | 담당·결과 줄에 수치 유지, 경력기술서에 판단 추가 |
+| 배포 | PDF가 기본 | DOCX와 PDF를 함께 공개 |
+
 ## 출처
 
+- [BeamJobs — Software Engineer Resume Examples & Guide](https://www.beamjobs.com/resumes/software-engineer-resume-examples) (한 쪽 원칙, 한 열, 역순 배치, 표·그래픽 배제)
+- [Enhancv — Software Engineer Resume Examples & Guide](https://enhancv.com/resume-examples/software-engineer/)
+- [ResumeStudio — Harvard CV Template 정리](https://resumestudio.io/blog/harvard-cv-template) (10~12pt, 0.5~1인치 여백, 날짜는 오른쪽)
 - [HR Dive — Eye tracking study shows recruiters look at resumes for 7 seconds](https://www.hrdive.com/news/eye-tracking-study-shows-recruiters-look-at-resumes-for-7-seconds/541582/)
 - [Ladders — Eye-Tracking Study 2018 (PDF)](https://www.theladders.com/static/images/basicSite/pdfs/TheLadders-EyeTracking-StudyC2.pdf)
 - [Codecademy — Junior Developer Portfolio: Examples + Must-Haves](https://www.codecademy.com/resources/blog/what-to-include-in-a-junior-developer-portfolio)

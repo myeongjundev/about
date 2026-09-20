@@ -1187,7 +1187,7 @@ p { margin: 0; }
   gap: 12px;
 }
 
-.doc-list a,
+.doc-card,
 .document-pending {
   display: flex;
   min-height: 126px;
@@ -1205,11 +1205,30 @@ p { margin: 0; }
   transition: transform 220ms ease, border-color 220ms ease;
 }
 
-.doc-list a:hover { border-color: var(--accent); transform: translateY(-4px); }
-.doc-list a::before,
+.doc-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.doc-card::before,
 .document-pending::before { content: '↧'; color: var(--accent); font: 400 26px var(--mono); }
 .document-pending::before { content: '…'; color: var(--faint); }
 .doc-list .fmt { color: var(--muted); font: 500 12px var(--mono); }
+
+/* 같은 문서를 형식별로 내려받는 단추. 워드가 없으면 PDF로 연다. */
+.doc-formats { display: flex; gap: 8px; }
+
+.doc-formats a {
+  padding: 6px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  font: 600 12px var(--mono);
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.doc-formats a:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
 
 .contact {
   display: grid;
