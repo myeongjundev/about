@@ -22,6 +22,8 @@ FONT = "Malgun Gothic"
 PAGE_MARGIN = Inches(0.75)
 BODY_WIDTH = Mm(210) - PAGE_MARGIN * 2
 LABEL_INDENT = Inches(0.52)
+# 기술 분류 이름은 길이가 제각각이라 값을 한 칸에 세워야 이름과 목록이 구분된다.
+SKILL_LABEL_WIDTH = Inches(1.2)
 INK = "1C1917"
 MUTED = "57534E"
 BLUE = "1D4ED8"
@@ -309,6 +311,19 @@ def add_line(document: Document, label: str, value: str, keep: bool = True) -> N
     set_run_font(value_run, 10)
 
 
+def add_skill_line(document: Document, label: str, value: str) -> None:
+    """분류 이름과 목록을 두 칸으로 세운다. 이름 안의 가운뎃점이 목록 구분과 섞이지 않게 한다."""
+    paragraph = document.add_paragraph()
+    paragraph.paragraph_format.space_after = Pt(2)
+    paragraph.paragraph_format.left_indent = SKILL_LABEL_WIDTH
+    paragraph.paragraph_format.first_line_indent = -SKILL_LABEL_WIDTH
+    paragraph.paragraph_format.tab_stops.add_tab_stop(SKILL_LABEL_WIDTH, WD_TAB_ALIGNMENT.LEFT)
+    label_run = paragraph.add_run(f"{label}	")
+    set_run_font(label_run, 10, True, MUTED)
+    value_run = paragraph.add_run(value)
+    set_run_font(value_run, 10)
+
+
 def add_links(document: Document, links: list[dict] | None, keep: bool = False) -> None:
     """확인 링크를 한 줄에 모은다. 줄이 늘어지지 않게 하려는 목적도 있다."""
     if not links:
@@ -363,7 +378,7 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
     # 기술은 표 대신 줄로 적는다. 채용 시스템이 표를 잘못 읽는 일이 있고 줄 수도 아낀다.
     add_section(document, "기술")
     for category, items in (profile.get("technologies") or {}).items():
-        add_line(document, category, " · ".join(items), keep=False)
+        add_skill_line(document, category, " · ".join(items))
 
     # 이력서는 두 쪽을 넘기지 않는다. 앞선 작업은 자세히, 나머지는 한 덩어리로 줄여 싣는다.
     experience = data["experience"]

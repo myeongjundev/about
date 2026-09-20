@@ -27,13 +27,13 @@
         "Java",
         "Spring Boot"
       ],
-      "Data AI": [
+      "Data · AI": [
         "Python",
         "scikit-learn",
         "XGBoost",
         "SHAP"
       ],
-      "Infra Security": [
+      "Infra · Security": [
         "Ubuntu",
         "Nginx",
         "Docker",
