@@ -102,6 +102,10 @@ class SiteTests(unittest.TestCase):
             self.assertNotIn("data-draft=", content)
             self.assertNotIn("작업 중인 미리보기", content)
             self.assertIn('href="files/resume-kim-myeongjun.docx"', content)
+            self.assertEqual(content.count('data-craft="'), 3)
+            self.assertEqual(content.count('data-craft="design"'), 1)
+            self.assertIn('data-craft="design" data-index="01"', content)
+            self.assertIn('aria-pressed="true"', content)
 
     def test_selected_builds_link_to_existing_project_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

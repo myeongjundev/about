@@ -150,7 +150,18 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         <h1>{esc(profile['name'])}</h1>
         <p class="role">{esc(profile['role'])}</p>
         <p class="tagline">{value_or_todo(profile.get('tagline'), draft, '본인이 쓸 한 줄 소개')}</p>
-        <p class="craft-line"><span>DESIGN</span><i aria-hidden="true"></i><span>BUILD</span><i aria-hidden="true"></i><span>SHIP</span></p>
+        <div class="craft-console" aria-label="작업 방식">
+          <div class="craft-console-head">
+            <span class="mono">HOW I WORK</span>
+            <output class="craft-output mono" aria-live="polite">01 / DESIGN</output>
+          </div>
+          <div class="craft-path" role="group" aria-label="작업 단계">
+            <button type="button" data-craft="design" data-index="01" data-copy="문제와 사용 흐름을 먼저 정리합니다." aria-pressed="true"><span>01</span>DESIGN</button>
+            <button type="button" data-craft="build" data-index="02" data-copy="화면과 서버를 하나의 서비스로 연결합니다." aria-pressed="false"><span>02</span>BUILD</button>
+            <button type="button" data-craft="ship" data-index="03" data-copy="배포하고 실제 결과까지 확인합니다." aria-pressed="false"><span>03</span>SHIP</button>
+          </div>
+          <p class="craft-caption">문제와 사용 흐름을 먼저 정리합니다.</p>
+        </div>
       </header>
 
       <nav class="entrances" aria-label="바로 가기">

@@ -3,6 +3,10 @@
   const progress = document.querySelector('.scroll-progress span');
   const themeButton = document.querySelector('.theme-toggle');
   const themeLabel = document.querySelector('.theme-label');
+  const profileCard = document.querySelector('.side');
+  const craftButtons = [...document.querySelectorAll('[data-craft]')];
+  const craftCaption = document.querySelector('.craft-caption');
+  const craftOutput = document.querySelector('.craft-output');
   const navLinks = [...document.querySelectorAll('.entrances a')];
   const sections = navLinks
     .map((link) => document.querySelector(link.getAttribute('href')))
@@ -28,6 +32,44 @@
     setTheme(next);
     localStorage.setItem('portfolio-theme', next);
   });
+
+  function selectCraft(button) {
+    craftButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    if (craftCaption) craftCaption.textContent = button.dataset.copy || '';
+    if (craftOutput) craftOutput.value = `${button.dataset.index} / ${button.textContent.trim().replace(/^\d+/, '')}`;
+  }
+
+  craftButtons.forEach((button, index) => {
+    button.addEventListener('click', () => selectCraft(button));
+    button.addEventListener('keydown', (event) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === 'ArrowLeft') nextIndex = (index - 1 + craftButtons.length) % craftButtons.length;
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % craftButtons.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = craftButtons.length - 1;
+      craftButtons[nextIndex].focus();
+      selectCraft(craftButtons[nextIndex]);
+    });
+  });
+
+  if (profileCard && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let pointerFrame = 0;
+    profileCard.addEventListener('pointermove', (event) => {
+      cancelAnimationFrame(pointerFrame);
+      pointerFrame = requestAnimationFrame(() => {
+        const rect = profileCard.getBoundingClientRect();
+        profileCard.style.setProperty('--pointer-x', `${event.clientX - rect.left}px`);
+        profileCard.style.setProperty('--pointer-y', `${event.clientY - rect.top}px`);
+        profileCard.classList.add('is-pointer-active');
+      });
+    });
+    profileCard.addEventListener('pointerleave', () => {
+      cancelAnimationFrame(pointerFrame);
+      profileCard.classList.remove('is-pointer-active');
+    });
+  }
 
   function updateProgress() {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
