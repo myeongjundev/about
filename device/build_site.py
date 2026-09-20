@@ -76,7 +76,7 @@ def render_project_rail(data: dict[str, object]) -> str:
         )
 
     cards = []
-    for index, item in enumerate(projects[:3], start=1):
+    for index, item in enumerate(projects[:4], start=1):
         visual = item.get("visual")
         image = ""
         image_class = ""
@@ -276,10 +276,12 @@ def render_works(data: dict[str, object], draft: bool) -> str:
               {signal}
               <span class="work-status">{status_label}</span>
             </div>
-            <span class="mono muted work-kind">{esc(item['kind'])} · {period if '<span' in str(period) else esc(period)}</span>
-            <h3 class="work-title">{esc(item['title'])}</h3>
-            <p class="work-desc">{esc(item['summary'])}</p>
-            <p class="links">{links}</p>
+            <div class="work-copy">
+              <span class="mono muted work-kind">CASE {index:02d} · {esc(item['kind'])} · {period if '<span' in str(period) else esc(period)}</span>
+              <h3 class="work-title">{esc(item['title'])}</h3>
+              <p class="work-desc">{esc(item['summary'])}</p>
+              <p class="links">{links}</p>
+            </div>
           </article>"""
         )
     return f"""      <section id="work">

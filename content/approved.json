@@ -138,6 +138,30 @@
           "href": "https://github.com/myeongjundev/explainsoc-research"
         }
       ]
+    },
+    {
+      "id": "t03-card-studio",
+      "kind": "3번 과제 · 프론트엔드",
+      "period": "2026.08",
+      "title": "ALTER / EGO — 시대를 가르는 카드 스튜디오",
+      "summary": "같은 사진과 문구를 2004·2012·2026의 인터넷 문법으로 다시 만드는 local-first Canvas 편집기입니다. 미리보기와 PNG를 같은 Canvas로 통일하고 단위 테스트 70개와 E2E 28개로 검증했습니다.",
+      "status": "published",
+      "visual": {
+        "src": "https://raw.githubusercontent.com/myeongjundev/t03-card-studio/main/docs/screenshots/hero.webp",
+        "alt": "ALTER EGO 첫 화면. 왼쪽에 같은 사진, 다른 시대, 다른 나라는 제목이 있고 오른쪽에서 2004·2012·2026 시대를 탐색한다.",
+        "width": 1400,
+        "height": 958
+      },
+      "links": [
+        {
+          "label": "사이트 체험",
+          "href": "https://myeongjundev.github.io/t03-card-studio/"
+        },
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/t03-card-studio"
+        }
+      ]
     }
   ],
   "experience": [

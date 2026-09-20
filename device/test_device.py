@@ -116,9 +116,11 @@ class SiteTests(unittest.TestCase):
             )
             content = output.read_text(encoding="utf-8")
             self.assertIn("SELECTED BUILDS", content)
-            self.assertEqual(content.count('class="build-card"'), 3)
+            self.assertEqual(content.count('class="build-card"'), 4)
             self.assertIn('href="#work-clov"', content)
             self.assertIn('id="work-clov"', content)
+            self.assertIn('href="#work-t03-card-studio"', content)
+            self.assertIn('id="work-t03-card-studio"', content)
             self.assertIn('href="#experience-third-project"', content)
             self.assertIn('id="experience-third-project"', content)
 
