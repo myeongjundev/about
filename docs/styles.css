@@ -563,6 +563,7 @@ p { margin: 0; }
 .entrance-copy { min-width: 0; }
 
 .entrances {
+  position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -591,7 +592,6 @@ p { margin: 0; }
 }
 
 .entrances ol {
-  position: relative;
   margin: 0;
   padding: 6px;
   list-style: none;

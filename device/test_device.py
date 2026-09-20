@@ -134,6 +134,11 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(content.count('class="entrances-head"'), 2)
             self.assertEqual(content.count("01 — 05"), 2)
             self.assertEqual(content.count('class="entrance-indicator"'), 2)
+            # ol 안에는 li만 올 수 있다. 표시 요소는 목록 밖에 둔다.
+            import re as _re
+
+            for block in _re.findall(r"<ol>.*?</ol>", content, _re.S):
+                self.assertNotIn("<span", block.split("<li>")[0])
             self.assertEqual(content.count('class="nav-index mono"'), 10)
             self.assertEqual(content.count('class="entrance-copy"'), 10)
             for anchor in ("story", "numbers", "work", "experience", "documents"):

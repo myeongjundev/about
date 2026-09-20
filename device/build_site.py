@@ -147,8 +147,8 @@ def render_entrances(variant: str = "side") -> str:
 {indent}    <span class="mono">SECTIONS</span>
 {indent}    <span class="mono">01 — {last}</span>
 {indent}  </div>
+{indent}  <span class="entrance-indicator" aria-hidden="true"></span>
 {indent}  <ol>
-{indent}    <span class="entrance-indicator" aria-hidden="true"></span>
 {chr(10).join(items)}
 {indent}  </ol>
 {indent}</nav>'''
