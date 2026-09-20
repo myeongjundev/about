@@ -18,14 +18,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
-  <link rel="stylesheet" href="styles.css?v=03e9fc643de8">
-  <script src="app.js?v=03e9fc643de8" defer></script>
+  <link rel="stylesheet" href="styles.css?v=31839230028a">
+  <script src="app.js?v=31839230028a" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">본문으로 바로 가기</a>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
   <div class="layout">
+    <div class="side-column">
     <aside class="side">
       <header class="intro">
         <div class="profile-topline">
@@ -59,6 +60,44 @@
         <div><dt>연락</dt><dd><a href="https://github.com/myeongjundev">GitHub 프로필</a></dd></div>
       </dl>
     </aside>
+    <section class="build-reel" aria-labelledby="build-reel-title">
+      <div class="build-reel-head">
+        <p class="mono">SELECTED BUILDS</p>
+        <span class="mono">01—03</span>
+      </div>
+      <h2 id="build-reel-title">만들고 끝까지 확인한 작업</h2>
+      <p class="build-reel-intro">실제 화면과 결과가 남아 있는 작업을 골랐습니다.</p>
+      <div class="build-stack">
+        <a class="build-card" href="#work-clov" style="--stack-order: 0; --stack-top: 28px">
+          <span class="build-card-visual has-image" aria-hidden="true">
+            <img src="https://myeongjundev.github.io/assets/clov-promise.jpg" alt="" width="1400" height="684" loading="lazy" decoding="async">
+            <span class="build-card-number">01</span>
+            <span class="build-card-mark">VIEW ↗</span>
+          </span>
+          <span class="build-card-meta mono"><span>2026.06 - 2026.08</span><span>팀 프로젝트 · 풀스택</span></span>
+          <strong>CLOV — 함께 만드는 우정 기록 서비스</strong>
+        </a>
+        <a class="build-card" href="#work-t10-paper" style="--stack-order: 1; --stack-top: 46px">
+          <span class="build-card-visual has-image" aria-hidden="true">
+            <img src="https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/docs/assets/performance-comparison.png" alt="" width="1200" height="675" loading="lazy" decoding="async">
+            <span class="build-card-number">02</span>
+            <span class="build-card-mark">VIEW ↗</span>
+          </span>
+          <span class="build-card-meta mono"><span>2026.09</span><span>10번 과제 · 논문</span></span>
+          <strong>데이터 분할 방식에 따른 XAI 기반 네트워크 침입 탐지 성능과 설명 안정성 분석</strong>
+        </a>
+        <a class="build-card" href="#experience-third-project" style="--stack-order: 2; --stack-top: 64px">
+          <span class="build-card-visual has-image" aria-hidden="true">
+            <img src="https://raw.githubusercontent.com/myeongjundev/t08-passkey-portfolio/main/docs/evidence/images/01-public-first-screen.png" alt="" width="1280" height="860" loading="lazy" decoding="async">
+            <span class="build-card-number">03</span>
+            <span class="build-card-mark">VIEW ↗</span>
+          </span>
+          <span class="build-card-meta mono"><span>2026.09</span><span>WebAuthn 인증 설계 · 구현 · 검증 · 배포</span></span>
+          <strong>8번 과제 · 패스키로 잠근 비공개 영역</strong>
+        </a>
+      </div>
+    </section>
+    </div>
     <main id="main-content" class="content">
       <section id="story">
         <div class="section-head">
@@ -146,7 +185,7 @@
           <h2>대표작</h2>
         </div>
         <div class="works">
-          <article class="work published reveal">
+          <article id="work-clov" class="work published reveal">
             <div class="work-visual has-image">
               <img src="https://myeongjundev.github.io/assets/clov-promise.jpg" alt="CLOV 일정 계획 화면. 초대권 형태의 일정 카드와 진행 상태 탭이 보인다." width="1400" height="684" loading="lazy" decoding="async">
               <span class="work-number">01</span>
@@ -158,7 +197,7 @@
             <p class="work-desc">4인 팀의 팀장 겸 풀스택 개발자로 이슈와 코드 리뷰 흐름을 만들고, React와 Spring Boot 서비스를 Docker·Nginx·HTTPS 환경에 배포했습니다.</p>
             <p class="links"><a href="https://github.com/Pickeslog/clov-web">프론트엔드 저장소</a><a href="https://github.com/Pickeslog/clov-api">백엔드 저장소</a></p>
           </article>
-          <article class="work published reveal">
+          <article id="work-t10-paper" class="work published reveal">
             <div class="work-visual has-image">
               <img src="https://raw.githubusercontent.com/myeongjundev/explainsoc-research/main/docs/assets/performance-comparison.png" alt="무작위 분할과 날짜 기반 미관측 공격 분할에서 세 모델의 Macro F1과 공격 Recall을 비교한 차트." width="1200" height="675" loading="lazy" decoding="async">
               <span class="work-number">02</span>
@@ -178,7 +217,7 @@
           <h2>경력과 과제</h2>
           <p>과제마다 능력과 상황, 행동, 결과를 같은 순서로 적었습니다.</p>
         </div>
-        <article class="exp reveal">
+        <article id="experience-clov" class="exp reveal">
           <span class="exp-index mono" aria-hidden="true">01</span>
           <div class="exp-meta">
             <span class="mono muted">2026.06 - 2026.08</span>
@@ -212,7 +251,7 @@
           </dl>
           <p class="exp-foot"><span class="mono muted">React · Spring Boot · Docker · Nginx · OAuth</span><span class="links"><a href="https://github.com/Pickeslog/clov-web">프론트엔드 저장소</a><a href="https://github.com/Pickeslog/clov-api">백엔드 저장소</a></span></p>
         </article>
-        <article class="exp reveal">
+        <article id="experience-t10" class="exp reveal">
           <span class="exp-index mono" aria-hidden="true">02</span>
           <div class="exp-meta">
             <span class="mono muted">2026.09</span>
@@ -238,7 +277,7 @@
           </dl>
           <p class="exp-foot"><span class="mono muted">Python · scikit-learn · XGBoost · SHAP</span><span class="links"><a href="https://github.com/myeongjundev/explainsoc-research">공개 저장소</a></span></p>
         </article>
-        <article class="exp reveal">
+        <article id="experience-third-project" class="exp reveal">
           <span class="exp-index mono" aria-hidden="true">03</span>
           <div class="exp-meta">
             <span class="mono muted">2026.09</span>

@@ -43,6 +43,78 @@ def section_head(title: str, note: str | None = None) -> str:
         </div>"""
 
 
+def render_project_rail(data: dict[str, object]) -> str:
+    projects = []
+    work_ids = set()
+
+    for item in data.get("works") or []:
+        if item.get("status") != "published":
+            continue
+        work_ids.add(item["id"])
+        projects.append(
+            {
+                "target": f"work-{item['id']}",
+                "period": item.get("period") or "",
+                "kind": item.get("kind") or "",
+                "title": item["title"],
+                "visual": item.get("visual"),
+            }
+        )
+
+    for item in data.get("experience") or []:
+        if item.get("status") != "published" or item["id"] in work_ids:
+            continue
+        gallery = item.get("gallery") or []
+        projects.append(
+            {
+                "target": f"experience-{item['id']}",
+                "period": item.get("period") or "",
+                "kind": item.get("role") or "",
+                "title": item["title"],
+                "visual": gallery[0] if gallery else None,
+            }
+        )
+
+    cards = []
+    for index, item in enumerate(projects[:3], start=1):
+        visual = item.get("visual")
+        image = ""
+        image_class = ""
+        if visual:
+            image_class = " has-image"
+            image = (
+                f'<img src="{safe_href(visual["src"])}" alt="" '
+                f'width="{esc(visual["width"])}" height="{esc(visual["height"])}" '
+                'loading="lazy" decoding="async">'
+            )
+        cards.append(
+            f'''        <a class="build-card" href="#{esc(item['target'])}" style="--stack-order: {index - 1}; --stack-top: {28 + (index - 1) * 18}px">
+          <span class="build-card-visual{image_class}" aria-hidden="true">
+            {image}
+            <span class="build-card-number">{index:02d}</span>
+            <span class="build-card-mark">VIEW ↗</span>
+          </span>
+          <span class="build-card-meta mono"><span>{esc(item['period'])}</span><span>{esc(item['kind'])}</span></span>
+          <strong>{esc(item['title'])}</strong>
+        </a>'''
+        )
+
+    if not cards:
+        return ""
+
+    return f'''    <section class="build-reel" aria-labelledby="build-reel-title">
+      <div class="build-reel-head">
+        <p class="mono">SELECTED BUILDS</p>
+        <span class="mono">01—{len(cards):02d}</span>
+      </div>
+      <h2 id="build-reel-title">만들고 끝까지 확인한 작업</h2>
+      <p class="build-reel-intro">실제 화면과 결과가 남아 있는 작업을 골랐습니다.</p>
+      <div class="build-stack">
+{chr(10).join(cards)}
+      </div>
+    </section>'''
+
+
 def render_sidebar(data: dict[str, object], draft: bool) -> str:
     profile = data["profile"]
     technologies = profile.get("technologies") or {}
@@ -62,7 +134,8 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
     else:
         contact_html = value_or_todo(None, draft, "공개 연락 수단 확정 필요")
 
-    return f"""    <aside class="side">
+    return f"""    <div class="side-column">
+    <aside class="side">
       <header class="intro">
         <div class="profile-topline">
           <span class="avatar" aria-hidden="true">MJ</span>
@@ -94,7 +167,9 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         <div><dt>교육</dt><dd>{education}</dd></div>
         <div><dt>연락</dt><dd>{contact_html}</dd></div>
       </dl>
-    </aside>"""
+    </aside>
+{render_project_rail(data)}
+    </div>"""
 
 
 def render_story(data: dict[str, object], draft: bool) -> str:
@@ -194,7 +269,7 @@ def render_works(data: dict[str, object], draft: bool) -> str:
         pending = " pending" if item.get("status") == "planned" else " published"
         status_label = "NEXT" if item.get("status") == "planned" else "LIVE"
         cards.append(
-            f"""          <article class="work{pending} reveal">
+            f"""          <article id="work-{esc(item['id'])}" class="work{pending} reveal">
             <div class="work-visual{visual_class}"{visual_accessibility}>
               {visual_media}
               <span class="work-number">0{index}</span>
@@ -237,7 +312,7 @@ def render_experience(data: dict[str, object], draft: bool) -> str:
           </div>'''
         tech = " · ".join(item.get("technologies") or [])
         entries.append(
-            f"""        <article class="exp reveal">
+            f"""        <article id="experience-{esc(item['id'])}" class="exp reveal">
           <span class="exp-index mono" aria-hidden="true">0{index}</span>
           <div class="exp-meta">
             <span class="mono muted">{value_or_todo(item.get('period'), draft, '기간 확정 필요')}</span>

@@ -103,6 +103,25 @@ class SiteTests(unittest.TestCase):
             self.assertNotIn("작업 중인 미리보기", content)
             self.assertIn('href="files/resume-kim-myeongjun.docx"', content)
 
+    def test_selected_builds_link_to_existing_project_sections(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            output_dir = Path(temp)
+            shutil.copytree(REPO / "docs" / "files", output_dir / "files")
+            output = output_dir / "index.html"
+            site_module.build(
+                REPO / "content" / "approved.json",
+                output,
+                BASE / "templates" / "page.html.tpl",
+                False,
+            )
+            content = output.read_text(encoding="utf-8")
+            self.assertIn("SELECTED BUILDS", content)
+            self.assertEqual(content.count('class="build-card"'), 3)
+            self.assertIn('href="#work-clov"', content)
+            self.assertIn('id="work-clov"', content)
+            self.assertIn('href="#experience-third-project"', content)
+            self.assertIn('id="experience-third-project"', content)
+
 
 class ApplyNumbersTests(unittest.TestCase):
     def test_applies_only_metric_fields_and_updated_date(self) -> None:
