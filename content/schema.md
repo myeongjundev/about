@@ -22,8 +22,9 @@
 - `numbers[submissions]`
 - `experience[third-project]`
 
-대표작에는 공개가 끝난 결과물만 넣는다. 대기 중인 T13은 완료 후 공개 링크와 검증 가능한
-결과가 생겼을 때 추가한다.
+대표작에는 공개가 끝난 결과물과, 과제가 요구하는 13번 앱의 예정 자리(`status: planned`)를
+둔다. 예정 자리에는 `plannedDate`가 있어야 하고, 13번을 마치면 `published`로 바꾸고 공개
+링크와 검증 가능한 결과를 채운다(BRA-C06).
 
 ## 문서에만 쓰는 필드
 

@@ -213,6 +213,15 @@
           "href": "https://github.com/myeongjundev/t05-ai-handoff"
         }
       ]
+    },
+    {
+      "id": "t13-app",
+      "kind": "13번 과제 · 앱",
+      "title": "13번 과제 앱이 들어갈 자리",
+      "summary": "13번 과제에서 만들 앱이 들어갈 대표작 자리입니다. 과정이 끝나는 2026년 11월 12일 전에 완성해 공개 링크와 검증 결과를 채웁니다.",
+      "status": "planned",
+      "plannedDate": "2026.11.12 이전",
+      "links": []
     }
   ],
   "experience": [
