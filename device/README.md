@@ -5,6 +5,24 @@
 Python 3.12 표준 라이브러리만 있으면 된다. 공유 미리보기 그림을 다시 만들 때만 Pillow가
 필요하고, 만들어진 그림은 저장소에 들어 있으므로 사이트 빌드에는 영향이 없다.
 
+## 어디서 실행하나
+
+제출 ZIP에는 장치의 입력·결과와 스크립트만 들어 있고, 승인 데이터(`content/`)와 릴리스
+도구(`release/`)는 없다. 그래서 ZIP을 푼 폴더에서는 두 명령만 돌아간다.
+
+| 명령 | ZIP을 푼 폴더 | 저장소 |
+| --- | --- | --- |
+| `device/refresh.py` — 기록 집계와 문장 후보 | 실행 | 실행 |
+| `device/check_repeat.py` — 반복 실행 검사 | 실행 | 실행 |
+| `device/apply_numbers.py` — 승인 데이터 반영 | — | 실행 |
+| `device/build_site.py`, `device/validate_release.py` — 사이트 빌드와 릴리스 검사 | — | 실행 |
+| `device/build_og_image.py` — 공유 미리보기 그림 | — | 실행 |
+| `device/test_device.py` — 단위 테스트 | — | 실행 |
+
+아래 절 가운데 "저장소에서만"이라고 적힌 것은 ZIP에서 돌리면 `content/approved.json`이나
+`release/build_release.py`가 없다는 오류로 멈춘다. ZIP의 `device/approved.json`은 그때
+공개한 승인 데이터를 확인용으로 넣어 둔 사본이다.
+
 ## 입력 파일
 
 입력 폴더에는 다음 세 파일이 있어야 한다.
@@ -18,7 +36,7 @@ Python 3.12 표준 라이브러리만 있으면 된다. 공유 미리보기 그�
 
 ## 실행
 
-저장소 루트에서 실행한다.
+ZIP을 푼 폴더(`T12-KimMyeongjun/`)나 저장소 루트에서 실행한다.
 
 ```text
 python device/refresh.py device/sample-inputs device/out
@@ -33,7 +51,7 @@ python device/refresh.py device/sample-inputs device/out
 문장 후보는 자동으로 사이트에 들어가지 않는다. 내용을 읽고 공개 범위를 확인한 뒤
 `content/approved.json`에 직접 옮겨야 한다.
 
-집계 숫자는 먼저 미리보기 파일에 반영해 확인한다.
+집계 숫자는 먼저 미리보기 파일에 반영해 확인한다(저장소에서만).
 
 ```text
 python device/apply_numbers.py
@@ -55,7 +73,7 @@ python device/check_repeat.py
 새 임시 폴더 두 곳에서 같은 합성 입력을 실행하고 출력 SHA-256을 비교한다. `expected/`의 고정
 기대 결과와도 같아야 성공한다.
 
-## 사이트 빌드와 릴리스 검사
+## 사이트 빌드와 릴리스 검사 (저장소에서만)
 
 승인 전 미리보기는 다음 명령으로 만든다.
 
@@ -67,7 +85,7 @@ python device/validate_release.py --allow-draft
 최종 승인 뒤에는 `--draft`와 `--allow-draft`를 제거한다. 미확정 값, 없는 문서, 작업 표시가
 하나라도 남아 있으면 실패한다.
 
-## 공유 미리보기 그림
+## 공유 미리보기 그림 (저장소에서만)
 
 카카오톡·슬랙·링크드인에 링크를 붙이면 뜨는 그림이다. 이름·직무·한 줄 소개를
 `approved.json`에서 읽어 1200×630으로 그린다.

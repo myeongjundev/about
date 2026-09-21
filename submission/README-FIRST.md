@@ -10,7 +10,7 @@ https://myeongjundev.github.io/about/
 
 ## 문서
 
-`documents/` 폴더에 다음 DOCX 파일이 있습니다.
+`documents/` 폴더에 다음 문서가 DOCX와 PDF로 함께 있습니다.
 
 - 이력서
 - 자기소개서

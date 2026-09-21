@@ -1,5 +1,29 @@
 # 진행 기록
 
+## 2026-09-21 — 제출 전 검토
+
+제출 ZIP을 지금 커밋으로 다시 만들어(44개 항목, 고정 타임스탬프) 채점자처럼 검토했다.
+
+- 빈 폴더 + 시스템 Python 3.13(venv 아님)에서 `refresh`·`check_repeat`가 통과하고 출력이
+  `device/last-result/`와 같다.
+- ZIP 전체(문서 본문 포함)에서 이메일·전화번호·키·토큰·Webhook 주소·수업 계정 흔적 0건.
+- 사이트와 문서의 링크 15개 모두 200, 로그인 페이지로 넘어가는 곳 없음.
+- 5·4·2·8·10번의 숫자를 각 저장소 README와 대조해 모두 일치.
+
+고친 것 둘.
+
+- **ZIP에서 안 도는 명령이 안내문에 섞여 있었다.** `CHECK-HOWTO`는 `device/README.md`를
+  따르라고 하는데, ZIP에는 `content/`와 `release/`가 없어 `apply_numbers`·`build_site`·
+  `validate_release`·`test_device`가 멈춘다. 원래부터 그랬다. 스크립트는 그대로 두고
+  `device/README.md`에 "어디서 실행하나" 표를 넣어 ZIP에서 도는 두 명령과 저장소에서만
+  도는 명령을 나누고, 해당 절에 "(저장소에서만)"을 달았다. `CHECK-HOWTO` 2번도 그 표를
+  가리키게 했다.
+- **문서가 DOCX뿐이라고 적혀 있었다.** ZIP에는 PDF도 들어 있어 `README-FIRST`와
+  `CHECK-HOWTO`를 "DOCX와 PDF"로 고쳤다.
+
+남은 것은 본인이 하는 제출 두 가지다. 결과물 URL 칸에 `https://myeongjundev.github.io/about/`
+하나(BRA-C20), 문서와 `release/out/T12-KimMyeongjun.zip`을 파일로 올리기(BRA-C21).
+
 ## 2026-09-21 — 배포본 확인과 게시판 저장소 정리
 
 수업 실습 게시판을 넣은 뒤(`a4adea3`) 공개 사이트와 문서 셋을 배포본으로 다시 봤다.

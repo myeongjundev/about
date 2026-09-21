@@ -9,13 +9,14 @@
 
 ## 문서
 
-ZIP의 `documents/` 폴더에 이력서, 자기소개서, 경력기술서 DOCX가 있습니다. 세 파일은
-비밀번호 없이 열립니다.
+ZIP의 `documents/` 폴더에 이력서, 자기소개서, 경력기술서가 DOCX와 PDF로 있습니다. 여섯
+파일 모두 비밀번호 없이 열립니다.
 
 ## 장치
 
 1. ZIP을 새 폴더에 풉니다.
-2. Python 3.12가 설치된 터미널에서 `device/README.md`의 실행 명령을 따릅니다.
+2. Python 3.12가 설치된 터미널에서 `device/README.md`의 "실행" 절 명령을 따릅니다. ZIP에서
+   돌아가는 명령은 그 문서의 "어디서 실행하나" 표에 있습니다.
 3. `python device/check_repeat.py`를 실행합니다.
 4. 마지막 줄의 `PASS`와 세 출력 파일의 SHA-256을 확인합니다.
 5. 마지막 공개 결과는 `device/last-result/`에서 확인합니다.
