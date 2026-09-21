@@ -98,7 +98,7 @@ def required_content(data: dict[str, object]) -> list[str]:
             missing.append(name)
 
     for item in data["numbers"]:
-        for field in ("value", "label", "source", "asOf", "denominator"):
+        for field in ("value", "label", "source", "asOf", "denominator", "supports"):
             if empty(item.get(field)):
                 missing.append(f"numbers.{item['id']}.{field}")
 

@@ -96,7 +96,8 @@
       "source": "내 출석 기록",
       "asOf": "2026-09-17",
       "denominator": "2026-08-11부터 2026-09-17까지 확정된 수업일",
-      "linkedSegment": null
+      "linkedSegment": null,
+      "supports": "과제지속력"
     },
     {
       "id": "ritual",
@@ -106,7 +107,8 @@
       "source": "내 리추얼 기록",
       "asOf": "2026-09-17",
       "denominator": "2026-08-11부터 2026-09-17까지 확정된 수업일",
-      "linkedSegment": "now"
+      "linkedSegment": "now",
+      "supports": "회복탄력성"
     },
     {
       "id": "submissions",
@@ -116,7 +118,8 @@
       "source": "내 제출 현황 · GitHub 저장소",
       "asOf": "2026-09-20",
       "denominator": "T01부터 T11까지. 진행 중인 T12와 대기 중인 T13은 제외",
-      "linkedSegment": "setback"
+      "linkedSegment": "setback",
+      "supports": "과제지속력"
     }
   ],
   "works": [

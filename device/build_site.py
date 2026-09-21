@@ -273,12 +273,12 @@ def render_numbers(data: dict[str, object], draft: bool) -> str:
             <span class="label">{esc(item['label'])}</span>
             {detail}
             <span class="metric-bar" aria-hidden="true"><span style="--progress: {progress}%"></span></span>
-            <span class="source">출처 · {esc(item['source'])}<br>기준 · {value_or_todo(item.get('asOf'), draft, '기준일 필요')}<br>분모 · {value_or_todo(item.get('denominator'), draft, '분모 정의 필요')}</span>
+            <span class="source">근거 · {value_or_todo(item.get('supports'), draft, '근거 능력 필요')}<br>출처 · {esc(item['source'])}<br>기준 · {value_or_todo(item.get('asOf'), draft, '기준일 필요')}<br>분모 · {value_or_todo(item.get('denominator'), draft, '분모 정의 필요')}</span>
             {linked}
           </article>"""
         )
     return f"""      <section id="numbers">
-{section_head('숫자', '13주 과정 기록에서 옮겼으며 값마다 출처와 기준일을 표시했습니다.')}
+{section_head('숫자', '회복탄력성과 과제지속력을 13주 과정 기록의 숫자로 보여 줍니다. 값마다 근거 능력과 출처, 기준일을 표시했습니다.')}
         <div class="metrics">
 {chr(10).join(cards)}
         </div>
