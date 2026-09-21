@@ -414,6 +414,10 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
     add_section(document, "교육")
     for item in profile.get("education") or []:
         add_entry(document, item["name"], item["period"])
+        if item.get("org"):
+            add_line(document, "기관", item["org"], keep=bool(item.get("detail")))
+        if item.get("detail"):
+            add_line(document, "내용", item["detail"], keep=False)
 
     save_document(document, output)
 

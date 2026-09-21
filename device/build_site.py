@@ -164,7 +164,9 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         )
 
     education = "<br>".join(
-        f"{esc(item['name'])} <span class=\"mono muted\">{esc(item['period'])}</span>"
+        f"{esc(item['name'])}"
+        + (f" · {esc(item['org'])}" if item.get("org") else "")
+        + f" <span class=\"mono muted\">{esc(item['period'])}</span>"
         for item in profile.get("education") or []
     )
     contact = profile.get("contact")

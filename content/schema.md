@@ -36,7 +36,8 @@
 
 - `profile.site`: 공개 사이트 주소. 문서 머리글의 확인 링크에 들어간다
 - `profile.highlights`: 이력서 맨 앞 핵심 역량. 다른 필드에 이미 있는 확인된 수치만 다시 쓴다
-- `profile.education[*]`: 교육과 학력. 최근 항목을 먼저 둔다
+- `profile.education[*]`: 교육과 학력. 최근 항목을 먼저 둔다. `org`(기관)와 `detail`(한 문장
+  설명)은 선택이다. `org`는 사이트와 이력서에, `detail`은 이력서에만 나온다
 - `experience[*].scope`: 그 프로젝트에서 본인이 직접 맡은 범위. 역할보다 구체적으로 적는다
 - `experience[*].rationale`: 그 상황에서 왜 그렇게 하기로 했는지. 경력기술서의 `판단` 줄이 된다.
   대표작 카드가 있는 항목은 `works[*].caseStudy.decision`과 같은 문장을 쓴다
