@@ -207,10 +207,12 @@ class SiteTests(unittest.TestCase):
             self.assertIn('id="work-clov"', content)
             self.assertIn('href="#work-t05-ai-handoff"', content)
             self.assertIn('id="work-t05-ai-handoff"', content)
+            self.assertIn('href="#work-t13-app"', content)
+            self.assertIn('id="work-t13-app"', content)
             self.assertIn('href="#experience-third-project"', content)
             self.assertIn('id="experience-third-project"', content)
-            self.assertEqual(content.count('class="work-case"'), 3)
-            self.assertEqual(content.count('class="case-step"'), 12)
+            self.assertEqual(content.count('class="work-case"'), 4)
+            self.assertEqual(content.count('class="case-step"'), 16)
             self.assertIn("문제부터 검증까지 보기", content)
 
 
