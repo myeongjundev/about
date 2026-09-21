@@ -362,7 +362,13 @@ class DocumentTests(unittest.TestCase):
         manifest = json.loads(
             (REPO / "documents" / "render-manifest.json").read_text(encoding="utf-8")
         )
-        limits = {"resume-kim-myeongjun": 2, "personal-statement-kim-myeongjun": 2}
+        # 경력기술서는 수업 실습까지 일곱 항목이 되면서 4쪽이 됐다. 판단 줄은 경력기술서에만
+        # 나오므로 항목을 빼는 대신 한도를 올렸다(2026-09-21).
+        limits = {
+            "resume-kim-myeongjun": 2,
+            "personal-statement-kim-myeongjun": 2,
+            "career-description-kim-myeongjun": 4,
+        }
         for name, info in manifest.items():
             with self.subTest(name=name):
                 source = REPO / "docs" / "files" / f"{name}.docx"

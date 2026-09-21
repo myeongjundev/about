@@ -112,7 +112,7 @@
     <section class="build-reel" aria-labelledby="build-reel-title">
       <div class="build-reel-head">
         <p class="mono">SELECTED BUILDS</p>
-        <span class="mono">01—06</span>
+        <span class="mono">01—07</span>
       </div>
       <h2 id="build-reel-title">만들고 끝까지 확인한 작업</h2>
       <p class="build-reel-intro">실제 화면과 결과가 남아 있는 작업을 골랐습니다.</p>
@@ -153,19 +153,28 @@
           <span class="build-card-meta mono"><span>2026.09</span><span>WebAuthn 인증 설계 · 구현 · 검증 · 배포</span></span>
           <strong>8번 과제 · 패스키로 잠근 비공개 영역</strong>
         </a>
-        <a class="build-card" href="#experience-t04-info-board" style="--stack-order: 4; --stack-top: 132px">
+        <a class="build-card" href="#experience-flask-board" style="--stack-order: 4; --stack-top: 132px">
+          <span class="build-card-visual has-image" aria-hidden="true">
+            <img src="assets/fb-self-demote-blocked.webp" alt="" width="1200" height="780" loading="lazy" decoding="async">
+            <span class="build-card-number">05</span>
+            <span class="build-card-mark">VIEW ↗</span>
+          </span>
+          <span class="build-card-meta mono"><span>2026.09</span><span>보안 기능 설계·구현 · 자동화 연동 · 검증</span></span>
+          <strong>수업 실습 · 경보와 권한 회수를 붙인 보안 게시판</strong>
+        </a>
+        <a class="build-card" href="#experience-t04-info-board" style="--stack-order: 5; --stack-top: 158px">
           <span class="build-card-visual has-image" aria-hidden="true">
             <img src="assets/t04-overview.webp" alt="" width="1265" height="712" loading="lazy" decoding="async">
-            <span class="build-card-number">05</span>
+            <span class="build-card-number">06</span>
             <span class="build-card-mark">VIEW ↗</span>
           </span>
           <span class="build-card-meta mono"><span>2026.08 - 2026.09</span><span>데이터 수집 설계 · 프론트엔드 구현 · 검증 · 배포</span></span>
           <strong>4번 과제 · GAME PULSE 데이터 보드</strong>
         </a>
-        <a class="build-card" href="#experience-t02-mini-game" style="--stack-order: 5; --stack-top: 158px">
+        <a class="build-card" href="#experience-t02-mini-game" style="--stack-order: 6; --stack-top: 184px">
           <span class="build-card-visual has-image" aria-hidden="true">
             <img src="assets/t02-lobby.webp" alt="" width="900" height="935" loading="lazy" decoding="async">
-            <span class="build-card-number">06</span>
+            <span class="build-card-number">07</span>
             <span class="build-card-mark">VIEW ↗</span>
           </span>
           <span class="build-card-meta mono"><span>2026.08</span><span>기획 · 프론트엔드 구현 · 테스트 · 배포</span></span>
@@ -507,8 +516,34 @@
           </dl>
           <p class="exp-foot"><span class="mono muted">React 19 · Vite 8 · Canvas API · Playwright</span><span class="links"><a href="https://myeongjundev.github.io/t05-ai-handoff/">사이트 체험</a><a href="https://github.com/myeongjundev/t05-ai-handoff/blob/main/docs/FINAL_COMPARISON.md">인계 결과 보기</a><a href="https://github.com/myeongjundev/t05-ai-handoff">공개 저장소</a></span></p>
         </article>
-        <article id="experience-t04-info-board" class="exp reveal">
+        <article id="experience-flask-board" class="exp reveal">
           <span class="exp-index mono" aria-hidden="true">05</span>
+          <div class="exp-meta">
+            <span class="mono muted">2026.09</span>
+            <span class="spacer"></span>
+            <span class="ability">자기조절력</span>
+          </div>
+          <h3 class="exp-title">수업 실습 · 경보와 권한 회수를 붙인 보안 게시판</h3>
+          <p class="exp-role">보안 기능 설계·구현 · 자동화 연동 · 검증</p>
+          <div class="project-gallery" aria-label="수업 실습 · 경보와 권한 회수를 붙인 보안 게시판 화면">
+            <figure class="gallery-item">
+              <img src="assets/fb-self-demote-blocked.webp" alt="관리자 회원 관리 화면. 관리자가 자기 등급을 일반으로 내리려 하자 &#x27;자기 자신의 등급은 내릴 수 없습니다&#x27; 안내가 뜨고, 아래에 자기 삭제와 마지막 관리자 강등을 막는 안전장치 설명이 있다." width="1200" height="780" loading="lazy" decoding="async">
+              <figcaption>관리자 자기 강등 차단</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/fb-syn-dashboard.webp" alt="보안 대시보드. SYN Flood 경보가 거부·High로 기록되고, 펼친 행에 출발지 IP 172.22.205.113과 SYN 개수 35033이 보인다." width="1135" height="735" loading="lazy" decoding="async">
+              <figcaption>SYN Flood 경보 기록</figcaption>
+            </figure>
+          </div>
+          <dl class="star">
+            <dt>상황</dt><dd>수업에서 받은 게시판에 등급별 접근 제어를 넣고, 과잉권한을 자동으로 회수하는 수업 코드를 옮겨 붙여야 했습니다. 자동 회수가 잘못 돌면 관리자까지 강등해 아무도 회원을 관리할 수 없게 될 수 있었습니다.</dd>
+            <dt>행동</dt><dd>회수 봇은 출력만 확인, Graylog 신고만, 실제 강등의 3단계로 나눠 옵션을 줄 때만 권한을 빼앗게 했고, 증적 캡처와 경보 전송기가 API 키와 Webhook 주소를 화면과 오류 메시지에 남기지 않게 했습니다. SYN Flood 실습에서는 경보가 도착한 것만 보지 않고 실행 기록과 대조해, 공격이 허용으로 표시되고 실제 출발지와 개수가 빠지던 문제를 고쳤습니다.</dd>
+            <dt>결과</dt><dd>자동 테스트 45개를 통과했고, Kali에서 보낸 2초 SYN Flood 35,033개가 출발지·개수와 함께 Graylog, n8n, 메신저 3종, 게시판 기록까지 이어지는 것을 확인했습니다.</dd>
+          </dl>
+          <p class="exp-foot"><span class="mono muted">Flask · MySQL · JWT · n8n · Graylog · Docker</span><span class="links"><a href="https://github.com/myeongjundev/flask-board">공개 저장소</a></span></p>
+        </article>
+        <article id="experience-t04-info-board" class="exp reveal">
+          <span class="exp-index mono" aria-hidden="true">06</span>
           <div class="exp-meta">
             <span class="mono muted">2026.08 - 2026.09</span>
             <span class="spacer"></span>
@@ -530,7 +565,7 @@
           <p class="exp-foot"><span class="mono muted">React 19 · Vite 8 · Node 22 · GitHub Actions · GitHub Pages</span><span class="links"><a href="https://myeongjundev.github.io/info-board/">사이트 체험</a><a href="https://github.com/myeongjundev/info-board">공개 저장소</a></span></p>
         </article>
         <article id="experience-t02-mini-game" class="exp reveal">
-          <span class="exp-index mono" aria-hidden="true">06</span>
+          <span class="exp-index mono" aria-hidden="true">07</span>
           <div class="exp-meta">
             <span class="mono muted">2026.08</span>
             <span class="spacer"></span>

@@ -415,6 +415,50 @@
       "resumeDetail": "compact"
     },
     {
+      "id": "flask-board",
+      "period": "2026.09",
+      "title": "수업 실습 · 경보와 권한 회수를 붙인 보안 게시판",
+      "role": "보안 기능 설계·구현 · 자동화 연동 · 검증",
+      "scope": "등급별 접근 제어와 관리자 안전장치, n8n 로그인 경보 봇과 메신저 3종 알림, 수업에서 받은 과잉권한 자동 회수 코드의 이식, Graylog SYN Flood 탐지 연동",
+      "ability": "자기조절력",
+      "situation": "수업에서 받은 게시판에 등급별 접근 제어를 넣고, 과잉권한을 자동으로 회수하는 수업 코드를 옮겨 붙여야 했습니다. 자동 회수가 잘못 돌면 관리자까지 강등해 아무도 회원을 관리할 수 없게 될 수 있었습니다.",
+      "rationale": "권한을 자동으로 회수하는 기능일수록 관리자가 스스로 잠기는 사고부터 막아야 한다고 보고, 자기 강등·자기 삭제·마지막 관리자 강등을 금지한 규칙을 회수 봇에도 그대로 적용했습니다.",
+      "action": "회수 봇은 출력만 확인, Graylog 신고만, 실제 강등의 3단계로 나눠 옵션을 줄 때만 권한을 빼앗게 했고, 증적 캡처와 경보 전송기가 API 키와 Webhook 주소를 화면과 오류 메시지에 남기지 않게 했습니다. SYN Flood 실습에서는 경보가 도착한 것만 보지 않고 실행 기록과 대조해, 공격이 허용으로 표시되고 실제 출발지와 개수가 빠지던 문제를 고쳤습니다.",
+      "result": "자동 테스트 45개를 통과했고, Kali에서 보낸 2초 SYN Flood 35,033개가 출발지·개수와 함께 Graylog, n8n, 메신저 3종, 게시판 기록까지 이어지는 것을 확인했습니다.",
+      "technologies": [
+        "Flask",
+        "MySQL",
+        "JWT",
+        "n8n",
+        "Graylog",
+        "Docker"
+      ],
+      "gallery": [
+        {
+          "src": "assets/fb-self-demote-blocked.webp",
+          "alt": "관리자 회원 관리 화면. 관리자가 자기 등급을 일반으로 내리려 하자 '자기 자신의 등급은 내릴 수 없습니다' 안내가 뜨고, 아래에 자기 삭제와 마지막 관리자 강등을 막는 안전장치 설명이 있다.",
+          "label": "관리자 자기 강등 차단",
+          "width": 1200,
+          "height": 780
+        },
+        {
+          "src": "assets/fb-syn-dashboard.webp",
+          "alt": "보안 대시보드. SYN Flood 경보가 거부·High로 기록되고, 펼친 행에 출발지 IP 172.22.205.113과 SYN 개수 35033이 보인다.",
+          "label": "SYN Flood 경보 기록",
+          "width": 1135,
+          "height": 735
+        }
+      ],
+      "links": [
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/flask-board"
+        }
+      ],
+      "status": "published",
+      "resumeDetail": "compact"
+    },
+    {
       "id": "t04-info-board",
       "period": "2026.08 - 2026.09",
       "title": "4번 과제 · GAME PULSE 데이터 보드",

@@ -405,7 +405,7 @@ def build_resume(data: dict[str, object], output: Path, draft: bool) -> None:
         add_links(document, item.get("links"))
 
     if compact:
-        add_section(document, "그 외 과제")
+        add_section(document, "그 외 작업")
         for item in compact:
             add_entry(document, text(item.get("title"), draft), text(item.get("period"), draft))
             add_line(document, "결과", text(item.get("result"), draft), keep=bool(item.get("links")))
