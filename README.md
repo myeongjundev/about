@@ -13,6 +13,7 @@ GitHub Pages용 최종 사이트와 내려받을 문서가 있으며, 제출용 
 
 - 요구사항·통과 기준 정리: [`planning/REQUIREMENTS.md`](planning/REQUIREMENTS.md)
 - 새 단일 기준 설계: [`planning/T12-MASTER-PLAN.md`](planning/T12-MASTER-PLAN.md)
+- 제출 후 독립 리뷰: [`planning/T12-POST-SUBMISSION-REVIEW.md`](planning/T12-POST-SUBMISSION-REVIEW.md)
 - 이전 설계 초안: [`planning/DESIGN.md`](planning/DESIGN.md)
 - 진행 기록: [`planning/STATUS.md`](planning/STATUS.md)
 
