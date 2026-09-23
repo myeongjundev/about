@@ -7,9 +7,16 @@ SKT ALEPH 마지막 과제 A(12번)의 작업 저장소입니다.
 
 ## 현재 상태
 
-**최종 공개 빌드 완료 (2026-09-20)** — 승인 데이터에서 반응형 포트폴리오와 DOCX 문서 3종을
-생성했고, 기록 집계·반복 실행·접근성·외부 링크·릴리스 검사를 통과했습니다. `docs/`에는
-GitHub Pages용 최종 사이트와 내려받을 문서가 있으며, 제출용 ZIP은 로컬에서 재현할 수 있습니다.
+**제출 완료 (2026-09-21, 제출한 저장소 상태 `a413189`)** — 승인 데이터에서 반응형 포트폴리오와
+DOCX 문서 3종을 생성했고, 기록 집계·반복 실행·접근성·외부 링크·릴리스 검사를 통과했습니다.
+`docs/`에는 GitHub Pages용 사이트와 내려받을 문서가 있으며, 제출용 ZIP은 로컬에서 재현할 수 있습니다.
+제출한 것과 양식 문안은 [`planning/SUBMISSION-2026-09-21.md`](planning/SUBMISSION-2026-09-21.md)에 있습니다.
+
+제출 뒤에는 대표작 넷째 자리(`t13-app`)만 고칩니다. 2026-09-22에 예정 카드를 공개된 13번 앱
+[ExplainSOC](https://myeongjundev.github.io/explainsoc/)로 바꿨고, 앱이 바뀔 때마다 대표 그림과 검증 문장을
+맞춥니다(최근 2026-09-23 V8 화면, 단위·컴포넌트 99개·브라우저 27개).
+
+- 공개 사이트: https://myeongjundev.github.io/about/
 
 - 요구사항·통과 기준 정리: [`planning/REQUIREMENTS.md`](planning/REQUIREMENTS.md)
 - 새 단일 기준 설계: [`planning/T12-MASTER-PLAN.md`](planning/T12-MASTER-PLAN.md)
