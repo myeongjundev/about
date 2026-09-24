@@ -174,6 +174,7 @@
       "status": "published",
       "visual": {
         "src": "assets/t10-performance-comparison.webp",
+        "focus": "left top",
         "alt": "무작위 분할과 날짜 기반 미관측 공격 분할에서 세 모델의 Macro F1과 공격 Recall을 비교한 차트.",
         "width": 1200,
         "height": 675
@@ -238,6 +239,7 @@
       "status": "published",
       "visual": {
         "src": "assets/t13-conclusion-v9.png",
+        "focus": "left top",
         "alt": "ExplainSOC 결론 카드. 광고 숫자만으로는 아직 믿기 이르다는 결론과 이유, 논문에서 같은 AI가 99.8점에서 38.7점이 된 두 시험 막대, 업체에 물을 질문과 논문 실험실로 가는 길을 보여 준다.",
         "width": 768,
         "height": 705
@@ -261,6 +263,7 @@
   "experience": [
     {
       "id": "clov",
+      "workId": "clov",
       "period": "2026.06 - 2026.08",
       "title": "CLOV 팀 프로젝트",
       "role": "팀장 · 풀스택 개발자 · 4인 팀",
@@ -321,6 +324,7 @@
     },
     {
       "id": "t10",
+      "workId": "t10-paper",
       "period": "2026.09",
       "title": "10번 과제 · 네트워크 침입 탐지 연구",
       "role": "연구 설계 · 구현 · 검증 · 논문 작성",
@@ -409,6 +413,7 @@
     },
     {
       "id": "t05-ai-handoff",
+      "workId": "t05-ai-handoff",
       "period": "2026.08 - 2026.09",
       "title": "5번 과제 · 대화 없이 넘긴 AI 인계",
       "role": "실험 설계 · 프론트엔드 구현 · 검증 · 배포",

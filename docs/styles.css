@@ -615,6 +615,16 @@ p { margin: 0; }
   backdrop-filter: blur(16px);
 }
 
+.is-ready .entrances-rail {
+  transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+}
+
+.is-ready .entrances-rail:not(.is-shown) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+}
+
 .entrances-head {
   display: flex;
   align-items: center;
@@ -898,17 +908,24 @@ p { margin: 0; }
   transform: translateY(-4px);
 }
 
-.metric-index { margin-bottom: auto; color: var(--faint); }
+.metric-index { margin-bottom: 14px; color: var(--faint); }
 .metric .value { font-size: clamp(28px, 3.8vw, 40px); font-weight: 680; letter-spacing: -0.055em; }
 .metric .label { min-height: 40px; font-size: 13px; font-weight: 650; line-height: 1.5; }
 .metric .label-detail { color: var(--muted); font-size: 12px; }
-.metric .source { margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+.metric .source { margin-top: 8px; padding-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+/* 막대는 장식이라(aria-hidden) 큰 숫자 바로 아래로 옮겨 세 카드의 막대 높이를 맞춘다. */
+.metric .value { order: 1; }
+.metric-bar { order: 2; }
+.metric .label { order: 3; }
+.metric .label-detail { order: 4; }
+.metric .source { order: 5; }
+.metric .pair { order: 6; }
 .metric .pair { margin-top: 3px; }
 
 .metric-bar {
   display: block;
   height: 5px;
-  margin: 12px 0 4px;
+  margin: 6px 0 10px;
   overflow: hidden;
   border-radius: 999px;
   background: var(--surface-soft);
@@ -930,7 +947,7 @@ p { margin: 0; }
 
 .work {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(260px, 0.82fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
   min-height: 390px;
   padding: 0;
   overflow: hidden;
@@ -941,7 +958,7 @@ p { margin: 0; }
   transition: transform 240ms ease, box-shadow 240ms ease;
 }
 
-.work:nth-child(even) { grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr); }
+.work:nth-child(even) { grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.05fr); }
 .work:nth-child(even) .work-visual { order: 2; }
 .work:nth-child(even) .work-copy { order: 1; }
 .work:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
@@ -973,7 +990,7 @@ p { margin: 0; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(8, 15, 34, 0.16), rgba(8, 15, 34, 0.7));
+  background: linear-gradient(180deg, rgba(8, 15, 34, 0) 55%, rgba(8, 15, 34, 0.55));
   content: "";
 }
 
@@ -990,7 +1007,7 @@ p { margin: 0; }
 
 .work:hover .work-visual.has-image img { transform: scale(1.035); }
 
-.work-number { position: absolute; left: 22px; bottom: 18px; z-index: 1; font: 500 56px/1 var(--mono); letter-spacing: -0.08em; opacity: 0.9; }
+.work-number { position: absolute; left: 22px; bottom: 18px; z-index: 1; font: 500 40px/1 var(--mono); letter-spacing: -0.08em; opacity: 0.9; }
 .work-status { position: absolute; right: 18px; top: 18px; z-index: 1; padding: 7px 9px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 999px; background: rgba(8, 15, 34, 0.48); font: 600 12px var(--mono); letter-spacing: 0.1em; backdrop-filter: blur(8px); }
 
 .work-signal {
@@ -1012,7 +1029,7 @@ p { margin: 0; }
 }
 
 .work-kind { line-height: 1.65; }
-.work-title { margin: 18px 0 0; font-size: clamp(23px, 2.9vw, 34px); font-weight: 680; letter-spacing: -0.045em; line-height: 1.28; }
+.work-title { margin: 18px 0 0; font-size: clamp(22px, 2.1vw, 28px); font-weight: 680; letter-spacing: -0.045em; line-height: 1.28; }
 .work-desc { margin-top: 18px; color: var(--muted); font-size: 15px; line-height: 1.78; }
 .work .links { margin-top: auto; padding-top: 24px; }
 
@@ -1135,6 +1152,7 @@ p { margin: 0; }
 .exp-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
 .exp-title { margin: 4px 0 0; font-size: 20px; font-weight: 680; letter-spacing: -0.025em; }
 .exp-role { color: var(--muted); font-size: 12px; }
+.exp-result { max-width: 780px; margin-top: 6px; font-size: 14px; line-height: 1.75; }
 
 .project-gallery {
   display: grid;
@@ -1292,7 +1310,9 @@ p { margin: 0; }
     gap: 62px;
   }
 
-  .side-column { width: 100%; }
+  /* 하단 고정 바는 프로필 카드(.side, isolation: isolate) 안에 있어 카드의 쌓임 순서를 따른다.
+     카드 열을 본문보다 위에 두어야 뒤에 오는 본문 글자가 바 위로 그려지지 않는다. */
+  .side-column { z-index: 20; width: 100%; }
   .build-reel { display: none; }
 
 
@@ -1320,8 +1340,8 @@ p { margin: 0; }
     z-index: 30;
     display: block;
     width: min(calc(100% - 24px), 560px);
-    background: color-mix(in srgb, var(--surface-solid) 86%, transparent);
-    box-shadow: 0 10px 35px rgba(17, 24, 39, 0.12);
+    background: var(--surface-solid);
+    box-shadow: 0 -6px 28px rgba(17, 24, 39, 0.12);
     backdrop-filter: blur(16px);
     transform: translateX(-50%);
   }

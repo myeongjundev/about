@@ -115,10 +115,11 @@ def render_project_rail(data: dict[str, object]) -> str:
     </section>'''
 
 
+# 처음 온 사람이 결과물부터 보도록 대표작을 맨 앞에 둔다. 이야기·숫자는 그 뒤에서 근거를 채운다.
 SECTION_ENTRANCES = (
+    ("work", "대표작"),
     ("story", "이야기"),
     ("numbers", "숫자"),
-    ("work", "대표작"),
     ("experience", "경력"),
     ("documents", "문서"),
 )
@@ -298,9 +299,11 @@ def render_works(data: dict[str, object], draft: bool) -> str:
         if visual:
             visual_class = " has-image"
             visual_accessibility = ""
+            # 좁은 칸에서 잘릴 때 글자가 시작하는 쪽을 남기도록 그림마다 초점을 정할 수 있다.
+            focus = f' style="object-position: {esc(visual["focus"])}"' if visual.get("focus") else ""
             visual_media = (
                 f'<img src="{safe_href(visual["src"])}" alt="{esc(visual["alt"])}" '
-                f'width="{esc(visual["width"])}" height="{esc(visual["height"])}" '
+                f'width="{esc(visual["width"])}" height="{esc(visual["height"])}"{focus} '
                 'loading="lazy" decoding="async">'
             )
             signal = ""
@@ -368,11 +371,13 @@ def render_works(data: dict[str, object], draft: bool) -> str:
 
 def render_experience(data: dict[str, object], draft: bool) -> str:
     entries = []
+    work_ids = {str(work["id"]) for work in data.get("works") or [] if work.get("status") == "published"}
     for index, item in enumerate(data["experience"], start=1):
         links = "".join(
             f'<a href="{safe_href(link["href"])}">{esc(link["label"])}</a>'
             for link in item.get("links") or []
         )
+
         gallery_items = []
         for image in item.get("gallery") or []:
             gallery_items.append(
@@ -387,6 +392,26 @@ def render_experience(data: dict[str, object], draft: bool) -> str:
 {chr(10).join(gallery_items)}
           </div>'''
         tech = " · ".join(item.get("technologies") or [])
+        work_id = item.get("workId")
+        if work_id and str(work_id) in work_ids:
+            # 대표작에 사례 노트가 이미 있으므로, 경력에는 화면과 결과 한 줄, 대표작 링크만 둔다.
+            # 상황·행동·결과 전체는 경력기술서 문서에 그대로 있다.
+            entries.append(
+                f"""        <article id="experience-{esc(item['id'])}" class="exp exp-compact reveal">
+          <span class="exp-index mono" aria-hidden="true">0{index}</span>
+          <div class="exp-meta">
+            <span class="mono muted">{value_or_todo(item.get('period'), draft, '기간 확정 필요')}</span>
+            <span class="spacer"></span>
+            <span class="ability">{esc(item['ability'])}</span>
+          </div>
+          <h3 class="exp-title">{esc(item['title'])}</h3>
+          <p class="exp-role">{esc(item.get('role') or '')}</p>
+{gallery}
+          <p class="exp-result">{esc(item.get('result') or '')}</p>
+          <p class="exp-foot"><span class="mono muted">{esc(tech)}</span><span class="links"><a href="#work-{esc(work_id)}">대표작에서 자세히 보기 ↑</a>{links}</span></p>
+        </article>"""
+            )
+            continue
         entries.append(
             f"""        <article id="experience-{esc(item['id'])}" class="exp reveal">
           <span class="exp-index mono" aria-hidden="true">0{index}</span>
@@ -407,7 +432,7 @@ def render_experience(data: dict[str, object], draft: bool) -> str:
         </article>"""
         )
     return f"""      <section id="experience">
-{section_head('경력과 과제', '과제마다 능력과 상황, 행동, 결과를 같은 순서로 적었습니다.')}
+{section_head('경력과 과제', '과제마다 능력과 상황, 행동, 결과를 같은 순서로 적었습니다. 대표작에 있는 작업은 화면과 결과 한 줄만 두었습니다.')}
 {chr(10).join(entries)}
       </section>"""
 
@@ -449,7 +474,7 @@ def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
         <p class="contact-kicker mono">LET'S BUILD SOMETHING RELIABLE.</p>
         <p class="name">{esc(data['profile']['name'])}</p>
         <p class="contact-link">{contact_html}</p>
-        <p class="note">새 기록을 넣으면 숫자와 문장 후보를 다시 만들 수 있습니다 · 마지막 갱신 {esc(data['updatedAt'])}</p>
+        <p class="note">새 기록을 넣으면 숫자와 문장 후보를 다시 만들 수 있습니다 · 숫자 기준일 {esc(data['updatedAt'])}</p>
       </footer>"""
 
 
@@ -468,9 +493,9 @@ def build(data_path: Path, output: Path, template_path: Path, draft: bool) -> No
         banner = '  <p class="draft-banner" role="status">작업 중인 미리보기입니다. 노란 표시는 본인 확인이 필요합니다.</p>'
     main = "\n\n".join(
         (
+            render_works(data, draft),
             render_story(data, draft),
             render_numbers(data, draft),
-            render_works(data, draft),
             render_experience(data, draft),
             render_documents(data, output, draft),
         )

@@ -182,5 +182,17 @@
   }
   moveIndicators();
 
+  // 오른쪽 레일은 프로필 카드의 섹션 목록이 보이는 동안 숨긴다. 같은 목록이 한 화면에 두 번 나오지 않게 한다.
+  const sideNav = document.querySelector('.side .entrances');
+  const rail = document.querySelector('.entrances-rail');
+  if (sideNav && rail) {
+    new IntersectionObserver(
+      ([entry]) => rail.classList.toggle('is-shown', !entry.isIntersecting),
+      { threshold: 0 }
+    ).observe(sideNav);
+  } else if (rail) {
+    rail.classList.add('is-shown');
+  }
+
   requestAnimationFrame(() => document.body.classList.add('is-ready'));
 })();
