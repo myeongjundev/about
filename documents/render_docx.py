@@ -27,6 +27,7 @@ DOCUMENTS = (
     "resume-kim-myeongjun",
     "personal-statement-kim-myeongjun",
     "career-description-kim-myeongjun",
+    "resume-kim-myeongjun-en",
 )
 
 DEFAULT_IMAGE = "t12-doc-render"

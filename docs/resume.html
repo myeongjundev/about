@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>김명준 이력서</title>
+  <meta name="description" content="김명준의 이력서. 같은 내용을 PDF와 DOCX로도 내려받을 수 있습니다.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="document.css?v=e47072e5b6c6">
+</head>
+<body>
+  <a class="skip-link" href="#doc">문서 본문으로 바로 가기</a>
+  <div class="doc-bar">
+    <a class="doc-back" href="./">← 김명준 소개로</a>
+    <nav class="doc-tabs" aria-label="문서"><a href="resume.html" aria-current="page">이력서</a><a href="personal-statement.html">자기소개서</a><a href="career-description.html">경력기술서</a><a href="resume-en.html">English</a></nav>
+    <p class="doc-downloads"><a href="files/resume-kim-myeongjun.pdf">PDF</a><a href="files/resume-kim-myeongjun.docx">DOCX</a></p>
+  </div>
+  <main id="doc" class="doc">
+      <header class="doc-head">
+        <h1><span class="doc-name">김명준</span> <span class="doc-kind">이력서</span></h1>
+        <p class="doc-meta"><strong>신입 개발자 · 서비스 개발 → 네트워크·보안</strong> <span aria-hidden="true">·</span> <a href="https://github.com/myeongjundev">GitHub 프로필</a> <span aria-hidden="true">·</span> <a href="https://myeongjundev.github.io/about/">공개 소개 사이트</a></p>
+      </header>
+      <p class="doc-intro">프론트엔드와 백엔드, 배포를 경험했고 네트워크와 보안까지 학습 범위를 넓히고 있습니다.</p>
+      <section class="doc-section">
+        <h2>핵심 역량</h2>
+        <ul class="doc-highlights"><li>4인 팀의 팀장으로 이슈 152개와 PR 266개를 운영하고 그중 72개를 직접 리뷰했으며, React·Spring Boot 서비스를 Ubuntu·Docker·Nginx·HTTPS 환경에 직접 배포했습니다.</li><li>WebAuthn 패스키 인증을 설계·구현해 판정 기준 47개를 모두 충족하고 자동 테스트 50개를 통과했으며, 공개 화면의 비밀번호 입력 칸을 0개로 유지했습니다.</li><li>CICIDS2017 2,830,743건으로 분할 방식에 따른 탐지 성능 격차(Macro F1 0.9979 → 0.3871)를 검증하고 재현 자료와 논문을 공개했습니다.</li></ul>
+      </section>
+      <section class="doc-section">
+        <h2>기술</h2>
+        <p class="doc-skill"><span class="doc-label">서비스 개발</span><span>Java · Spring Boot · React · TypeScript · Flask · MySQL · PostgreSQL · REST API</span></p>
+        <p class="doc-skill"><span class="doc-label">인증 · 보안</span><span>JWT · OAuth · Argon2id · WebAuthn 패스키 · Graylog · n8n 경보</span></p>
+        <p class="doc-skill"><span class="doc-label">네트워크</span><span>VLAN · 라우팅 · ACL · pfSense</span></p>
+        <p class="doc-skill"><span class="doc-label">연구 · 데이터</span><span>Python · scikit-learn · XGBoost · SHAP</span></p>
+        <p class="doc-skill"><span class="doc-label">검증 · 배포</span><span>Playwright · Vitest · GitHub Actions · Docker · Nginx · Ubuntu</span></p>
+      </section>
+      <section class="doc-section">
+        <h2>프로젝트와 연구</h2>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>CLOV 팀 프로젝트</h3><span class="doc-period">2026.06 - 2026.08</span></div>
+          <p class="doc-line"><span class="doc-label">역할</span><span>팀장 · 풀스택 개발자 · 4인 팀</span></p>
+          <p class="doc-line"><span class="doc-label">담당</span><span>서비스 구조 설계, React 화면과 Spring Boot API 구현, Ubuntu·Docker·Nginx·HTTPS 배포, 이슈와 코드 리뷰 운영</span></p>
+          <p class="doc-line"><span class="doc-label">결과</span><span>2026년 8월 4일까지 이슈 152개와 PR 266개를 기록했고, 직접 리뷰한 PR 72개를 포함해 서비스를 HTTPS 환경에 배포했습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">기술</span><span>React · Spring Boot · Docker · Nginx · OAuth</span></p>
+          <p class="doc-links"><a href="https://github.com/Pickeslog/clov-web">프론트엔드 저장소</a><a href="https://github.com/Pickeslog/clov-api">백엔드 저장소</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>10번 과제 · 네트워크 침입 탐지 연구</h3><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">역할</span><span>연구 설계 · 구현 · 검증 · 논문 작성</span></p>
+          <p class="doc-line"><span class="doc-label">담당</span><span>연구 설계, 데이터 감사, 세 모델 학습과 비교 실험, SHAP 설명 안정성 검증, 논문 작성과 재현 자료 공개</span></p>
+          <p class="doc-line"><span class="doc-label">결과</span><span>XGBoost Macro F1이 0.9979에서 0.3871로 낮아지는 격차를 재현 자료와 함께 논문으로 제출했습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">기술</span><span>Python · scikit-learn · XGBoost · SHAP</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/explainsoc-research/blob/main/output/pdf/T10-research-paper.pdf">논문 읽기</a><a href="https://github.com/myeongjundev/explainsoc-research">공개 저장소</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>8번 과제 · 패스키로 잠근 비공개 영역</h3><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">역할</span><span>WebAuthn 인증 설계 · 구현 · 검증 · 배포</span></p>
+          <p class="doc-line"><span class="doc-label">담당</span><span>WebAuthn 등록·로그인 흐름 설계와 구현, 세션과 Origin·CSRF 검증, 데이터베이스 설계, 공개 배포</span></p>
+          <p class="doc-line"><span class="doc-label">결과</span><span>판정 기준 47개를 모두 충족하고 자동 테스트 50개를 통과했습니다. 공개 화면의 비밀번호 입력 칸은 0개이며, 로그인하지 않은 비공개 요청은 401로 거절합니다.</span></p>
+          <p class="doc-line"><span class="doc-label">기술</span><span>Java 25 · Spring Boot · WebAuthn4J · PostgreSQL · Vercel</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/t08-passkey-portfolio">공개 저장소</a></p>
+        </article>
+      </section>
+      <section class="doc-section">
+        <h2>그 외 작업</h2>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>5번 과제 · 대화 없이 넘긴 AI 인계</h3><span class="doc-period">2026.08 - 2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">결과</span><span>고정 검사 10개를 모두 통과하고 단위 테스트 85개와 Chromium E2E 38개를 유지했으며, 사람이 코드를 다시 고치거나 같은 내용을 재설명한 일은 없었습니다.</span></p>
+          <p class="doc-links"><a href="https://myeongjundev.github.io/t05-ai-handoff/">사이트 체험</a><a href="https://github.com/myeongjundev/t05-ai-handoff/blob/main/docs/FINAL_COMPARISON.md">인계 결과 보기</a><a href="https://github.com/myeongjundev/t05-ai-handoff">공개 저장소</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>수업 실습 · 경보와 권한 회수를 붙인 보안 게시판</h3><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">결과</span><span>자동 테스트 45개를 통과했고, Kali에서 보낸 2초 SYN Flood 35,033개가 출발지·개수와 함께 Graylog, n8n, 메신저 3종, 게시판 기록까지 이어지는 것을 확인했습니다.</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/flask-board">공개 저장소</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>4번 과제 · GAME PULSE 데이터 보드</h3><span class="doc-period">2026.08 - 2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">결과</span><span>회귀 테스트 317개를 모두 통과하고 과제 조건 35개의 감사 경로를 남겼습니다. 공개 화면에서 원자료·저장값·계산값·화면값을 손으로 대조할 수 있습니다.</span></p>
+          <p class="doc-links"><a href="https://myeongjundev.github.io/info-board/">사이트 체험</a><a href="https://github.com/myeongjundev/info-board">공개 저장소</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>2번 과제 · SOC SHIFT:30 관제 판단 게임</h3><span class="doc-period">2026.08</span></div>
+          <p class="doc-line"><span class="doc-label">결과</span><span>서버 없이 동작하는 구조로 만들고 자동 테스트 291개를 통과했으며, 설치나 로그인 없이 링크만으로 플레이할 수 있게 공개했습니다.</span></p>
+          <p class="doc-links"><a href="https://myeongjundev.github.io/mini-game/">게임 실행</a><a href="https://github.com/myeongjundev/mini-game">공개 저장소</a></p>
+        </article>
+      </section>
+      <section class="doc-section">
+        <h2>교육</h2>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>SKT ALEPH 네트워크 보안 과정</h3><span class="doc-period">2026.08 - 2026.11</span></div>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>생성형 AI 활용 실버케어 PHR 솔루션 개발 교육과정</h3><span class="doc-period">2026.03 - 2026.08</span></div>
+          <p class="doc-line"><span class="doc-label">기관</span><span>코리아AI아카데미 부산점</span></p>
+          <p class="doc-line"><span class="doc-label">내용</span><span>Java, Spring Boot, React 기반 풀스택 웹 개발과 생성형 AI 활용 교육을 이수하고, MySQL, REST API, JWT·OAuth2 인증, Git/GitHub 협업, Docker·Nginx 기반 배포 및 팀 프로젝트를 수행했습니다.</span></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h3>컴퓨터소프트웨어공학 학사</h3><span class="doc-period">2025년 졸업</span></div>
+        </article>
+      </section>
+  </main>
+</body>
+</html>

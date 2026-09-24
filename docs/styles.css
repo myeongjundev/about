@@ -485,6 +485,8 @@ p { margin: 0; }
 .cta a:hover { transform: translateY(-2px); }
 .cta .cta-primary { border-color: var(--accent); background: var(--accent); color: var(--surface-solid); }
 .cta .cta-secondary { background: var(--surface-solid); color: var(--ink); }
+.cta .cta-text { padding: 0 6px; border-color: transparent; color: var(--accent); font-weight: 650; text-decoration: underline; text-underline-offset: 3px; }
+.contact .cta .cta-text { color: var(--bg); }
 .cta .cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
 .craft-console {
@@ -1249,7 +1251,8 @@ p { margin: 0; }
 
 .doc-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* 한국어 문서 셋과 영문 이력서 하나. 좁아지면 두 줄로 접힌다. */
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 12px;
 }
 
@@ -1278,7 +1281,9 @@ p { margin: 0; }
 .doc-list .fmt { color: var(--muted); font: 500 12px var(--mono); }
 
 /* 같은 문서를 형식별로 내려받는 단추. 워드가 없으면 PDF로 연다. */
-.doc-formats { display: flex; gap: 8px; }
+.doc-formats { display: flex; flex-wrap: wrap; gap: 8px; }
+/* 웹에서 바로 읽는 단추가 먼저 눈에 띄게 */
+.doc-formats a:first-child { border-color: var(--accent); color: var(--accent); }
 
 .doc-formats a {
   padding: 6px 12px;

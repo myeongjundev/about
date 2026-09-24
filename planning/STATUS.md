@@ -1,5 +1,14 @@
 # 진행 기록
 
+## 2026-09-25 — 문서 3종 웹 페이지와 영문 이력서 (web-docs 브랜치, 배포 전)
+
+- 사용자 요청: 문서를 PDF로만 받지 말고 웹에서도 보게(동기들 사이트처럼), 영문판도. 사용자가 "문서 3종 각각 한 페이지"와 "영문 이력서만 먼저"를 골랐다.
+- `documents/build.py`를 한 번의 조립 순서로 DOCX와 웹 페이지를 함께 쓰게 바꿨다(`DocxWriter`·`HtmlWriter`). 바꾸기 전후 한국어 DOCX 세 개의 본문 지문이 같다(649bfdfa…·f8897ad7…·be491583…) — 웹 문서와 DOCX가 다른 말을 할 수 없다.
+- 새 페이지: `docs/resume.html`·`personal-statement.html`·`career-description.html`·`resume-en.html`, 스타일 `docs/document.css`(사이트와 같은 색, 어두운 화면, A4 인쇄). 위쪽 막대에 소개로 돌아가기·문서 탭·PDF/DOCX.
+- 영문 이력서: 문장만 `content/approved.en.json`에 두고 기간·링크 주소·순서는 한국어 원본을 쓴다. 경력 항목이 늘면 번역이 없어서 빌드가 멈춘다. DOCX·PDF는 2쪽(마지막 쪽 86%)이 되도록 문장을 줄였다. 이름 표기 "Myeongjun Kim"은 사용자 확인 대상.
+- 사이트: 첫 화면·맨 아래 주 버튼 "이력서 보기"(웹), 글자 링크 "English résumé", 문서 카드에 "웹에서 보기 · PDF · DOCX", 영문 카드 추가.
+- 검사: 단위 20개(웹 문서·영문 카드·CTA 확인 추가), 반복 생성, 릴리스 검사 통과. 네 페이지 1280·390·어두운 화면에서 가로 넘침 0, 내부 링크 모두 200. 머리글 순서(h1→h2→h3) 확인.
+
 ## 2026-09-25 — 정체성·대표작·판단·CTA 개선 (사이트·문서 배포)
 
 - 근거: `explainsoc` 저장소 `planning/CLAUDE-ABOUT-PORTFOLIO-IMPROVEMENT-PROMPT.md`. 분석을 먼저 보고했고 사용자가 수정 1~7 전체를 승인했다("전체 진행하자"). 한 줄 소개는 후보 ①을 넣었고 배포 전 사용자 확인을 받는다(BRA-C03, 본인이 쓰는 칸).

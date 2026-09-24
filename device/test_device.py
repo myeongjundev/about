@@ -50,6 +50,13 @@ class RefreshTests(unittest.TestCase):
                 refresh_module.refresh(Path(input_temp), Path(output_temp))
 
 
+def copy_published_documents(output_dir: Path) -> None:
+    """사이트는 문서 파일과 웹 문서가 실제로 있어야 만들어진다. 임시 폴더에 둘 다 옮긴다."""
+    shutil.copytree(REPO / "docs" / "files", output_dir / "files")
+    for page in ("resume.html", "personal-statement.html", "career-description.html", "resume-en.html"):
+        shutil.copy2(REPO / "docs" / page, output_dir / page)
+
+
 class SiteTests(unittest.TestCase):
     def test_draft_site_contains_known_story_without_login_service(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -92,7 +99,7 @@ class SiteTests(unittest.TestCase):
     def test_final_site_builds_without_draft_markers(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             output_dir = Path(temp)
-            shutil.copytree(REPO / "docs" / "files", output_dir / "files")
+            copy_published_documents(output_dir)
             output = output_dir / "index.html"
             site_module.build(
                 REPO / "content" / "approved.json",
@@ -105,7 +112,12 @@ class SiteTests(unittest.TestCase):
             self.assertNotIn("작업 중인 미리보기", content)
             self.assertIn('href="files/resume-kim-myeongjun.docx"', content)
             # 워드가 없는 사람을 위해 같은 문서를 PDF로도 둔다.
-            self.assertEqual(content.count('class="doc-card"'), 3)
+            # 한국어 문서 셋과 영문 이력서 하나
+            self.assertEqual(content.count('class="doc-card"'), 4)
+            self.assertEqual(content.count('class="doc-card" lang="en"'), 1)
+            # 문서는 웹 페이지로도 읽는다. 웹 페이지와 DOCX는 documents/build.py가 같은 순서로 만든다.
+            for page in ("resume.html", "personal-statement.html", "career-description.html", "resume-en.html"):
+                self.assertIn(f'href="{page}"', content)
             for name in (
                 "resume-kim-myeongjun",
                 "personal-statement-kim-myeongjun",
@@ -130,7 +142,7 @@ class SiteTests(unittest.TestCase):
     def test_both_section_navigations_list_the_same_five_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             output_dir = Path(temp)
-            shutil.copytree(REPO / "docs" / "files", output_dir / "files")
+            copy_published_documents(output_dir)
             output = output_dir / "index.html"
             site_module.build(
                 REPO / "content" / "approved.json",
@@ -166,7 +178,7 @@ class SiteTests(unittest.TestCase):
     def test_selected_builds_link_to_existing_project_sections(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             output_dir = Path(temp)
-            shutil.copytree(REPO / "docs" / "files", output_dir / "files")
+            copy_published_documents(output_dir)
             output = output_dir / "index.html"
             site_module.build(
                 REPO / "content" / "approved.json",
@@ -214,7 +226,8 @@ class SiteTests(unittest.TestCase):
             # 대표작마다 카드 겉면에 핵심 판단 한 줄이 있다.
             self.assertEqual(content.count('class="work-decision"'), 4)
             # 첫 화면과 맨 아래에 이력서 PDF(주)와 GitHub(보조)가 있다. 없는 연락처는 만들지 않는다.
-            self.assertEqual(content.count('class="cta-primary" href="files/resume-kim-myeongjun.pdf"'), 2)
+            self.assertEqual(content.count('class="cta-primary" href="resume.html"'), 2)
+            self.assertEqual(content.count('class="cta-text" href="resume-en.html" lang="en"'), 2)
             self.assertEqual(content.count('class="cta-secondary" href="https://github.com/myeongjundev"'), 2)
             self.assertNotIn("mailto:", content)
             self.assertIn('href="#work-t13-app"', content)
@@ -352,6 +365,7 @@ class DocumentTests(unittest.TestCase):
             "resume-kim-myeongjun.docx",
             "personal-statement-kim-myeongjun.docx",
             "career-description-kim-myeongjun.docx",
+            "resume-kim-myeongjun-en.docx",
         ):
             with self.subTest(name=name), zipfile.ZipFile(REPO / "docs" / "files" / name) as archive:
                 root = ElementTree.fromstring(archive.read("word/document.xml"))
@@ -380,6 +394,8 @@ class DocumentTests(unittest.TestCase):
             "resume-kim-myeongjun": 2,
             "personal-statement-kim-myeongjun": 2,
             "career-description-kim-myeongjun": 4,
+            # 영문 이력서도 한국어 이력서처럼 두 쪽을 넘기지 않는다.
+            "resume-kim-myeongjun-en": 2,
         }
         for name, info in manifest.items():
             with self.subTest(name=name):

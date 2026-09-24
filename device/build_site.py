@@ -158,12 +158,18 @@ def render_entrances(variant: str = "side") -> str:
 def render_cta(data: dict[str, object], variant: str) -> str:
     """채용 담당자의 다음 행동. 이력서 PDF가 주 버튼, GitHub이 보조 버튼이다. 없는 연락처는 만들지 않는다."""
     buttons = []
-    resume = next((item for item in data.get("documents") or [] if item.get("label") == "이력서"), None)
-    if resume and resume.get("pdfHref"):
+    documents = data.get("documents") or []
+    resume = next((item for item in documents if item.get("label") == "이력서"), None)
+    if resume and resume.get("webHref"):
+        buttons.append(f'<a class="cta-primary" href="{safe_href(resume["webHref"])}">이력서 보기</a>')
+    elif resume and resume.get("pdfHref"):
         buttons.append(f'<a class="cta-primary" href="{safe_href(resume["pdfHref"])}">이력서 PDF</a>')
     contact = data["profile"].get("contact")
     if contact:
         buttons.append(f'<a class="cta-secondary" href="{safe_href(contact["href"])}">{esc(contact["label"])}</a>')
+    english = next((item for item in documents if item.get("lang") == "en" and item.get("webHref")), None)
+    if english:
+        buttons.append(f'<a class="cta-text" href="{safe_href(english["webHref"])}" lang="en">English résumé</a>')
     if not buttons:
         return ""
     return f'<p class="cta cta-{variant}">{"".join(buttons)}</p>'
@@ -467,16 +473,21 @@ def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
     links = []
     for item in data["documents"]:
         # 워드가 없는 사람도 볼 수 있도록 같은 문서를 DOCX와 PDF로 함께 둔다.
-        formats = [(item["format"], item["href"])]
+        # 웹에서 바로 읽는 쪽을 먼저, 내려받는 PDF·DOCX를 뒤에 둔다.
+        formats = []
+        if item.get("webHref"):
+            formats.append(("웹에서 보기" if item.get("lang") != "en" else "Read online", item["webHref"]))
         if item.get("pdfHref"):
             formats.append(("PDF", item["pdfHref"]))
+        formats.append((item["format"], item["href"]))
         missing = [href for _, href in formats if not (output.parent / href).exists()]
         if not missing:
             buttons = "".join(
                 f'<a href="{safe_href(href)}">{esc(label)}</a>' for label, href in formats
             )
+            lang = f' lang="{esc(item["lang"])}"' if item.get("lang") else ""
             link = (
-                f'<div class="doc-card"><span class="doc-name">{esc(item["label"])}</span>'
+                f'<div class="doc-card"{lang}><span class="doc-name">{esc(item["label"])}</span>'
                 f'<span class="doc-formats">{buttons}</span></div>'
             )
         elif draft:
@@ -486,7 +497,7 @@ def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
         links.append(link)
 
     return f"""      <section id="documents">
-{section_head('문서', '로그인과 비밀번호 없이 내려받을 수 있습니다.')}
+{section_head('문서', '웹에서 바로 읽거나, 로그인 없이 PDF·DOCX로 내려받을 수 있습니다.')}
         <div class="doc-list">{''.join(links)}</div>
       </section>
 

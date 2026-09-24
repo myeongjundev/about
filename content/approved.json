@@ -633,19 +633,30 @@
       "label": "이력서",
       "format": "DOCX",
       "href": "files/resume-kim-myeongjun.docx",
-      "pdfHref": "files/resume-kim-myeongjun.pdf"
+      "pdfHref": "files/resume-kim-myeongjun.pdf",
+      "webHref": "resume.html"
     },
     {
       "label": "자기소개서",
       "format": "DOCX",
       "href": "files/personal-statement-kim-myeongjun.docx",
-      "pdfHref": "files/personal-statement-kim-myeongjun.pdf"
+      "pdfHref": "files/personal-statement-kim-myeongjun.pdf",
+      "webHref": "personal-statement.html"
     },
     {
       "label": "경력기술서",
       "format": "DOCX",
       "href": "files/career-description-kim-myeongjun.docx",
-      "pdfHref": "files/career-description-kim-myeongjun.pdf"
+      "pdfHref": "files/career-description-kim-myeongjun.pdf",
+      "webHref": "career-description.html"
+    },
+    {
+      "label": "English Résumé",
+      "format": "DOCX",
+      "href": "files/resume-kim-myeongjun-en.docx",
+      "pdfHref": "files/resume-kim-myeongjun-en.pdf",
+      "webHref": "resume-en.html",
+      "lang": "en"
     }
   ],
   "updatedAt": "2026-09-20"

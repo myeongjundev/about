@@ -1,0 +1,155 @@
+{
+  "note": "English resume text. Periods, links and item order come from approved.json; only wording lives here. Every experience id in approved.json must have an entry.",
+  "labels": {
+    "documentTitle": "Résumé",
+    "highlights": "Highlights",
+    "skills": "Skills",
+    "projects": "Projects & Research",
+    "otherWork": "Other Work",
+    "education": "Education",
+    "role": "Role",
+    "scope": "Scope",
+    "result": "Result",
+    "stack": "Stack",
+    "institution": "Institution",
+    "details": "Details"
+  },
+  "profile": {
+    "name": "Myeongjun Kim",
+    "role": "Junior Developer · From Service Development to Network & Security",
+    "direction": "I have built front ends, back ends and deployments, and I am extending that experience into networking and security.",
+    "highlights": [
+      "Led a four-person team, running 152 issues and 266 pull requests and reviewing 72 of them myself; deployed the React and Spring Boot service on Ubuntu, Docker, Nginx and HTTPS.",
+      "Designed and built WebAuthn passkey authentication that met all 47 acceptance criteria and passed 50 automated tests, with zero password fields on the public pages.",
+      "Verified on 2,830,743 CICIDS2017 records how the data split changes detection performance (Macro F1 0.9979 → 0.3871), and published the paper with reproducible materials."
+    ],
+    "technologies": {
+      "Service development": [
+        "Java",
+        "Spring Boot",
+        "React",
+        "TypeScript",
+        "Flask",
+        "MySQL",
+        "PostgreSQL",
+        "REST API"
+      ],
+      "Authentication & security": [
+        "JWT",
+        "OAuth",
+        "Argon2id",
+        "WebAuthn passkeys",
+        "Graylog · n8n alerts"
+      ],
+      "Networking": [
+        "VLAN",
+        "Routing",
+        "ACL",
+        "pfSense"
+      ],
+      "Research & data": [
+        "Python",
+        "scikit-learn",
+        "XGBoost",
+        "SHAP"
+      ],
+      "Testing & delivery": [
+        "Playwright",
+        "Vitest",
+        "GitHub Actions",
+        "Docker",
+        "Nginx",
+        "Ubuntu"
+      ]
+    },
+    "contact": "GitHub profile",
+    "site": "Portfolio site"
+  },
+  "experience": {
+    "clov": {
+      "title": "CLOV — Team Project",
+      "role": "Team lead · Full-stack developer · Team of four",
+      "scope": "Service architecture, React UI and Spring Boot API, deployment on Ubuntu, Docker, Nginx and HTTPS, issue tracking and code review",
+      "result": "By August 4, 2026 the team logged 152 issues and 266 pull requests (72 reviewed by me) and served the app over HTTPS.",
+      "links": [
+        "Front-end repository",
+        "Back-end repository"
+      ]
+    },
+    "t10": {
+      "title": "Network Intrusion Detection Research (ALEPH Assignment 10)",
+      "role": "Research design · Implementation · Validation · Paper writing",
+      "scope": "Research design, data audit, three-model comparison, SHAP stability checks, paper and reproducible materials",
+      "result": "Submitted a paper with reproducible materials: XGBoost Macro F1 fell from 0.9979 to 0.3871.",
+      "links": [
+        "Read the paper",
+        "Public repository"
+      ]
+    },
+    "third-project": {
+      "title": "Passkey-Protected Private Area (ALEPH Assignment 8)",
+      "role": "WebAuthn authentication design · Implementation · Validation · Deployment",
+      "scope": "WebAuthn registration and sign-in, session, Origin and CSRF checks, database, public deployment",
+      "result": "Met all 47 acceptance criteria and passed 50 tests; zero password fields on public pages, 401 for private requests without a session.",
+      "links": [
+        "Public repository"
+      ]
+    },
+    "t05-ai-handoff": {
+      "title": "AI Handoff Without Sharing the Conversation (ALEPH Assignment 5)",
+      "role": "Experiment design · Front-end implementation · Validation · Deployment",
+      "scope": "Ten fixed checks, a slider that overlays the original and finished card, a seven-part handoff document, unit and E2E regression tests, GitHub Pages deployment",
+      "result": "Passed all 10 fixed checks; 85 unit and 38 E2E tests stayed green with no human code fixes.",
+      "links": [
+        "Try the site",
+        "Handoff results",
+        "Public repository"
+      ]
+    },
+    "flask-board": {
+      "title": "Security Board with Alerts and Privilege Revocation (course lab)",
+      "role": "Security feature design and implementation · Automation integration · Validation",
+      "scope": "Role-based access control with admin safeguards, an n8n sign-in alert bot with three messenger channels, porting the course's automatic over-privilege revocation code, Graylog SYN flood detection",
+      "result": "Passed 45 tests; a 35,033-packet SYN flood from Kali reached Graylog, n8n, three messengers and the board log.",
+      "links": [
+        "Public repository"
+      ]
+    },
+    "t04-info-board": {
+      "title": "GAME PULSE Data Board (ALEPH Assignment 4)",
+      "role": "Data collection design · Front-end implementation · Validation · Deployment",
+      "scope": "Collecting and storing four Steam feeds (concurrent players, sales, discounts, streams), a React 19 UI, failure reproduction and recovery, GitHub Pages deployment",
+      "result": "Passed all 317 regression tests with an audit trail for all 35 assignment conditions.",
+      "links": [
+        "Try the site",
+        "Public repository"
+      ]
+    },
+    "t02-mini-game": {
+      "title": "SOC SHIFT:30 Alert-Triage Game (ALEPH Assignment 2)",
+      "role": "Planning · Front-end implementation · Testing · Deployment",
+      "scope": "Thirty-second triage rules, React 18 and TypeScript, keyboard, mouse and touch controls, serverless deployment on GitHub Pages",
+      "result": "Serverless build that passed 291 tests; playable from a link with no install or sign-in.",
+      "links": [
+        "Play the game",
+        "Public repository"
+      ]
+    }
+  },
+  "education": [
+    {
+      "name": "SKT ALEPH Network Security Program",
+      "period": "2026.08 - 2026.11"
+    },
+    {
+      "name": "Full-Stack Development Program (Generative-AI PHR Solutions)",
+      "org": "Korea AI Academy, Busan",
+      "period": "2026.03 - 2026.08",
+      "detail": "Java, Spring Boot and React full-stack development and applied generative AI, with a team project using MySQL, REST APIs, JWT/OAuth2, Git/GitHub, Docker and Nginx."
+    },
+    {
+      "name": "B.S. in Computer Software Engineering",
+      "period": "Graduated 2025"
+    }
+  ]
+}
