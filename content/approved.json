@@ -299,6 +299,53 @@
   ],
   "experience": [
     {
+      "id": "t13",
+      "workId": "t13-app",
+      "period": "2026.09",
+      "title": "13번 과제 · ExplainSOC 보안 AI 성능 숫자 검토 도구",
+      "role": "기획 · 프론트엔드 구현 · 사용자 관찰 · 검증 · 배포",
+      "scope": "판독 규칙 15개·결론 카드·논문 실험실 구현, 사용자 반응 기록 6회, 재현 ZIP 검증, GitHub Pages 배포",
+      "ability": "자기조절력",
+      "situation": "보안 AI 제품 소개서는 ‘정확도 99%’ 같은 숫자를 앞세우지만 그 숫자가 어떤 시험에서 나왔는지는 잘 적지 않습니다. 10번 논문에서도 같은 XGBoost가 무작위로 나눈 시험에서는 Macro F1 0.9979, 학습에 없던 공격만 둔 시험에서는 0.3871이었습니다.",
+      "rationale": "숫자의 좋고 나쁨을 판정하는 점수·등급·합격선은 만들지 않고, 숫자를 만든 시험 조건을 먼저 확인한 뒤 빠진 근거를 판매 업체에 물을 질문으로 바꾸게 하기로 했습니다.",
+      "action": "소개서 문장과 성능표에서 빠진 시험 조건을 판독 규칙 15개로 찾아 공급자 질문으로 바꾸고, 결론 카드와 논문 결과를 직접 바꿔 보는 논문 실험실을 만들었습니다. 기능을 늘리기보다 처음 보는 사람의 반응을 여섯 번 기록하며 막힌 곳을 하나씩 고쳤고, 서버 없이 브라우저에서만 동작하게 했습니다.",
+      "result": "ALEPH 동기가 휴대폰에서 도움 없이 업체 질문까지 갔고, 단위·컴포넌트 테스트 152개와 실제 브라우저 테스트 35개를 통과한 커밋만 배포되게 했습니다.",
+      "technologies": [
+        "React 19",
+        "TypeScript",
+        "Vite 8",
+        "Vitest",
+        "Playwright"
+      ],
+      "gallery": [
+        {
+          "src": "assets/t13-brochure-reader.webp",
+          "alt": "ExplainSOC 소개서 판독 화면. 왼쪽 소개서 문장의 ‘정확도 99.88%’·‘오탐률 0.09%’·‘무작위’에 번호가 붙고, 오른쪽에 읽은 값과 논문 근거, 업체에 물을 질문이 이어진다.",
+          "label": "소개서 판독",
+          "width": 1280,
+          "height": 800
+        },
+        {
+          "src": "assets/t13-paper-lab.webp",
+          "alt": "ExplainSOC 논문 실험실 화면. 학습에 있던 공격 유형과 처음 보는 공격 유형으로 시험을 바꿔 세 모델의 순위와 Macro F1을 비교한다.",
+          "label": "논문 실험실",
+          "width": 1280,
+          "height": 800
+        }
+      ],
+      "links": [
+        {
+          "label": "앱 체험",
+          "href": "https://myeongjundev.github.io/explainsoc/"
+        },
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/explainsoc"
+        }
+      ],
+      "resumeDetail": "full"
+    },
+    {
       "id": "clov",
       "workId": "clov",
       "period": "2026.06 - 2026.08",
@@ -365,12 +412,12 @@
       "period": "2026.09",
       "title": "10번 과제 · 네트워크 침입 탐지 연구",
       "role": "연구 설계 · 구현 · 검증 · 논문 작성",
-      "scope": "연구 설계, 데이터 감사, 세 모델 학습과 비교 실험, SHAP 설명 안정성 검증, 논문 작성과 재현 자료 공개",
+      "scope": "연구 설계, 데이터 감사, 세 모델 학습과 비교 실험, SHAP 설명 안정성 검증, 논문과 재현 자료 공개",
       "ability": "자기동기력",
       "situation": "무작위 분할에서 높은 탐지 점수가 실제로 처음 보는 공격에 일반화되는지 확인할 필요가 있었습니다.",
       "rationale": "무작위 분할과 날짜 기반 미관측 공격 분할을 따로 설계하고, 세 모델의 성능과 SHAP 설명 안정성을 같은 조건에서 비교했습니다.",
       "action": "CICIDS2017 2,830,743건을 감사하고 무작위 분할과 미관측 공격 분할에서 세 모델을 비교했으며 SHAP 설명 안정성을 확인했습니다.",
-      "result": "XGBoost Macro F1이 0.9979에서 0.3871로 낮아지는 격차를 재현 자료와 함께 논문으로 제출했습니다.",
+      "result": "XGBoost Macro F1이 0.9979에서 0.3871로 낮아지는 격차를 재현 자료와 논문으로 제출했습니다.",
       "technologies": [
         "Python",
         "scikit-learn",
@@ -446,7 +493,7 @@
         }
       ],
       "status": "published",
-      "resumeDetail": "full"
+      "resumeDetail": "compact"
     },
     {
       "id": "t05-ai-handoff",

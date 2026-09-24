@@ -66,6 +66,16 @@
     "site": "Portfolio site"
   },
   "experience": {
+    "t13": {
+      "title": "ExplainSOC — Security-AI Performance Claim Checker (ALEPH Assignment 13)",
+      "role": "Planning · Front-end implementation · User observation · Validation · Deployment",
+      "scope": "15 reading rules, conclusion card, paper lab, six user sessions, reproducible ZIP, GitHub Pages",
+      "result": "A fellow trainee reached the vendor questions on a phone unaided; 187 tests gate every deploy.",
+      "links": [
+        "Try the app",
+        "Public repository"
+      ]
+    },
     "clov": {
       "title": "CLOV — Team Project",
       "role": "Team lead · Full-stack developer · Team of four",
