@@ -71,7 +71,7 @@
     "highlights": [
       "4인 팀의 팀장으로 이슈 152개와 PR 266개를 운영하고 그중 72개를 직접 리뷰했으며, React·Spring Boot 서비스를 Ubuntu·Docker·Nginx·HTTPS 환경에 직접 배포했습니다.",
       "WebAuthn 패스키 인증을 설계·구현해 판정 기준 47개를 모두 충족하고 자동 테스트 50개를 통과했으며, 공개 화면의 비밀번호 입력 칸을 0개로 유지했습니다.",
-      "CICIDS2017 2,830,743건으로 분할 방식에 따른 탐지 성능 격차(Macro F1 0.9979 → 0.3871)를 검증하고 재현 자료와 논문을 공개했습니다."
+      "CICIDS2017 2,830,743건으로 분할 방식에 따른 탐지 성능 격차(Macro F1 0.9979 → 0.3871)를 검증해 논문으로 공개하고, 이 결과를 보안 AI 성능 숫자를 점검하는 도구 ExplainSOC로 만들었습니다."
     ],
     "technologyEvidence": {
       "서비스 개발": "CLOV · 7번 다이어리 · 8번 패스키 · ExplainSOC",
@@ -208,10 +208,11 @@
       "status": "published",
       "visual": {
         "src": "assets/t10-performance-comparison.webp",
-        "focus": "left top",
+        "focus": "center",
         "alt": "무작위 분할과 날짜 기반 미관측 공격 분할에서 세 모델의 Macro F1과 공격 Recall을 비교한 차트.",
         "width": 1200,
-        "height": 675
+        "height": 675,
+        "fit": "contain"
       },
       "links": [
         {
@@ -496,6 +497,42 @@
       "resumeDetail": "full"
     },
     {
+      "id": "t07",
+      "workId": "t07-auth",
+      "period": "2026.09",
+      "title": "7번 과제 · 플랜두씨 다이어리 계정 인증",
+      "role": "인증 설계 · 풀스택 구현 · 검증 · 배포",
+      "scope": "Argon2id 비밀번호 저장, 서버 세션에 묶은 JWT와 Refresh 토큰 회전, 계정별 데이터 격리, 기존 기록 이전, Docker·Render 배포",
+      "ability": "자기조절력",
+      "situation": "공개형으로 시작한 Plan–Do–See 다이어리를 개인 계정 기반으로 바꿔야 했습니다. 서명만 확인하는 JWT는 로그아웃한 뒤에도 만료 전까지 유효하고, 로그인 화면으로 가리기만 하면 다른 계정의 기록을 읽는 길도 남습니다.",
+      "rationale": "Access JWT를 서버 세션 행에 묶어 매 요청에서 세션 생존과 소유자를 확인하고, 이미 회전한 Refresh 토큰이 다시 오면 탈취 가능성으로 보고 같은 계열 전체를 폐기하기로 했습니다.",
+      "action": "비밀번호를 Argon2id로 저장하고, 목록·단건·집계·내보내기를 서버가 확인한 사용자 ID로 제한했습니다. 기존 기록은 백업한 뒤 새 계정으로 옮겼고, 비밀번호를 바꾸면 기존 세션을 모두 폐기합니다.",
+      "result": "백엔드 테스트 319개와 프런트엔드 76개를 통과했고, 다른 계정 자료 접근과 재사용된 토큰이 거절되는 동작을 요청·응답 증거로 남겼습니다.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Flask",
+        "PostgreSQL",
+        "Argon2id",
+        "Docker"
+      ],
+      "links": [
+        {
+          "label": "서비스 체험 · 첫 접속 느림",
+          "href": "https://t06-plando-see-diary.onrender.com"
+        },
+        {
+          "label": "인증 설명서",
+          "href": "https://github.com/myeongjundev/t07-plando-see-diary/blob/main/docs/T07-AUTH-GUIDE.md"
+        },
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/t07-plando-see-diary"
+        }
+      ],
+      "resumeDetail": "compact"
+    },
+    {
       "id": "t05-ai-handoff",
       "period": "2026.08 - 2026.09",
       "title": "5번 과제 · 대화 없이 넘긴 AI 인계",
@@ -543,7 +580,7 @@
         }
       ],
       "status": "published",
-      "resumeDetail": "compact"
+      "resumeDetail": "omit"
     },
     {
       "id": "flask-board",

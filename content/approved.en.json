@@ -34,7 +34,7 @@
     "highlights": [
       "Led a four-person team, running 152 issues and 266 pull requests and reviewing 72 of them myself; deployed the React and Spring Boot service on Ubuntu, Docker, Nginx and HTTPS.",
       "Designed and built WebAuthn passkey authentication that met all 47 acceptance criteria and passed 50 automated tests, with zero password fields on the public pages.",
-      "Verified on 2,830,743 CICIDS2017 records how the data split changes detection performance (Macro F1 0.9979 → 0.3871), and published the paper with reproducible materials."
+      "Verified on 2,830,743 CICIDS2017 records how the data split changes detection (Macro F1 0.9979 → 0.3871), published the paper, and built ExplainSOC to check security-AI performance claims."
     ],
     "technologies": {
       "Service development": [
@@ -181,6 +181,20 @@
       "situation": "To let people briefly experience security-monitoring judgment, a single accuracy score does not reveal what they actually got wrong.",
       "rationale": "I judged that counting false positives and false negatives separately keeps a round survived by blocking everything from scoring the same as a round that sorted alerts correctly.",
       "action": "I built a 30-second shift where each alert must be passed or blocked within three seconds, and the results screen counts false positives and false negatives separately as bars."
+    },
+    "t07": {
+      "title": "Plan–Do–See Diary Account Authentication (ALEPH Assignment 7)",
+      "role": "Authentication design · Full-stack implementation · Validation · Deployment",
+      "scope": "Argon2id password storage, JWTs bound to server sessions with refresh-token rotation, per-account data isolation, migration of existing records, Docker deployment on Render",
+      "situation": "I had to turn a Plan–Do–See diary that started as a public app into one based on personal accounts. A JWT checked only by its signature stays valid after logout until it expires, and hiding the diary behind a login screen alone would still leave a path to read other accounts' records.",
+      "rationale": "I bound each access JWT to a server session row so every request checks that the session is alive and who owns the data, and treated a reused, already-rotated refresh token as possible theft that revokes the whole token family.",
+      "action": "I stored passwords with Argon2id and limited lists, single records, statistics and exports to the user ID confirmed by the server. Existing records were backed up and moved to the new account, and changing the password revokes every existing session.",
+      "result": "Passed 319 back-end and 76 front-end tests, with request/response evidence that access to other accounts' data and reused tokens are rejected.",
+      "links": [
+        "Try the service (slow first load)",
+        "Authentication guide",
+        "Public repository"
+      ]
     }
   },
   "education": [

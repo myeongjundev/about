@@ -1281,12 +1281,15 @@ p { margin: 0; }
 .doc-list .fmt { color: var(--muted); font: 500 12px var(--mono); }
 
 /* 같은 문서를 형식별로 내려받는 단추. 워드가 없으면 PDF로 연다. */
-.doc-formats { display: flex; flex-wrap: wrap; gap: 8px; }
+/* 웹에서 보기를 첫 줄에, PDF·DOCX를 둘째 줄에 둔다. 칸 폭과 상관없이 모든 카드가 같은 모양이다. */
+.doc-formats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+.doc-formats a:first-child { grid-column: 1 / -1; }
 /* 웹에서 바로 읽는 단추가 먼저 눈에 띄게 */
 .doc-formats a:first-child { border-color: var(--accent); color: var(--accent); }
 
 .doc-formats a {
   padding: 6px 12px;
+  text-align: center;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   color: var(--ink);

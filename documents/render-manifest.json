@@ -2,11 +2,11 @@
   "resume-kim-myeongjun": {
     "pages": 2,
     "charsPerPage": [
-      2062,
-      2128
+      2126,
+      2134
     ],
-    "lastPageFill": 1.032,
-    "sourceDigest": "12ed8b6b583dc0eb"
+    "lastPageFill": 1.004,
+    "sourceDigest": "7cebbb783f7e8ccb"
   },
   "personal-statement-kim-myeongjun": {
     "pages": 1,
@@ -20,21 +20,21 @@
     "pages": 4,
     "charsPerPage": [
       2682,
-      1802,
-      2877,
-      2078
+      3113,
+      3152,
+      1803
     ],
-    "lastPageFill": 0.722,
-    "sourceDigest": "7c2c4a988863c7b7"
+    "lastPageFill": 0.572,
+    "sourceDigest": "42cd67ae862ea397"
   },
   "resume-kim-myeongjun-en": {
     "pages": 2,
     "charsPerPage": [
-      1784,
-      1668
+      1799,
+      1734
     ],
-    "lastPageFill": 0.935,
-    "sourceDigest": "c4d0ba8253b22c5b"
+    "lastPageFill": 0.964,
+    "sourceDigest": "9a0ed9c333c1e699"
   },
   "personal-statement-kim-myeongjun-en": {
     "pages": 2,
@@ -46,14 +46,15 @@
     "sourceDigest": "f69900bc764c8301"
   },
   "career-description-kim-myeongjun-en": {
-    "pages": 4,
+    "pages": 5,
     "charsPerPage": [
       2180,
       1674,
-      2495,
-      1762
+      2408,
+      2257,
+      824
     ],
-    "lastPageFill": 0.706,
-    "sourceDigest": "85fc2429723b536a"
+    "lastPageFill": 0.342,
+    "sourceDigest": "84349958a556efdf"
   }
 }

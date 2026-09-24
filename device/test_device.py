@@ -408,9 +408,10 @@ class DocumentTests(unittest.TestCase):
             "career-description-kim-myeongjun": 4,
             # 영문 이력서도 한국어 이력서처럼 두 쪽을 넘기지 않는다.
             "resume-kim-myeongjun-en": 2,
-            # 영문 자기소개서는 같은 내용이 한 쪽을 넘어 두 쪽까지 둔다. 경력기술서는 한국어와 같은 한도.
+            # 영문 자기소개서는 같은 내용이 한 쪽을 넘어 두 쪽까지 둔다. 영문 경력기술서는 7번 과제가
+            # 들어가며 5쪽이 됐다. 판단 줄을 줄이는 대신 한도를 올렸다(2026-09-25).
             "personal-statement-kim-myeongjun-en": 2,
-            "career-description-kim-myeongjun-en": 4,
+            "career-description-kim-myeongjun-en": 5,
         }
         for name, info in manifest.items():
             with self.subTest(name=name):

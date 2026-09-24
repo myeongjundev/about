@@ -323,7 +323,13 @@ def render_works(data: dict[str, object], draft: bool) -> str:
             visual_class = " has-image"
             visual_accessibility = ""
             # 좁은 칸에서 잘릴 때 글자가 시작하는 쪽을 남기도록 그림마다 초점을 정할 수 있다.
-            focus = f' style="object-position: {esc(visual["focus"])}"' if visual.get("focus") else ""
+            # 가로로 긴 차트처럼 잘리면 안 되는 그림은 fit: contain으로 칸 안에 통째로 넣는다.
+            styles = []
+            if visual.get("fit"):
+                styles.append(f"object-fit: {esc(visual['fit'])}")
+            if visual.get("focus"):
+                styles.append(f"object-position: {esc(visual['focus'])}")
+            focus = f' style="{"; ".join(styles)}"' if styles else ""
             visual_media = (
                 f'<img src="{safe_href(visual["src"])}" alt="{esc(visual["alt"])}" '
                 f'width="{esc(visual["width"])}" height="{esc(visual["height"])}"{focus} '
@@ -505,7 +511,7 @@ def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
         <p class="contact-kicker mono">LET'S BUILD SOMETHING RELIABLE.</p>
         <p class="name">{esc(data['profile']['name'])}</p>
         {render_cta(data, "footer")}
-        <p class="note">새 기록을 넣으면 숫자와 문장 후보를 다시 만들 수 있습니다 · 숫자 기준일 {esc(data['updatedAt'])}</p>
+        <p class="note">숫자 기준일 {esc(data['updatedAt'])}</p>
       </footer>"""
 
 

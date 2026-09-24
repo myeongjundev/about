@@ -71,6 +71,18 @@
           <p class="doc-links"><a href="https://github.com/myeongjundev/t08-passkey-portfolio">Public repository</a></p>
         </article>
         <article class="doc-entry">
+          <div class="doc-entry-head"><h2>Plan–Do–See Diary Account Authentication (ALEPH Assignment 7)</h2><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Authentication design · Full-stack implementation · Validation · Deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>Argon2id password storage, JWTs bound to server sessions with refresh-token rotation, per-account data isolation, migration of existing records, Docker deployment on Render</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>I had to turn a Plan–Do–See diary that started as a public app into one based on personal accounts. A JWT checked only by its signature stays valid after logout until it expires, and hiding the diary behind a login screen alone would still leave a path to read other accounts&#x27; records.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>I bound each access JWT to a server session row so every request checks that the session is alive and who owns the data, and treated a reused, already-rotated refresh token as possible theft that revokes the whole token family.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I stored passwords with Argon2id and limited lists, single records, statistics and exports to the user ID confirmed by the server. Existing records were backed up and moved to the new account, and changing the password revokes every existing session.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Passed 319 back-end and 76 front-end tests, with request/response evidence that access to other accounts&#x27; data and reused tokens are rejected.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>React · TypeScript · Flask · PostgreSQL · Argon2id · Docker</span></p>
+          <p class="doc-links"><a href="https://t06-plando-see-diary.onrender.com">Try the service (slow first load)</a><a href="https://github.com/myeongjundev/t07-plando-see-diary/blob/main/docs/T07-AUTH-GUIDE.md">Authentication guide</a><a href="https://github.com/myeongjundev/t07-plando-see-diary">Public repository</a></p>
+        </article>
+        <article class="doc-entry">
           <div class="doc-entry-head"><h2>AI Handoff Without Sharing the Conversation (ALEPH Assignment 5)</h2><span class="doc-period">2026.08 - 2026.09</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>Experiment design · Front-end implementation · Validation · Deployment</span></p>
           <p class="doc-line"><span class="doc-label">Scope</span><span>Ten fixed checks, a slider that overlays the original and finished card, a seven-part handoff document, unit and E2E regression tests, GitHub Pages deployment</span></p>
