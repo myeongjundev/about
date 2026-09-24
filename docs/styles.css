@@ -1251,8 +1251,8 @@ p { margin: 0; }
 
 .doc-list {
   display: grid;
-  /* 한국어 문서 셋과 영문 이력서 하나. 좁아지면 두 줄로 접힌다. */
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  /* 한국어 문서 셋, 영문 문서 셋이 한 줄씩. 휴대폰 폭에서만 한 줄에 하나로 접힌다. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -1336,7 +1336,6 @@ p { margin: 0; }
   .work:nth-child(even) .work-visual,
   .work:nth-child(even) .work-copy { order: initial; }
   .work-visual { min-height: 300px; }
-  .doc-list { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 880px) {
@@ -1469,6 +1468,10 @@ p { margin: 0; }
 
   .contact { grid-template-columns: 1fr; padding: 28px; }
   .contact .cta { margin-top: 8px; }
+}
+
+@media (max-width: 640px) {
+  .doc-list { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 390px) {

@@ -3,10 +3,10 @@
     "pages": 2,
     "charsPerPage": [
       2062,
-      2183
+      2128
     ],
-    "lastPageFill": 1.059,
-    "sourceDigest": "f57329d4f24bdec7"
+    "lastPageFill": 1.032,
+    "sourceDigest": "12ed8b6b583dc0eb"
   },
   "personal-statement-kim-myeongjun": {
     "pages": 1,
@@ -31,9 +31,29 @@
     "pages": 2,
     "charsPerPage": [
       1784,
-      1609
+      1668
     ],
-    "lastPageFill": 0.902,
-    "sourceDigest": "22c2f59e03c71ba2"
+    "lastPageFill": 0.935,
+    "sourceDigest": "c4d0ba8253b22c5b"
+  },
+  "personal-statement-kim-myeongjun-en": {
+    "pages": 2,
+    "charsPerPage": [
+      2593,
+      699
+    ],
+    "lastPageFill": 0.27,
+    "sourceDigest": "f69900bc764c8301"
+  },
+  "career-description-kim-myeongjun-en": {
+    "pages": 4,
+    "charsPerPage": [
+      2180,
+      1674,
+      2495,
+      1762
+    ],
+    "lastPageFill": 0.706,
+    "sourceDigest": "85fc2429723b536a"
   }
 }

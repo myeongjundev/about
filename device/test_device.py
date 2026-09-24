@@ -50,10 +50,20 @@ class RefreshTests(unittest.TestCase):
                 refresh_module.refresh(Path(input_temp), Path(output_temp))
 
 
+WEB_DOCUMENTS = (
+        "resume.html",
+        "personal-statement.html",
+        "career-description.html",
+        "resume-en.html",
+        "personal-statement-en.html",
+        "career-description-en.html",
+    )
+
+
 def copy_published_documents(output_dir: Path) -> None:
     """사이트는 문서 파일과 웹 문서가 실제로 있어야 만들어진다. 임시 폴더에 둘 다 옮긴다."""
     shutil.copytree(REPO / "docs" / "files", output_dir / "files")
-    for page in ("resume.html", "personal-statement.html", "career-description.html", "resume-en.html"):
+    for page in WEB_DOCUMENTS:
         shutil.copy2(REPO / "docs" / page, output_dir / page)
 
 
@@ -112,11 +122,11 @@ class SiteTests(unittest.TestCase):
             self.assertNotIn("작업 중인 미리보기", content)
             self.assertIn('href="files/resume-kim-myeongjun.docx"', content)
             # 워드가 없는 사람을 위해 같은 문서를 PDF로도 둔다.
-            # 한국어 문서 셋과 영문 이력서 하나
-            self.assertEqual(content.count('class="doc-card"'), 4)
-            self.assertEqual(content.count('class="doc-card" lang="en"'), 1)
+            # 한국어 문서 셋과 영문 문서 셋
+            self.assertEqual(content.count('class="doc-card"'), 6)
+            self.assertEqual(content.count('class="doc-card" lang="en"'), 3)
             # 문서는 웹 페이지로도 읽는다. 웹 페이지와 DOCX는 documents/build.py가 같은 순서로 만든다.
-            for page in ("resume.html", "personal-statement.html", "career-description.html", "resume-en.html"):
+            for page in WEB_DOCUMENTS:
                 self.assertIn(f'href="{page}"', content)
             for name in (
                 "resume-kim-myeongjun",
@@ -366,6 +376,8 @@ class DocumentTests(unittest.TestCase):
             "personal-statement-kim-myeongjun.docx",
             "career-description-kim-myeongjun.docx",
             "resume-kim-myeongjun-en.docx",
+            "personal-statement-kim-myeongjun-en.docx",
+            "career-description-kim-myeongjun-en.docx",
         ):
             with self.subTest(name=name), zipfile.ZipFile(REPO / "docs" / "files" / name) as archive:
                 root = ElementTree.fromstring(archive.read("word/document.xml"))
@@ -396,6 +408,9 @@ class DocumentTests(unittest.TestCase):
             "career-description-kim-myeongjun": 4,
             # 영문 이력서도 한국어 이력서처럼 두 쪽을 넘기지 않는다.
             "resume-kim-myeongjun-en": 2,
+            # 영문 자기소개서는 같은 내용이 한 쪽을 넘어 두 쪽까지 둔다. 경력기술서는 한국어와 같은 한도.
+            "personal-statement-kim-myeongjun-en": 2,
+            "career-description-kim-myeongjun-en": 4,
         }
         for name, info in manifest.items():
             with self.subTest(name=name):

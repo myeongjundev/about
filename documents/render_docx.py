@@ -28,6 +28,8 @@ DOCUMENTS = (
     "personal-statement-kim-myeongjun",
     "career-description-kim-myeongjun",
     "resume-kim-myeongjun-en",
+    "personal-statement-kim-myeongjun-en",
+    "career-description-kim-myeongjun-en",
 )
 
 DEFAULT_IMAGE = "t12-doc-render"

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Myeongjun Kim — Career Description</title>
+  <meta name="description" content="Career Description of Myeongjun Kim. Also available as PDF and DOCX.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="document.css?v=e47072e5b6c6">
+</head>
+<body>
+  <a class="skip-link" href="#doc">Skip to the document</a>
+  <div class="doc-bar">
+    <a class="doc-back" href="./">← Portfolio (Korean)</a>
+    <nav class="doc-tabs" aria-label="Documents"><a href="resume-en.html">Résumé</a><a href="personal-statement-en.html">Personal Statement</a><a href="career-description-en.html" aria-current="page">Career Description</a><a href="resume.html" lang="ko">한국어</a></nav>
+    <p class="doc-downloads"><a href="files/career-description-kim-myeongjun-en.pdf">PDF</a><a href="files/career-description-kim-myeongjun-en.docx">DOCX</a></p>
+  </div>
+  <main id="doc" class="doc">
+      <header class="doc-head">
+        <h1><span class="doc-name">Myeongjun Kim</span> <span class="doc-kind">Career Description</span></h1>
+        <p class="doc-meta"><strong>Junior Developer · From Service Development to Network &amp; Security</strong> <span aria-hidden="true">·</span> <a href="https://github.com/myeongjundev">GitHub profile</a> <span aria-hidden="true">·</span> <a href="https://myeongjundev.github.io/about/">Portfolio site</a></p>
+      </header>
+      <p class="doc-intro">For each project: my role and scope, then the situation, my judgment, what I did and the result, written as facts that can be checked.</p>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>ExplainSOC — Security-AI Performance Claim Checker (ALEPH Assignment 13)</h2><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Planning · Front-end implementation · User observation · Validation · Deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>15 reading rules, conclusion card, paper lab, six user sessions, reproducible ZIP, GitHub Pages</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>Security AI product brochures lead with numbers like ‘99% accuracy’ but rarely say which test produced them. In my Assignment 10 paper, the same XGBoost scored Macro F1 0.9979 on a randomly split test and 0.3871 on a test holding only attacks absent from training.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>I chose not to build scores, grades or pass marks that judge a number good or bad. Instead, the tool checks the test conditions behind a number first, then turns missing evidence into questions to ask the vendor.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I wrote 15 reading rules that find missing test conditions in brochure sentences and score tables and turn them into vendor questions, and built a conclusion card and a paper lab for changing the paper&#x27;s experiments directly. Rather than adding features, I recorded first-time users six times and fixed each place they got stuck. The app runs entirely in the browser, with no server.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>A fellow trainee reached the vendor questions on a phone unaided; 187 tests gate every deploy.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>React 19 · TypeScript · Vite 8 · Vitest · Playwright</span></p>
+          <p class="doc-links"><a href="https://myeongjundev.github.io/explainsoc/">Try the app</a><a href="https://github.com/myeongjundev/explainsoc">Public repository</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>CLOV — Team Project</h2><span class="doc-period">2026.06 - 2026.08</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Team lead · Full-stack developer · Team of four</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>Service architecture, React UI and Spring Boot API, deployment on Ubuntu, Docker, Nginx and HTTPS, issue tracking and code review</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Interpersonal skills</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>Only two people came to the first meeting of a team that included three non-majors, and code produced with different AI tools often clashed.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>I built a prototype that showed features before explaining them, and made an issue before work and a run check and code review before merge the team&#x27;s shared standard.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I built a working prototype first and ran a flow of writing an issue, checking that it runs, and merging only after code review.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>By August 4, 2026 the team logged 152 issues and 266 pull requests (72 reviewed by me) and served the app over HTTPS.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>React · Spring Boot · Docker · Nginx · OAuth</span></p>
+          <p class="doc-links"><a href="https://github.com/Pickeslog/clov-web">Front-end repository</a><a href="https://github.com/Pickeslog/clov-api">Back-end repository</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>Network Intrusion Detection Research (ALEPH Assignment 10)</h2><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Research design · Implementation · Validation · Paper writing</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>Research design, data audit, three-model comparison, SHAP stability checks, paper and reproducible materials</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-motivation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>I needed to check whether high detection scores on a random split actually generalize to attacks the model has never seen.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>I designed a random split and a date-based unseen-attack split separately, and compared three models&#x27; performance and SHAP explanation stability under the same conditions.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I audited 2,830,743 CICIDS2017 records, compared three models on the random and unseen-attack splits, and checked the stability of SHAP explanations.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Submitted a paper with reproducible materials: XGBoost Macro F1 fell from 0.9979 to 0.3871.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>Python · scikit-learn · XGBoost · SHAP</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/explainsoc-research/blob/main/output/pdf/T10-research-paper.pdf">Read the paper</a><a href="https://github.com/myeongjundev/explainsoc-research">Public repository</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>Passkey-Protected Private Area (ALEPH Assignment 8)</h2><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>WebAuthn authentication design · Implementation · Validation · Deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>WebAuthn registration and sign-in, session, Origin and CSRF checks, database, public deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>I had to keep a public introduction page open while letting only myself see private material, without a password.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>Instead of passwords, I decided to confirm identity with a device passkey and to check the boundary between public and private content at every request.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I implemented WebAuthn registration and sign-in, and made each one-time challenge usable only once in the database. Server sessions, Origin and CSRF checks, and a guard against deleting the last passkey are all enforced at the request level.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Met all 47 acceptance criteria and passed 50 tests; zero password fields on public pages, 401 for private requests without a session.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>Java 25 · Spring Boot · WebAuthn4J · PostgreSQL · Vercel</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/t08-passkey-portfolio">Public repository</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>AI Handoff Without Sharing the Conversation (ALEPH Assignment 5)</h2><span class="doc-period">2026.08 - 2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Experiment design · Front-end implementation · Validation · Deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>Ten fixed checks, a slider that overlays the original and finished card, a seven-part handoff document, unit and E2E regression tests, GitHub Pages deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-motivation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>Every time I switched AI tools I had to explain the same context again, and it had never been tested whether the next AI could safely continue the same project without the conversation.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>Instead of racing for speed, I fixed the feature scope and ten fixed checks first, and tested whether the next AI could take over from code, checks and a handoff document alone, without the conversation.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I first set the rule that a check not actually run is never recorded as passed, and had the first AI implement only checks 1–3 and stop as planned. The next AI read only the handoff document and finished checks 4–10 and the full regression suite. When the next AI read the first AI&#x27;s work log before the prohibition rules, I did not hide that procedural violation behind the passing result; I left it in the work log and on the public page.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Passed all 10 fixed checks; 85 unit and 38 E2E tests stayed green with no human code fixes.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>React 19 · Vite 8 · Canvas API · Playwright</span></p>
+          <p class="doc-links"><a href="https://myeongjundev.github.io/t05-ai-handoff/">Try the site</a><a href="https://github.com/myeongjundev/t05-ai-handoff/blob/main/docs/FINAL_COMPARISON.md">Handoff results</a><a href="https://github.com/myeongjundev/t05-ai-handoff">Public repository</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>Security Board with Alerts and Privilege Revocation (course lab)</h2><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Security feature design and implementation · Automation integration · Validation</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>Role-based access control with admin safeguards, an n8n sign-in alert bot with three messenger channels, porting the course&#x27;s automatic over-privilege revocation code, Graylog SYN flood detection</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>I had to add role-based access control to a board from class and port the course&#x27;s code that automatically revokes excess privileges. If automatic revocation misfired, it could demote even the administrators and leave no one able to manage members.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>The more automatic a revocation feature is, the more it must first prevent administrators from locking themselves out, so I applied the same rules that forbid self-demotion, self-deletion and demoting the last administrator to the revocation bot.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I split the revocation bot into three stages (report only, notify Graylog, actually demote) so it removes privileges only when given the option, and kept evidence captures and alert senders from exposing API keys or webhook addresses on screen or in error messages. In the SYN flood lab I did not stop at seeing the alert arrive; I compared it with the run record and fixed a bug where the attack was marked as allowed and the real source and count were missing.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Passed 45 tests; a 35,033-packet SYN flood from Kali reached Graylog, n8n, three messengers and the board log.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>Flask · MySQL · JWT · n8n · Graylog · Docker</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/flask-board">Public repository</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>GAME PULSE Data Board (ALEPH Assignment 4)</h2><span class="doc-period">2026.08 - 2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Data collection design · Front-end implementation · Validation · Deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>Collecting and storing four Steam feeds (concurrent players, sales, discounts, streams), a React 19 UI, failure reproduction and recovery, GitHub Pages deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>When numbers collected from several sources share one screen, it becomes unclear when and where each value came from and what is shown when collection fails.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>I chose Steam over Stack Overflow and narrowed it to four axes (concurrent players, sales, discounts and streams). When collection fails, the board shows the last good value and its time instead of inventing an unknown one.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I stored each value with its source, measurement time, data state and calculation basis, and tested recovery by reproducing five kinds of failure, including timeouts.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Passed all 317 regression tests with an audit trail for all 35 assignment conditions.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>React 19 · Vite 8 · Node 22 · GitHub Actions · GitHub Pages</span></p>
+          <p class="doc-links"><a href="https://myeongjundev.github.io/info-board/">Try the site</a><a href="https://github.com/myeongjundev/info-board">Public repository</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>SOC SHIFT:30 Alert-Triage Game (ALEPH Assignment 2)</h2><span class="doc-period">2026.08</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Planning · Front-end implementation · Testing · Deployment</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>Thirty-second triage rules, React 18 and TypeScript, keyboard, mouse and touch controls, serverless deployment on GitHub Pages</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-motivation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>To let people briefly experience security-monitoring judgment, a single accuracy score does not reveal what they actually got wrong.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>I judged that counting false positives and false negatives separately keeps a round survived by blocking everything from scoring the same as a round that sorted alerts correctly.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>I built a 30-second shift where each alert must be passed or blocked within three seconds, and the results screen counts false positives and false negatives separately as bars.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Serverless build that passed 291 tests; playable from a link with no install or sign-in.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>React 18 · TypeScript · Vite 8</span></p>
+          <p class="doc-links"><a href="https://myeongjundev.github.io/mini-game/">Play the game</a><a href="https://github.com/myeongjundev/mini-game">Public repository</a></p>
+        </article>
+  </main>
+</body>
+</html>

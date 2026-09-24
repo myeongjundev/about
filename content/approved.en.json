@@ -1,5 +1,5 @@
 {
-  "note": "English resume text. Periods, links and item order come from approved.json; only wording lives here. Every experience id in approved.json must have an entry.",
+  "note": "English text for the résumé, personal statement and career description. Periods, links and item order come from approved.json; only wording lives here. Every experience id and story segment in approved.json must have an entry.",
   "labels": {
     "documentTitle": "Résumé",
     "highlights": "Highlights",
@@ -12,7 +12,20 @@
     "result": "Result",
     "stack": "Stack",
     "institution": "Institution",
-    "details": "Details"
+    "details": "Details",
+    "statement": "Personal Statement",
+    "direction": "Looking Ahead",
+    "career": "Career Description",
+    "careerIntro": "For each project: my role and scope, then the situation, my judgment, what I did and the result, written as facts that can be checked.",
+    "ability": "Strength",
+    "situation": "Situation",
+    "rationale": "Judgment",
+    "action": "Action",
+    "abilities": {
+      "자기조절력": "Self-regulation",
+      "대인관계력": "Interpersonal skills",
+      "자기동기력": "Self-motivation"
+    }
   },
   "profile": {
     "name": "Myeongjun Kim",
@@ -74,7 +87,10 @@
       "links": [
         "Try the app",
         "Public repository"
-      ]
+      ],
+      "situation": "Security AI product brochures lead with numbers like ‘99% accuracy’ but rarely say which test produced them. In my Assignment 10 paper, the same XGBoost scored Macro F1 0.9979 on a randomly split test and 0.3871 on a test holding only attacks absent from training.",
+      "rationale": "I chose not to build scores, grades or pass marks that judge a number good or bad. Instead, the tool checks the test conditions behind a number first, then turns missing evidence into questions to ask the vendor.",
+      "action": "I wrote 15 reading rules that find missing test conditions in brochure sentences and score tables and turn them into vendor questions, and built a conclusion card and a paper lab for changing the paper's experiments directly. Rather than adding features, I recorded first-time users six times and fixed each place they got stuck. The app runs entirely in the browser, with no server."
     },
     "clov": {
       "title": "CLOV — Team Project",
@@ -84,7 +100,10 @@
       "links": [
         "Front-end repository",
         "Back-end repository"
-      ]
+      ],
+      "situation": "Only two people came to the first meeting of a team that included three non-majors, and code produced with different AI tools often clashed.",
+      "rationale": "I built a prototype that showed features before explaining them, and made an issue before work and a run check and code review before merge the team's shared standard.",
+      "action": "I built a working prototype first and ran a flow of writing an issue, checking that it runs, and merging only after code review."
     },
     "t10": {
       "title": "Network Intrusion Detection Research (ALEPH Assignment 10)",
@@ -94,7 +113,10 @@
       "links": [
         "Read the paper",
         "Public repository"
-      ]
+      ],
+      "situation": "I needed to check whether high detection scores on a random split actually generalize to attacks the model has never seen.",
+      "rationale": "I designed a random split and a date-based unseen-attack split separately, and compared three models' performance and SHAP explanation stability under the same conditions.",
+      "action": "I audited 2,830,743 CICIDS2017 records, compared three models on the random and unseen-attack splits, and checked the stability of SHAP explanations."
     },
     "third-project": {
       "title": "Passkey-Protected Private Area (ALEPH Assignment 8)",
@@ -103,7 +125,10 @@
       "result": "Met all 47 acceptance criteria and passed 50 tests; zero password fields on public pages, 401 for private requests without a session.",
       "links": [
         "Public repository"
-      ]
+      ],
+      "situation": "I had to keep a public introduction page open while letting only myself see private material, without a password.",
+      "rationale": "Instead of passwords, I decided to confirm identity with a device passkey and to check the boundary between public and private content at every request.",
+      "action": "I implemented WebAuthn registration and sign-in, and made each one-time challenge usable only once in the database. Server sessions, Origin and CSRF checks, and a guard against deleting the last passkey are all enforced at the request level."
     },
     "t05-ai-handoff": {
       "title": "AI Handoff Without Sharing the Conversation (ALEPH Assignment 5)",
@@ -114,7 +139,10 @@
         "Try the site",
         "Handoff results",
         "Public repository"
-      ]
+      ],
+      "situation": "Every time I switched AI tools I had to explain the same context again, and it had never been tested whether the next AI could safely continue the same project without the conversation.",
+      "rationale": "Instead of racing for speed, I fixed the feature scope and ten fixed checks first, and tested whether the next AI could take over from code, checks and a handoff document alone, without the conversation.",
+      "action": "I first set the rule that a check not actually run is never recorded as passed, and had the first AI implement only checks 1–3 and stop as planned. The next AI read only the handoff document and finished checks 4–10 and the full regression suite. When the next AI read the first AI's work log before the prohibition rules, I did not hide that procedural violation behind the passing result; I left it in the work log and on the public page."
     },
     "flask-board": {
       "title": "Security Board with Alerts and Privilege Revocation (course lab)",
@@ -123,7 +151,10 @@
       "result": "Passed 45 tests; a 35,033-packet SYN flood from Kali reached Graylog, n8n, three messengers and the board log.",
       "links": [
         "Public repository"
-      ]
+      ],
+      "situation": "I had to add role-based access control to a board from class and port the course's code that automatically revokes excess privileges. If automatic revocation misfired, it could demote even the administrators and leave no one able to manage members.",
+      "rationale": "The more automatic a revocation feature is, the more it must first prevent administrators from locking themselves out, so I applied the same rules that forbid self-demotion, self-deletion and demoting the last administrator to the revocation bot.",
+      "action": "I split the revocation bot into three stages (report only, notify Graylog, actually demote) so it removes privileges only when given the option, and kept evidence captures and alert senders from exposing API keys or webhook addresses on screen or in error messages. In the SYN flood lab I did not stop at seeing the alert arrive; I compared it with the run record and fixed a bug where the attack was marked as allowed and the real source and count were missing."
     },
     "t04-info-board": {
       "title": "GAME PULSE Data Board (ALEPH Assignment 4)",
@@ -133,7 +164,10 @@
       "links": [
         "Try the site",
         "Public repository"
-      ]
+      ],
+      "situation": "When numbers collected from several sources share one screen, it becomes unclear when and where each value came from and what is shown when collection fails.",
+      "rationale": "I chose Steam over Stack Overflow and narrowed it to four axes (concurrent players, sales, discounts and streams). When collection fails, the board shows the last good value and its time instead of inventing an unknown one.",
+      "action": "I stored each value with its source, measurement time, data state and calculation basis, and tested recovery by reproducing five kinds of failure, including timeouts."
     },
     "t02-mini-game": {
       "title": "SOC SHIFT:30 Alert-Triage Game (ALEPH Assignment 2)",
@@ -143,7 +177,10 @@
       "links": [
         "Play the game",
         "Public repository"
-      ]
+      ],
+      "situation": "To let people briefly experience security-monitoring judgment, a single accuracy score does not reveal what they actually got wrong.",
+      "rationale": "I judged that counting false positives and false negatives separately keeps a round survived by blocking everything from scoring the same as a round that sorted alerts correctly.",
+      "action": "I built a 30-second shift where each alert must be passed or blocked within three seconds, and the results screen counts false positives and false negatives separately as bars."
     }
   },
   "education": [
@@ -161,5 +198,28 @@
       "name": "B.S. in Computer Software Engineering",
       "period": "Graduated 2025"
     }
-  ]
+  ],
+  "story": {
+    "firstSentence": "I am Myeongjun Kim, a developer who connects work made by different people and tools into a single service.",
+    "lastSentence": "I will become a developer who sets the standards that let a team move on to the next task with confidence.",
+    "segments": {
+      "setback": {
+        "statementTitle": "I learned to own the resources left behind",
+        "summary": "After a project I could not finish, I read the leftover cloud bill line by line.",
+        "body": "On December 5, 2024, AWS charged me ₩134,772. A month later another ₩94,138 went out, close to ₩230,000 in total. In a university team project I was responsible for the back end and infrastructure, but with my skills at the time I never managed to connect the front end to the server. After the project ended, a load balancer, servers, disks and public IPs were still running in the Sydney region. I was shaken, but I started by reading the billing details, found the leftover resources and deleted them. AWS Support asked for a monthly breakdown, the cause and measures to prevent it from happening again; I wrote and submitted these myself, asking GPT along the way. I did not stop at removing the problem: I also wrote down what to check so the same charges would not come back. This was when I first learned that building code and taking responsibility for every resource left when a service is shut down are different jobs. I have not confirmed whether a refund was made, so I do not claim one."
+      },
+      "recovery": {
+        "statementTitle": "I set standards with documents and reviews",
+        "summary": "I held together a team whose first meeting only two people attended, using issues and reviews, and saw the service through to the end.",
+        "period": "2026.06.26 - 08.04",
+        "body": "On June 26, 2026, I created the CLOV repository for the four of us. I was the team lead and a full-stack developer. Only one teammate and I came to the first meeting, and the other three were all non-majors on their first team project. Before explaining anything, I built a prototype so they could see the features and screens. Each teammate used a different AI tool and the code often clashed, so I set up a flow: open an issue before starting work, check the code and how it runs before merging, and leave the reason for each change in a review. When spoken explanations did not stick, I wrote the basic concepts and the overall service structure in Markdown documents and applied the same standard again in the next issue. At first I became a bottleneck by reviewing every merge myself, but after repeated documents and reviews, teammates understood their own tasks and the direction of the service, and problems decreased. By August 4 we had 152 issues and 266 pull requests, 72 of which I reviewed. I set up Ubuntu, Nginx, Docker and HTTPS myself and finally connected the server at a real address, something I could not finish at university."
+      },
+      "now": {
+        "statementTitle": "I record how I checked, not just the result",
+        "summary": "I stepped out of familiar development work and started over as a beginner in networking and security.",
+        "period": "2026.08.11 - present",
+        "body": "On August 11, 2026, I became a beginner again in the SKT ALEPH network security program. VLANs, routing, ACLs and pfSense were all new to me. Whenever a connection dropped in the VMware and pfSense labs, I narrowed down the cause by checking ping, logs, IP ranges and configuration values in that order. The network flow I had passed over without understanding in the CLOV deployment, this time I recorded not just the result but the order of my checks. On August 31 I started conversations with new teammates first, and on September 4 I helped a teammate next to me who was struggling to keep up with class. On September 13 I submitted a paper that tested, on 2,830,743 CICIDS2017 records, whether an intrusion detection model keeps its performance on attacks it has never seen. I am carrying the choice to step outside familiar development forward through attendance, daily rituals and reproducible research."
+      }
+    }
+  }
 }

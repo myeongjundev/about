@@ -493,7 +493,7 @@
         }
       ],
       "status": "published",
-      "resumeDetail": "compact"
+      "resumeDetail": "full"
     },
     {
       "id": "t05-ai-handoff",
@@ -627,7 +627,7 @@
         }
       ],
       "status": "published",
-      "resumeDetail": "compact"
+      "resumeDetail": "omit"
     },
     {
       "id": "t02-mini-game",
@@ -703,6 +703,22 @@
       "href": "files/resume-kim-myeongjun-en.docx",
       "pdfHref": "files/resume-kim-myeongjun-en.pdf",
       "webHref": "resume-en.html",
+      "lang": "en"
+    },
+    {
+      "label": "English Personal Statement",
+      "format": "DOCX",
+      "href": "files/personal-statement-kim-myeongjun-en.docx",
+      "pdfHref": "files/personal-statement-kim-myeongjun-en.pdf",
+      "webHref": "personal-statement-en.html",
+      "lang": "en"
+    },
+    {
+      "label": "English Career Description",
+      "format": "DOCX",
+      "href": "files/career-description-kim-myeongjun-en.docx",
+      "pdfHref": "files/career-description-kim-myeongjun-en.pdf",
+      "webHref": "career-description-en.html",
       "lang": "en"
     }
   ],

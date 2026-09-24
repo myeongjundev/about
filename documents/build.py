@@ -515,6 +515,7 @@ class HtmlWriter:
         page = self.page
         nav = "".join(
             f'<a href="{esc(item["href"])}"'
+            + (f' lang="{esc(item["lang"])}"' if item.get("lang") else "")
             + (' aria-current="page"' if item.get("current") else "")
             + f'>{esc(item["label"])}</a>'
             for item in page["nav"]
@@ -565,7 +566,21 @@ KO_LABELS = {
     "stack": "기술",
     "institution": "기관",
     "details": "내용",
+    "statement": "자기소개서",
+    "direction": "앞으로의 방향",
+    "career": "경력기술서",
+    "careerIntro": "프로젝트마다 맡은 역할과 담당 범위, 상황에서 판단과 행동을 거쳐 결과에 이른 과정을"
+    " 확인 가능한 사실로 정리했습니다.",
+    "ability": "능력",
+    "situation": "상황",
+    "rationale": "판단",
+    "action": "행동",
 }
+
+
+def ability_name(labels: dict, value: object) -> object:
+    """능력 분류는 한국어 원본에 한 번만 적고, 영문 문서는 라벨 표로 옮긴다."""
+    return (labels.get("abilities") or {}).get(value, value)
 
 
 def build_resume(data: dict[str, object], writer, draft: bool, labels: dict[str, str] = KO_LABELS) -> None:
@@ -590,7 +605,8 @@ def build_resume(data: dict[str, object], writer, draft: bool, labels: dict[str,
 
     # 이력서는 두 쪽을 넘기지 않는다. 앞선 작업은 자세히, 나머지는 한 덩어리로 줄여 싣는다.
     experience = data["experience"]
-    detailed = [item for item in experience if item.get("resumeDetail", "full") != "compact"]
+    # "omit"은 이력서에서만 뺀다. 경력기술서와 사이트에는 그대로 남는다.
+    detailed = [item for item in experience if item.get("resumeDetail", "full") == "full"]
     compact = [item for item in experience if item.get("resumeDetail") == "compact"]
 
     writer.section(labels["projects"])
@@ -626,10 +642,12 @@ def build_resume(data: dict[str, object], writer, draft: bool, labels: dict[str,
             writer.line(labels["details"], item["detail"], keep=False)
 
 
-def build_personal_statement(data: dict[str, object], writer, draft: bool) -> None:
+def build_personal_statement(
+    data: dict[str, object], writer, draft: bool, labels: dict[str, str] = KO_LABELS
+) -> None:
     profile = data["profile"]
     story = data["story"]
-    writer.header("자기소개서", profile["name"], profile["role"], header_links(profile, draft))
+    writer.header(labels["statement"], profile["name"], profile["role"], header_links(profile, draft))
     writer.intro(
         text(
             story.get("firstSentence"),
@@ -640,12 +658,12 @@ def build_personal_statement(data: dict[str, object], writer, draft: bool) -> No
     for segment in story["segments"]:
         writer.entry(
             text(segment.get("statementTitle"), draft, f"{segment['stage']}의 자기소개서 제목"),
-            f"{segment['period']}  ·  {segment['ability']}",
+            f"{segment['period']}  ·  {ability_name(labels, segment['ability'])}",
         )
         writer.summary(segment["summary"])
         writer.body(segment["body"])
 
-    writer.section("앞으로의 방향")
+    writer.section(labels["direction"])
     writer.closing(
         text(
             story.get("lastSentence"),
@@ -655,36 +673,30 @@ def build_personal_statement(data: dict[str, object], writer, draft: bool) -> No
     )
 
 
-def build_career_description(data: dict[str, object], writer, draft: bool) -> None:
+def build_career_description(
+    data: dict[str, object], writer, draft: bool, labels: dict[str, str] = KO_LABELS
+) -> None:
     profile = data["profile"]
-    writer.header("경력기술서", profile["name"], profile["role"], header_links(profile, draft))
-    writer.intro(
-        "프로젝트마다 맡은 역할과 담당 범위, 상황에서 판단과 행동을 거쳐 결과에 이른 과정을"
-        " 확인 가능한 사실로 정리했습니다."
-    )
+    writer.header(labels["career"], profile["name"], profile["role"], header_links(profile, draft))
+    writer.intro(labels["careerIntro"])
 
     for item in data["experience"]:
         writer.entry(
             text(item.get("title"), draft, "세 번째 항목 확정 필요"),
             text(item.get("period"), draft),
         )
-        writer.line("역할", text(item.get("role"), draft))
+        writer.line(labels["role"], text(item.get("role"), draft))
         if item.get("scope"):
-            writer.line("담당", item["scope"])
-        writer.line("능력", text(item.get("ability"), draft))
+            writer.line(labels["scope"], item["scope"])
+        writer.line(labels["ability"], text(ability_name(labels, item.get("ability")), draft))
         # 표 대신 줄로 적는다. 판단을 따로 보여 주는 편이 면접에서 이어 말하기 좋다.
-        for label, field in (
-            ("상황", "situation"),
-            ("판단", "rationale"),
-            ("행동", "action"),
-            ("결과", "result"),
-        ):
+        for field in ("situation", "rationale", "action", "result"):
             value = item.get(field)
             if field == "rationale" and not value:
                 continue
-            writer.line(label, text(value, draft))
+            writer.line(labels[field], text(value, draft))
         writer.line(
-            "기술",
+            labels["stack"],
             text(" · ".join(item.get("technologies") or []), draft),
             keep=bool(item.get("links")),
         )
@@ -692,7 +704,7 @@ def build_career_description(data: dict[str, object], writer, draft: bool) -> No
 
 
 def localize(data: dict[str, object], english: dict[str, object]) -> dict[str, object]:
-    """영문 이력서 자료. 기간·링크 주소·항목 순서는 한국어 원본을 쓰고 문장만 바꾼다."""
+    """영문 문서 자료. 기간·링크 주소·항목 순서는 한국어 원본을 쓰고 문장만 바꾼다."""
     localized = copy.deepcopy(data)
     profile = localized["profile"]
     source = english["profile"]
@@ -707,9 +719,11 @@ def localize(data: dict[str, object], english: dict[str, object]) -> dict[str, o
         raise ValueError(f"영문 번역이 없는 경력 항목: {', '.join(missing)}")
     for item in localized["experience"]:
         words = english["experience"][item["id"]]
-        for key in ("title", "role", "scope", "result"):
+        for key in ("title", "role", "scope", "situation", "rationale", "action", "result"):
             if key in words:
                 item[key] = words[key]
+            elif item.get(key):
+                raise ValueError(f"영문 번역이 없는 칸: experience.{item['id']}.{key}")
         labels = words.get("links") or []
         if len(labels) != len(item.get("links") or []):
             raise ValueError(f"영문 링크 이름 수가 다릅니다: {item['id']}")
@@ -719,6 +733,20 @@ def localize(data: dict[str, object], english: dict[str, object]) -> dict[str, o
     if len(education) != len(profile.get("education") or []):
         raise ValueError("영문 교육 항목 수가 한국어와 다릅니다")
     profile["education"] = education
+
+    story = localized["story"]
+    source_story = english["story"]
+    story["firstSentence"] = source_story["firstSentence"]
+    story["lastSentence"] = source_story["lastSentence"]
+    for segment in story["segments"]:
+        words = source_story["segments"].get(segment["id"])
+        if words is None:
+            raise ValueError(f"영문 번역이 없는 자기소개서 장면: {segment['id']}")
+        for key in ("statementTitle", "summary", "body", "period"):
+            if key in words:
+                segment[key] = words[key]
+            elif key != "period":
+                raise ValueError(f"영문 번역이 없는 칸: story.{segment['id']}.{key}")
     return localized
 
 
@@ -728,7 +756,11 @@ DOCUMENT_PAGES = (
     ("personal-statement-kim-myeongjun", "personal-statement.html", "자기소개서"),
     ("career-description-kim-myeongjun", "career-description.html", "경력기술서"),
 )
-ENGLISH_RESUME = ("resume-kim-myeongjun-en", "resume-en.html", "English")
+ENGLISH_PAGES = (
+    ("resume-kim-myeongjun-en", "resume-en.html", "Résumé"),
+    ("personal-statement-kim-myeongjun-en", "personal-statement-en.html", "Personal Statement"),
+    ("career-description-kim-myeongjun-en", "career-description-en.html", "Career Description"),
+)
 
 
 def asset_version(site_dir: Path) -> str:
@@ -747,8 +779,12 @@ def page_context(name: str, page: str, title: str, description: str, lang: str, 
         "back": "← Portfolio (Korean)" if english else "← 김명준 소개로",
         "navLabel": "Documents" if english else "문서",
         "nav": [
-            {"href": tab_page, "label": label, "current": tab_page == page}
-            for _, tab_page, label in (*DOCUMENT_PAGES, ENGLISH_RESUME)
+            {"href": tab_page, "label": label, "current": tab_page == page, "lang": tab_lang}
+            for _, tab_page, label, tab_lang in (
+                (*((*item, None) for item in ENGLISH_PAGES), (None, "resume.html", "한국어", "ko"))
+                if english
+                else (*((*item, None) for item in DOCUMENT_PAGES), (None, "resume-en.html", "English", "en"))
+            )
         ],
         "downloads": [
             {"href": f"files/{name}.pdf", "label": "PDF"},
@@ -787,25 +823,35 @@ def build_all(
             builders[name](web)
             web.save(site_dir / page)
 
-    if english is not None and only in {"all", "resume"}:
-        name, page, _ = ENGLISH_RESUME
-        localized = localize(data, english)
-        labels = {**KO_LABELS, **english["labels"]}
+    if english is None:
+        return count
+    localized = localize(data, english)
+    labels = {**KO_LABELS, **english["labels"]}
+    english_builders = {
+        "resume-kim-myeongjun-en": build_resume,
+        "personal-statement-kim-myeongjun-en": build_personal_statement,
+        "career-description-kim-myeongjun-en": build_career_description,
+    }
+    english_name = localized["profile"]["name"]
+    for name, page, label in ENGLISH_PAGES:
+        if only not in {"all", name.replace("-kim-myeongjun-en", "")}:
+            continue
+        build = english_builders[name]
         writer = DocxWriter()
-        build_resume(localized, writer, draft, labels)
+        build(localized, writer, draft, labels)
         writer.save(docx_dir / f"{name}.docx")
         count += 1
         if site_dir:
             context = page_context(
                 name,
                 page,
-                f"{localized['profile']['name']} — Résumé",
-                f"Résumé of {localized['profile']['name']}. Also available as PDF and DOCX.",
+                f"{english_name} — {label}",
+                f"{label} of {english_name}. Also available as PDF and DOCX.",
                 "en",
                 site_dir,
             )
             web = HtmlWriter(context)
-            build_resume(localized, web, draft, labels)
+            build(localized, web, draft, labels)
             web.save(site_dir / page)
     return count
 
