@@ -421,6 +421,7 @@ p { margin: 0; }
 .availability {
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
   gap: 7px;
   padding: 7px 10px;
   border: 1px solid color-mix(in srgb, var(--signal-ink) 20%, transparent);
@@ -466,6 +467,25 @@ p { margin: 0; }
   letter-spacing: -0.035em;
   line-height: 1.42;
 }
+
+/* 채용 담당자의 다음 행동: 이력서 PDF가 주 버튼, GitHub이 보조 버튼 */
+.cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.cta a {
+  display: inline-flex;
+  min-height: 44px;
+  padding: 0 18px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+.cta a:hover { transform: translateY(-2px); }
+.cta .cta-primary { border-color: var(--accent); background: var(--accent); color: var(--surface-solid); }
+.cta .cta-secondary { background: var(--surface-solid); color: var(--ink); }
+.cta .cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
 .craft-console {
   margin-top: 24px;
@@ -740,14 +760,16 @@ p { margin: 0; }
 .facts dd { margin: 0; font-size: 12px; line-height: 1.72; }
 /* 혼자 선 링크는 누르는 자리를 24px로 넓힌다. 문장 속 링크가 아니라 예외에 안 든다.
    바깥 여백을 같은 만큼 빼서 보이는 자리는 그대로 둔다. */
-.facts dd > a:only-child,
-.contact-link > a {
+.facts dd > a:only-child {
   display: inline-block;
   padding-block: 5px;
   margin-block: -5px;
 }
 .stack { display: flex; flex-direction: column; gap: 4px; }
-.stack > span { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 7px; min-width: 0; }
+.stack { gap: 8px; }
+/* 분야 이름을 위에 두어 좁은 카드에서도 기술 이름이 한 줄에 더 많이 들어가게 한다. */
+.stack > span { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px; min-width: 0; }
+.stack-used { display: block; margin-top: 1px; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .stack > span > span { min-width: 0; overflow-wrap: anywhere; }
 .stack .mono { font-size: 12px; }
 
@@ -1031,6 +1053,20 @@ p { margin: 0; }
 .work-kind { line-height: 1.65; }
 .work-title { margin: 18px 0 0; font-size: clamp(22px, 2.1vw, 28px); font-weight: 680; letter-spacing: -0.045em; line-height: 1.28; }
 .work-desc { margin-top: 18px; color: var(--muted); font-size: 15px; line-height: 1.78; }
+/* 기술보다 판단이 먼저 기억에 남도록 카드 겉면에 한 줄 */
+.work-decision {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+.work-decision .mono { display: block; margin-bottom: 3px; color: var(--accent); font-size: 12px; letter-spacing: 0.06em; }
+.work-related { margin-top: 12px; font-size: 13px; }
+.work-related a { color: var(--accent); font-weight: 650; }
 .work .links { margin-top: auto; padding-top: 24px; }
 
 .work-case {
@@ -1272,8 +1308,8 @@ p { margin: 0; }
 
 .contact-kicker { grid-column: 1 / -1; color: color-mix(in srgb, var(--bg) 74%, var(--ink)); letter-spacing: 0.08em; }
 .contact .name { font-size: clamp(25px, 4vw, 38px); font-weight: 680; letter-spacing: -0.05em; }
-.contact-link { align-self: center; }
-.contact-link a { color: var(--bg); font-weight: 650; }
+.contact .cta { align-self: center; margin-top: 0; }
+.contact .cta .cta-secondary { border-color: color-mix(in srgb, var(--bg) 35%, transparent); background: transparent; color: var(--bg); }
 .contact .note { grid-column: 1 / -1; margin-top: 24px; color: color-mix(in srgb, var(--bg) 74%, var(--ink)); font-size: 12px; line-height: 1.6; }
 
 .reveal { opacity: 1; transform: none; }
@@ -1427,7 +1463,7 @@ p { margin: 0; }
   }
 
   .contact { grid-template-columns: 1fr; padding: 28px; }
-  .contact-link { margin-top: 8px; }
+  .contact .cta { margin-top: 8px; }
 }
 
 @media (max-width: 390px) {

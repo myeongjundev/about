@@ -88,7 +88,7 @@ def render_project_rail(data: dict[str, object]) -> str:
                 'loading="lazy" decoding="async">'
             )
         cards.append(
-            f'''        <a class="build-card" href="#{esc(item['target'])}" style="--stack-order: {index - 1}; --stack-top: {28 + (index - 1) * 26}px">
+            f'''        <a class="build-card" href="#{esc(item['target'])}" style="--stack-order: {index - 1}; --stack-top: {28 + (index - 1) * 25}px">
           <span class="build-card-visual{image_class}" aria-hidden="true">
             {image}
             <span class="build-card-number">{index:02d}</span>
@@ -155,13 +155,29 @@ def render_entrances(variant: str = "side") -> str:
 {indent}</nav>'''
 
 
+def render_cta(data: dict[str, object], variant: str) -> str:
+    """채용 담당자의 다음 행동. 이력서 PDF가 주 버튼, GitHub이 보조 버튼이다. 없는 연락처는 만들지 않는다."""
+    buttons = []
+    resume = next((item for item in data.get("documents") or [] if item.get("label") == "이력서"), None)
+    if resume and resume.get("pdfHref"):
+        buttons.append(f'<a class="cta-primary" href="{safe_href(resume["pdfHref"])}">이력서 PDF</a>')
+    contact = data["profile"].get("contact")
+    if contact:
+        buttons.append(f'<a class="cta-secondary" href="{safe_href(contact["href"])}">{esc(contact["label"])}</a>')
+    if not buttons:
+        return ""
+    return f'<p class="cta cta-{variant}">{"".join(buttons)}</p>'
+
+
 def render_sidebar(data: dict[str, object], draft: bool) -> str:
     profile = data["profile"]
     technologies = profile.get("technologies") or {}
+    evidence = profile.get("technologyEvidence") or {}
     stack = []
     for category, items in technologies.items():
+        used = f'<span class="stack-used">{esc(evidence[category])}</span>' if evidence.get(category) else ""
         stack.append(
-            f'<span><span class="mono muted">{esc(category)}</span><span>{esc(" · ".join(items))}</span></span>'
+            f'<span><span class="mono muted">{esc(category)}</span><span>{esc(" · ".join(items))}{used}</span></span>'
         )
 
     education = "<br>".join(
@@ -192,17 +208,18 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         <h1>{esc(profile['name'])}</h1>
         <p class="role">{esc(profile['role'])}</p>
         <p class="tagline">{value_or_todo(profile.get('tagline'), draft, '본인이 쓸 한 줄 소개')}</p>
+        {render_cta(data, "hero")}
         <div class="craft-console" aria-label="작업 방식">
           <div class="craft-console-head">
             <span class="mono">HOW I WORK</span>
             <output class="craft-output mono" aria-live="polite">01 / DESIGN</output>
           </div>
           <div class="craft-path" role="group" aria-label="작업 단계">
-            <button type="button" data-craft="design" data-index="01" data-copy="문제와 사용 흐름을 먼저 정리합니다." aria-pressed="true"><span>01</span>DESIGN</button>
-            <button type="button" data-craft="build" data-index="02" data-copy="화면과 서버를 하나의 서비스로 연결합니다." aria-pressed="false"><span>02</span>BUILD</button>
-            <button type="button" data-craft="ship" data-index="03" data-copy="배포하고 실제 결과까지 확인합니다." aria-pressed="false"><span>03</span>SHIP</button>
+            <button type="button" data-craft="design" data-index="01" data-copy="처음 보는 사람이 막힌 곳을 기록해 문제를 다시 정의합니다. · ExplainSOC" aria-pressed="true"><span>01</span>DESIGN</button>
+            <button type="button" data-craft="build" data-index="02" data-copy="화면·서버·인증을 하나의 서비스로 연결합니다. · CLOV · 7번 다이어리" aria-pressed="false"><span>02</span>BUILD</button>
+            <button type="button" data-craft="ship" data-index="03" data-copy="배포본을 모바일·키보드·외부 전송까지 자동으로 검증합니다. · ExplainSOC" aria-pressed="false"><span>03</span>SHIP</button>
           </div>
-          <p class="craft-caption">문제와 사용 흐름을 먼저 정리합니다.</p>
+          <p class="craft-caption">처음 보는 사람이 막힌 곳을 기록해 문제를 다시 정의합니다. · ExplainSOC</p>
         </div>
       </header>
 
@@ -317,6 +334,13 @@ def render_works(data: dict[str, object], draft: bool) -> str:
             period = f"예정 · {value_or_todo(item.get('plannedDate'), draft, '예정일 확정 필요')}"
         pending = " pending" if item.get("status") == "planned" else " published"
         status_label = "NEXT" if item.get("status") == "planned" else "LIVE"
+        decision_html = ""
+        if item.get("keyDecision"):
+            decision_html = f'<p class="work-decision"><span class="mono">핵심 판단</span>{esc(item["keyDecision"])}</p>'
+        related_html = ""
+        related = item.get("related")
+        if related:
+            related_html = f'<p class="work-related"><a href="{safe_href(related["href"])}">{esc(related["label"])} ↕</a></p>'
         case_study = item.get("caseStudy") or {}
         case_html = ""
         if case_study:
@@ -356,6 +380,8 @@ def render_works(data: dict[str, object], draft: bool) -> str:
               <span class="mono muted work-kind">CASE {index:02d} · {esc(item['kind'])} · {period if '<span' in str(period) else esc(period)}</span>
               <h3 class="work-title">{esc(item['title'])}</h3>
               <p class="work-desc">{esc(item['summary'])}</p>
+              {decision_html}
+              {related_html}
               <p class="links">{links}</p>
             </div>
 {case_html}
@@ -459,12 +485,6 @@ def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
             raise ValueError(f"문서 파일이 없습니다: {', '.join(missing)}")
         links.append(link)
 
-    contact = data["profile"].get("contact")
-    if contact:
-        contact_html = f'<a href="{safe_href(contact["href"])}">{esc(contact["label"])}</a>'
-    else:
-        contact_html = value_or_todo(None, draft, "공개 연락 수단 확정 필요")
-
     return f"""      <section id="documents">
 {section_head('문서', '로그인과 비밀번호 없이 내려받을 수 있습니다.')}
         <div class="doc-list">{''.join(links)}</div>
@@ -473,7 +493,7 @@ def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
       <footer id="contact" class="contact">
         <p class="contact-kicker mono">LET'S BUILD SOMETHING RELIABLE.</p>
         <p class="name">{esc(data['profile']['name'])}</p>
-        <p class="contact-link">{contact_html}</p>
+        {render_cta(data, "footer")}
         <p class="note">새 기록을 넣으면 숫자와 문장 후보를 다시 만들 수 있습니다 · 숫자 기준일 {esc(data['updatedAt'])}</p>
       </footer>"""
 
@@ -503,6 +523,8 @@ def build(data_path: Path, output: Path, template_path: Path, draft: bool) -> No
     replacements = {
         "{{TITLE}}": esc(f"{data['profile']['name']} 자기소개"),
         "{{DESCRIPTION}}": esc(f"{data['profile']['name']}의 이야기와 기록, 대표작, 경력, 문서"),
+        # 공유 그림(og-card.png)과 같은 글을 대체 텍스트로 쓴다. 그림은 device/build_og_image.py가 같은 값으로 만든다.
+        "{{OG_ALT}}": esc(f"{data['profile']['name']} · {data['profile']['role']} · {data['profile']['tagline']}"),
         "{{ASSET_VERSION}}": asset_version,
         "{{DRAFT_BANNER}}": banner,
         "{{SIDEBAR}}": render_sidebar(data, draft),

@@ -205,8 +205,18 @@ class SiteTests(unittest.TestCase):
             self.assertLessEqual(offsets[-1] + 330, 560)
             self.assertIn('href="#work-clov"', content)
             self.assertIn('id="work-clov"', content)
-            self.assertIn('href="#work-t05-ai-handoff"', content)
-            self.assertIn('id="work-t05-ai-handoff"', content)
+            # 대표작은 ExplainSOC·10번·CLOV·7번 인증 넷이고, 5번 AI 인계는 경력으로 내려갔다.
+            self.assertIn('href="#work-t07-auth"', content)
+            self.assertIn('id="work-t07-auth"', content)
+            self.assertIn('href="#experience-t05-ai-handoff"', content)
+            self.assertNotIn('id="work-t05-ai-handoff"', content)
+            self.assertLess(content.index('id="work-t13-app"'), content.index('id="work-t10-paper"'))
+            # 대표작마다 카드 겉면에 핵심 판단 한 줄이 있다.
+            self.assertEqual(content.count('class="work-decision"'), 4)
+            # 첫 화면과 맨 아래에 이력서 PDF(주)와 GitHub(보조)가 있다. 없는 연락처는 만들지 않는다.
+            self.assertEqual(content.count('class="cta-primary" href="files/resume-kim-myeongjun.pdf"'), 2)
+            self.assertEqual(content.count('class="cta-secondary" href="https://github.com/myeongjundev"'), 2)
+            self.assertNotIn("mailto:", content)
             self.assertIn('href="#work-t13-app"', content)
             self.assertIn('id="work-t13-app"', content)
             self.assertIn('href="#experience-third-project"', content)

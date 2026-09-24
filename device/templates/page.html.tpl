@@ -15,7 +15,7 @@
   <meta property="og:image" content="https://myeongjundev.github.io/about/assets/og-card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="김명준 · 신입 풀스택 개발자 · 백엔드의 구조를 설계하고 화면까지 완성하는 사람">
+  <meta property="og:image:alt" content="{{OG_ALT}}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://myeongjundev.github.io/about/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
