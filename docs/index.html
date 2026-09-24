@@ -415,7 +415,7 @@
             <div class="work-copy">
               <span class="mono muted work-kind">CASE 04 · 13번 과제 · 앱 · 2026.09</span>
               <h3 class="work-title">ExplainSOC — 성능표에 없는 질문</h3>
-              <p class="work-desc">‘정확도 99%’ 같은 보안 AI 광고 숫자가 실제로 무엇을 시험한 결과인지 확인하고, 판매 업체에 물어볼 질문을 10번 논문 근거와 함께 만드는 앱입니다.</p>
+              <p class="work-desc">‘정확도 99%’ 같은 보안 AI 소개서 숫자가 어떤 시험의 점수인지 확인하고, 판매 업체에 물어볼 질문으로 바꿔 주는 웹 도구입니다. 10번 논문에서 같은 AI가 99.8점에서 38.7점이 된 결과를 제품 검토 규칙 15개로 옮겼습니다.</p>
               <p class="links"><a href="https://myeongjundev.github.io/explainsoc/">앱 체험</a><a href="https://github.com/myeongjundev/explainsoc/blob/main/evidence/card-4.md">검증 기록</a><a href="https://github.com/myeongjundev/explainsoc">공개 저장소</a></p>
             </div>
             <details class="work-case">
@@ -427,22 +427,22 @@
                 <section class="case-step">
                   <span class="case-step-index mono">01 / PROBLEM</span>
                   <h4>문제</h4>
-                  <p>10번 논문에서 같은 XGBoost가 무작위 분할에서는 Macro F1 0.9979, 학습에 없던 공격을 시험하면 0.3871이었습니다. 제품 소개서의 성능 숫자 하나로는 무엇을 시험한 점수인지 알 수 없습니다.</p>
+                  <p>보안 AI 제품은 ‘정확도 99%’ 같은 높은 숫자를 앞세우지만, 그 숫자가 어떤 시험에서 나왔는지는 잘 적지 않습니다. 10번 논문에서 같은 XGBoost가 무작위로 나눈 시험에서는 Macro F1 0.9979, 학습에 없던 공격만 둔 시험에서는 0.3871이었고, 공격 220,788건 가운데 160건만 잡았습니다.</p>
                 </section>
                 <section class="case-step">
                   <span class="case-step-index mono">02 / DECISION</span>
                   <h4>판단</h4>
-                  <p>숫자의 좋고 나쁨을 판정하는 대신, 결과 맨 위 결론 카드에서 광고 숫자만으로 믿을 근거가 있는지를 결론 · 왜? · 그래서?로 먼저 말하고, 받은 소개서 문장을 그대로 붙여 넣어 그 문장 위에서 읽게 했습니다.</p>
+                  <p>숫자의 좋고 나쁨을 판정하지 않고, 숫자를 만든 시험 조건을 먼저 확인하게 했습니다. 점수·등급·합격선은 만들지 않았고, 기능을 늘리기보다 처음 보는 사람이 막힌 곳(무엇을 하는 사이트인지, 결과가 밀집함, 그래서 뭐?)을 하나씩 고쳤습니다.</p>
                 </section>
                 <section class="case-step">
                   <span class="case-step-index mono">03 / BUILD</span>
                   <h4>구현</h4>
-                  <p>React·TypeScript·Vite 정적 앱에 규칙 기반 소개서 판독, 결론 카드, 논문 뒤쪽 절반(원고 V-2~V-5)을 직접 바꿔 보는 논문 실험실, 판독 규칙 15개, 한 화면씩 묻는 입력, 회차 JSON과 검토표를 연결했습니다. 입력은 브라우저 안에서만 다루고 콘텐츠 보안 정책으로 외부 전송을 막았습니다.</p>
+                  <p>React·TypeScript·Vite 정적 앱에서 소개서 문장과 성능표의 빠진 시험 조건을 판독 규칙 15개로 찾아 공급자 질문으로 바꾸고, 결과 맨 위 결론 카드(결론 · 왜? · 그래서?)와 논문 결과를 직접 바꿔 보는 논문 실험실을 붙였습니다. 서버 없이 브라우저 안에서만 동작하고 콘텐츠 보안 정책으로 외부 전송을 막았습니다.</p>
                 </section>
                 <section class="case-step">
                   <span class="case-step-index mono">04 / VERIFY</span>
                   <h4>검증</h4>
-                  <p>단위·컴포넌트 테스트 152개와 WCAG 2.2 AA·375px·키보드·인쇄를 포함한 실제 브라우저 테스트 35개를 통과한 커밋만 배포되게 했습니다. 재현 가능한 ZIP을 빈 폴더에 풀어 설치·빌드·브라우저 검사까지 다시 통과했습니다.</p>
+                  <p>처음 보는 사람들의 반응을 여섯 번 기록하며 화면을 고쳤고, 마지막에는 ALEPH 동기가 휴대폰에서 도움 없이 업체 질문까지 갔습니다. 단위·컴포넌트 테스트 152개와 실제 브라우저 테스트 35개를 통과한 커밋만 배포되게 했고, 재현 가능한 ZIP을 빈 폴더에 풀어 다시 검증했습니다.</p>
                 </section>
               </div>
             </details>
