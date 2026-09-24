@@ -120,34 +120,34 @@
   "numbers": [
     {
       "id": "attendance",
-      "value": "27 / 27일",
+      "value": "31 / 31일",
       "label": "출석일 / 확정 수업일",
       "detail": "지각 0 · 결석 0",
       "source": "내 출석 기록",
-      "asOf": "2026-09-17",
-      "denominator": "2026-08-11부터 2026-09-17까지 확정된 수업일",
+      "asOf": "2026-09-25",
+      "denominator": "2026-08-11부터 2026-09-25까지 확정된 수업일",
       "linkedSegment": null,
       "supports": "과제지속력"
     },
     {
       "id": "ritual",
-      "value": "27 / 27일",
+      "value": "31 / 31일",
       "label": "아침 리추얼 작성 수업일 / 확정 수업일",
       "detail": null,
       "source": "내 리추얼 기록",
-      "asOf": "2026-09-17",
-      "denominator": "2026-08-11부터 2026-09-17까지 확정된 수업일",
+      "asOf": "2026-09-25",
+      "denominator": "2026-08-11부터 2026-09-25까지 확정된 수업일",
       "linkedSegment": "now",
       "supports": "회복탄력성"
     },
     {
       "id": "submissions",
-      "value": "11 / 11개",
+      "value": "13 / 13개",
       "label": "제출한 과제 / 현재 제출 대상 과제",
-      "detail": "공개 검증 가능 9개 · 비공개 저장소 2개",
+      "detail": "공개 검증 가능 11개 · 비공개 저장소 2개",
       "source": "내 제출 현황 · GitHub 저장소",
-      "asOf": "2026-09-20",
-      "denominator": "T01부터 T11까지. 진행 중인 T12와 대기 중인 T13은 제외",
+      "asOf": "2026-09-25",
+      "denominator": "T01부터 T13까지. 진행 중인 과제 없음",
       "linkedSegment": "setback",
       "supports": "과제지속력"
     }
@@ -759,5 +759,5 @@
       "lang": "en"
     }
   ],
-  "updatedAt": "2026-09-20"
+  "updatedAt": "2026-09-25"
 }

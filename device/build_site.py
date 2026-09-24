@@ -523,7 +523,8 @@ def build(data_path: Path, output: Path, template_path: Path, draft: bool) -> No
     repo = template_path.parents[2]
     asset_hash = hashlib.sha256()
     for asset in (repo / "docs" / "styles.css", repo / "docs" / "app.js"):
-        asset_hash.update(asset.read_bytes())
+        # Windows 작업 폴더는 줄 끝이 CRLF일 수 있다. 커밋된 내용(LF)과 같은 값이 나오게 맞춘다.
+        asset_hash.update(asset.read_bytes().replace(b"\r\n", b"\n"))
     asset_version = asset_hash.hexdigest()[:12]
     banner = ""
     if draft:

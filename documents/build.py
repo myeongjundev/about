@@ -765,7 +765,8 @@ ENGLISH_PAGES = (
 
 def asset_version(site_dir: Path) -> str:
     css = site_dir / "document.css"
-    return hashlib.sha256(css.read_bytes()).hexdigest()[:12] if css.exists() else "0"
+    # 줄 끝(CRLF·LF)과 상관없이 커밋된 내용과 같은 값이 나오게 한다.
+    return hashlib.sha256(css.read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:12] if css.exists() else "0"
 
 
 def page_context(name: str, page: str, title: str, description: str, lang: str, site_dir: Path) -> dict:
