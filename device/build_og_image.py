@@ -25,7 +25,6 @@ MARGIN = 84
 BG = (11, 16, 32)
 INK = (245, 247, 255)
 MUTED = (180, 190, 208)
-FAINT = (127, 139, 163)
 ACCENT = (125, 156, 255)
 
 FONT_DIR = Path("C:/Windows/Fonts")
@@ -38,23 +37,6 @@ def font(path: Path, size: int) -> ImageFont.FreeTypeFont:
     if not path.exists():
         raise SystemExit(f"글꼴을 찾지 못했다: {path}")
     return ImageFont.truetype(str(path), size)
-
-
-def glow(image: Image.Image) -> None:
-    """사이트 바탕에 있는 원형 번짐을 작게 그려 키운다. 한 번에 그리면 느리다."""
-    small = Image.new("RGB", (120, 63), BG)
-    pixels = small.load()
-    cx, cy, radius = 12, 6, 62
-    for y in range(small.height):
-        for x in range(small.width):
-            distance = ((x - cx) ** 2 + ((y - cy) * 1.9) ** 2) ** 0.5
-            if distance >= radius:
-                continue
-            strength = (1 - distance / radius) * 0.22
-            pixels[x, y] = tuple(
-                round(BG[i] + (ACCENT[i] - BG[i]) * strength) for i in range(3)
-            )
-    image.paste(small.resize((WIDTH, HEIGHT), Image.BICUBIC), (0, 0))
 
 
 def wrap(draw: ImageDraw.ImageDraw, text: str, face: ImageFont.FreeTypeFont, limit: int) -> list[str]:
@@ -95,12 +77,14 @@ def build(data: dict, output: Path) -> None:
     role = profile["role"]
     tagline = profile["tagline"]
     site = profile["site"]["href"].replace("https://", "").rstrip("/")
+    # 이름 위 한 줄은 사이트 머리와 같다. 지금 하고 있는 일(교육의 첫 항목)을 적는다.
+    context = ((profile.get("education") or [{}])[0]).get("name") or ""
 
+    # 장식 번짐 없이 단색 바탕에 글자만 둔다(사이트 머리 정리와 같은 방향, 2026-09-25).
     image = Image.new("RGB", (WIDTH, HEIGHT), BG)
-    glow(image)
     draw = ImageDraw.Draw(image)
 
-    draw.text((MARGIN, 76), "myeongjundev / portfolio", font=font(MONO, 26), fill=FAINT)
+    draw.text((MARGIN, 76), context, font=font(BODY, 28), fill=MUTED)
     draw.text((MARGIN, 136), name, font=font(BOLD, 116), fill=INK)
     draw.text((MARGIN, 286), role, font=font(BODY, 34), fill=ACCENT)
 
