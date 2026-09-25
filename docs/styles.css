@@ -221,164 +221,6 @@ p { margin: 0; }
 .side.is-pointer-active::before { opacity: 1; }
 .side > * { position: relative; z-index: 1; }
 
-.build-reel {
-  display: flex;
-  min-height: 0;
-  margin-top: 42px;
-  padding: 0 6px;
-  flex: 1;
-  flex-direction: column;
-}
-
-.build-reel-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 18px;
-  border-top: 1px solid var(--line-strong);
-  color: var(--accent-strong);
-}
-
-.build-reel h2 {
-  max-width: 310px;
-  margin: 18px 0 0;
-  font-size: clamp(23px, 2.5vw, 30px);
-  font-weight: 680;
-  letter-spacing: -0.045em;
-  line-height: 1.28;
-}
-
-.build-reel-intro {
-  max-width: 290px;
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.build-stack {
-  display: flex;
-  min-height: calc(100% - 150px);
-  padding-top: 28px;
-  padding-bottom: 40px;
-  flex: 1;
-  flex-direction: column;
-  /* 카드 사이는 margin이 아니라 gap으로 벌린다. margin은 sticky가 멈추는 자리를 함께
-     끌어올려, 맨 아래에서 가운데 카드 여럿이 같은 높이에 겹쳐 섰다. */
-  gap: clamp(300px, 52vh, 520px);
-}
-
-.build-card {
-  --card-accent: #2457ff;
-  position: sticky;
-  top: var(--stack-top);
-  z-index: calc(10 + var(--stack-order));
-  display: flex;
-  min-height: 330px;
-  padding: 14px;
-  flex-direction: column;
-  gap: 10px;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--card-accent) 28%, var(--line));
-  border-radius: 24px;
-  background: color-mix(in srgb, var(--surface-solid) 94%, var(--card-accent) 6%);
-  box-shadow: 0 24px 60px color-mix(in srgb, var(--card-accent) 13%, transparent);
-  color: var(--ink);
-  text-decoration: none;
-  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
-}
-
-.build-card:nth-child(2) { --card-accent: #7c3aed; }
-.build-card:nth-child(3) { --card-accent: #0f9f74; }
-.build-card:nth-child(4) { --card-accent: #d97706; }
-.build-card:nth-child(5) { --card-accent: #be123c; }
-.build-card:nth-child(6) { --card-accent: #0e7490; }
-
-.build-card:hover {
-  border-color: color-mix(in srgb, var(--card-accent) 62%, var(--line));
-  box-shadow: 0 30px 72px color-mix(in srgb, var(--card-accent) 20%, transparent);
-  transform: translateY(-4px);
-}
-
-.build-card-visual {
-  position: relative;
-  display: block;
-  height: 190px;
-  overflow: hidden;
-  border-radius: 16px;
-  background:
-    radial-gradient(circle at 76% 18%, rgba(255, 255, 255, 0.34), transparent 28%),
-    linear-gradient(145deg, var(--card-accent), #101828);
-}
-
-.build-card-visual::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(6, 12, 28, 0.04), rgba(6, 12, 28, 0.72));
-  content: '';
-}
-
-.build-card-visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform 500ms cubic-bezier(.2, .8, .2, 1);
-}
-
-.build-card:hover .build-card-visual img { transform: scale(1.055); }
-
-.build-card-number,
-.build-card-mark {
-  position: absolute;
-  z-index: 1;
-  color: #fff;
-  font-family: var(--mono);
-}
-
-.build-card-number {
-  left: 14px;
-  bottom: 11px;
-  font-size: 34px;
-  font-weight: 500;
-  letter-spacing: -0.08em;
-}
-
-.build-card-mark {
-  right: 12px;
-  top: 12px;
-  padding: 6px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.36);
-  border-radius: 999px;
-  background: rgba(8, 15, 34, 0.54);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  backdrop-filter: blur(8px);
-}
-
-.build-card-meta {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  color: var(--muted);
-}
-
-.build-card-meta span:last-child {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.build-card strong {
-  display: block;
-  font-size: 18px;
-  letter-spacing: -0.03em;
-  line-height: 1.42;
-}
-
 .content {
   display: flex;
   min-width: 0;
@@ -449,129 +291,13 @@ p { margin: 0; }
 .contact .cta .cta-text { color: var(--bg); }
 .cta .cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
-.craft-console {
-  margin-top: 24px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: color-mix(in srgb, var(--surface-soft) 72%, transparent);
-}
-
-.craft-console-head {
-  display: flex;
-  min-height: 42px;
-  padding: 0 13px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid var(--line);
-  color: var(--faint);
-}
-
-.craft-output { color: var(--accent-strong); }
-
-.craft-path {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding: 9px 7px 7px;
-}
-
-.craft-path button {
-  position: relative;
-  display: flex;
-  min-height: 62px;
-  padding: 8px 4px;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 7px;
-  border: 0;
-  border-radius: 11px;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  font: 600 12px var(--mono);
-  letter-spacing: 0.04em;
-  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
-}
-
-.craft-path button[data-craft='design'] { --step: var(--step-1); }
-.craft-path button[data-craft='build'] { --step: var(--step-2); }
-.craft-path button[data-craft='ship'] { --step: var(--step-3); }
-
-/* 번호를 그대로 배지로 쓴다. 예전에는 번호와 점이 겹쳐 찍혔다. */
-.craft-path button span {
-  display: grid;
-  width: 26px;
-  height: 26px;
-  place-items: center;
-  border: 1px solid var(--step);
-  border-radius: 50%;
-  background: var(--surface-solid);
-  color: var(--step);
-  font-size: 12px;
-  font-weight: 600;
-  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-}
-
-/* 단계 사이를 잇는 선. 지나온 구간은 그 단계 색으로 남는다. */
-.craft-path button::after {
-  position: absolute;
-  left: calc(50% + 17px);
-  right: calc(-50% + 17px);
-  top: 21px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--step);
-  content: '';
-  pointer-events: none;
-  transition: background-color 180ms ease;
-}
-
-.craft-path button:last-child::after { content: none; }
-
-/* 현재 단계: 색을 채우고 테를 두른다. */
-.craft-path button[aria-pressed='true'] {
-  background: var(--surface-solid);
-  color: var(--ink);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--step) 14%, transparent);
-}
-
-.craft-path button[aria-pressed='true'] span {
-  background: var(--step);
-  color: var(--on-accent);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--step) 18%, transparent);
-  transform: scale(1.06);
-}
-
-/* 아직 오지 않은 단계는 회색으로 물러나 있는다. */
-.craft-path button[aria-pressed='true'] ~ button { color: var(--faint); }
-
-.craft-path button[aria-pressed='true'] ~ button span {
-  border-color: var(--line-strong);
-  background: transparent;
-  color: var(--faint);
-}
-
-.craft-path button[aria-pressed='true']::after,
-.craft-path button[aria-pressed='true'] ~ button::after { background: var(--line-strong); }
-
-.craft-path button:hover { color: var(--ink); transform: translateY(-1px); }
-.craft-path button:hover span { border-color: var(--step); color: var(--step); }
-
-/* 머리말의 현재 단계 표시도 같은 색을 따른다. */
-.craft-console:has([data-craft='design'][aria-pressed='true']) .craft-output { color: var(--step-1); }
-.craft-console:has([data-craft='build'][aria-pressed='true']) .craft-output { color: var(--step-2); }
-.craft-console:has([data-craft='ship'][aria-pressed='true']) .craft-output { color: var(--step-3); }
-
-.craft-caption {
-  min-height: 54px;
-  padding: 12px 14px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
-}
+/* 일하는 방식: 단계 이름과 한 문장, 근거 작업을 목록으로 적는다. */
+.how-i-work { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); }
+.how-title { margin: 0 0 12px; color: var(--muted); font-size: 13px; font-weight: 650; }
+.how-i-work ol { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.how-i-work li { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 2px 10px; font-size: 13px; line-height: 1.55; }
+.how-step { grid-row: span 2; color: var(--ink); font-weight: 700; }
+.how-proof { grid-column: 2; color: var(--faint); font-size: 12px; }
 
 .entrances a {
   font-size: 13px;
@@ -988,18 +714,6 @@ p { margin: 0; }
 .work:hover .work-visual.has-image img { transform: scale(1.035); }
 
 .work-number { position: absolute; left: 22px; bottom: 18px; z-index: 1; font: 500 40px/1 var(--mono); letter-spacing: -0.08em; opacity: 0.9; }
-.work-status { position: absolute; right: 18px; top: 18px; z-index: 1; padding: 7px 9px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 999px; background: rgba(8, 15, 34, 0.48); font: 600 12px var(--mono); letter-spacing: 0.1em; backdrop-filter: blur(8px); }
-
-.work-signal {
-  position: absolute;
-  right: 28px;
-  bottom: -58px;
-  width: 150px;
-  height: 150px;
-  border: 24px solid rgba(255, 255, 255, 0.11);
-  border-radius: 50%;
-  box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.06), 0 0 0 36px rgba(255, 255, 255, 0.04);
-}
 
 .work-copy {
   display: flex;
@@ -1053,9 +767,10 @@ p { margin: 0; }
   gap: 16px;
 }
 
-.work-case summary .mono {
+.work-case summary .case-label {
   color: var(--accent-strong);
-  letter-spacing: 0.07em;
+  font-size: 13px;
+  font-weight: 650;
 }
 
 .case-summary-open,
@@ -1282,7 +997,6 @@ p { margin: 0; }
   color: var(--bg);
 }
 
-.contact-kicker { grid-column: 1 / -1; color: color-mix(in srgb, var(--bg) 74%, var(--ink)); letter-spacing: 0.08em; }
 .contact .name { font-size: clamp(25px, 4vw, 38px); font-weight: 680; letter-spacing: -0.05em; }
 .contact .cta { align-self: center; margin-top: 0; }
 .contact .cta .cta-secondary { border-color: color-mix(in srgb, var(--bg) 35%, transparent); background: transparent; color: var(--bg); }
@@ -1326,7 +1040,6 @@ p { margin: 0; }
   /* 하단 고정 바는 프로필 카드(.side, isolation: isolate) 안에 있어 카드의 쌓임 순서를 따른다.
      카드 열을 본문보다 위에 두어야 뒤에 오는 본문 글자가 바 위로 그려지지 않는다. */
   .side-column { z-index: 20; width: 100%; }
-  .build-reel { display: none; }
 
 
   .side {
@@ -1474,7 +1187,7 @@ p { margin: 0; }
 
 @media print {
   body { background: #fff; color: #111; }
-  body::before, .scroll-progress, .theme-toggle, .entrances, .draft-banner, .build-reel, .work-case { display: none; }
+  body::before, .scroll-progress, .theme-toggle, .entrances, .draft-banner, .work-case { display: none; }
   .layout { display: block; max-width: none; padding: 0; }
   .side { position: static; max-height: none; margin-bottom: 28px; box-shadow: none; }
   .content { gap: 48px; padding: 0; }

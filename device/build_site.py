@@ -43,78 +43,6 @@ def section_head(title: str, note: str | None = None) -> str:
         </div>"""
 
 
-def render_project_rail(data: dict[str, object]) -> str:
-    projects = []
-    work_ids = set()
-
-    for item in data.get("works") or []:
-        if item.get("status") != "published":
-            continue
-        work_ids.add(item["id"])
-        projects.append(
-            {
-                "target": f"work-{item['id']}",
-                "period": item.get("period") or "",
-                "kind": item.get("kind") or "",
-                "title": item["title"],
-                "visual": item.get("visual"),
-            }
-        )
-
-    for item in data.get("experience") or []:
-        if item.get("status") != "published" or item["id"] in work_ids:
-            continue
-        gallery = item.get("gallery") or []
-        projects.append(
-            {
-                "target": f"experience-{item['id']}",
-                "period": item.get("period") or "",
-                "kind": item.get("role") or "",
-                "title": item["title"],
-                "visual": gallery[0] if gallery else None,
-            }
-        )
-
-    cards = []
-    for index, item in enumerate(projects, start=1):
-        visual = item.get("visual")
-        image = ""
-        image_class = ""
-        if visual:
-            image_class = " has-image"
-            image = (
-                f'<img src="{safe_href(visual["src"])}" alt="" '
-                f'width="{esc(visual["width"])}" height="{esc(visual["height"])}" '
-                'loading="lazy" decoding="async">'
-            )
-        cards.append(
-            f'''        <a class="build-card" href="#{esc(item['target'])}" style="--stack-order: {index - 1}; --stack-top: {28 + (index - 1) * 25}px">
-          <span class="build-card-visual{image_class}" aria-hidden="true">
-            {image}
-            <span class="build-card-number">{index:02d}</span>
-            <span class="build-card-mark">VIEW ↗</span>
-          </span>
-          <span class="build-card-meta mono"><span>{esc(item['period'])}</span><span>{esc(item['kind'])}</span></span>
-          <strong>{esc(item['title'])}</strong>
-        </a>'''
-        )
-
-    if not cards:
-        return ""
-
-    return f'''    <section class="build-reel" aria-labelledby="build-reel-title">
-      <div class="build-reel-head">
-        <p class="mono">SELECTED BUILDS</p>
-        <span class="mono">01—{len(cards):02d}</span>
-      </div>
-      <h2 id="build-reel-title">만들고 끝까지 확인한 작업</h2>
-      <p class="build-reel-intro">실제 화면과 결과가 남아 있는 작업을 골랐습니다.</p>
-      <div class="build-stack">
-{chr(10).join(cards)}
-      </div>
-    </section>'''
-
-
 # 처음 온 사람이 결과물부터 보도록 대표작을 맨 앞에 둔다. 이야기·숫자는 그 뒤에서 근거를 채운다.
 SECTION_ENTRANCES = (
     ("work", "대표작"),
@@ -140,13 +68,11 @@ def render_entrances(variant: str = "side") -> str:
 {indent}    </li>'''
         )
 
-    last = f"{len(SECTION_ENTRANCES):02d}"
     classes = "entrances entrances-rail" if rail else "entrances"
     label_text = "섹션 바로가기" if rail else "바로 가기"
     return f'''{indent}<nav class="{classes}" aria-label="{label_text}">
 {indent}  <div class="entrances-head">
-{indent}    <span class="mono">SECTIONS</span>
-{indent}    <span class="mono">01 — {last}</span>
+{indent}    <span>바로 가기</span>
 {indent}  </div>
 {indent}  <span class="entrance-indicator" aria-hidden="true"></span>
 {indent}  <ol>
@@ -214,18 +140,14 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         <p class="role">{esc(profile['role'])}</p>
         <p class="tagline">{value_or_todo(profile.get('tagline'), draft, '본인이 쓸 한 줄 소개')}</p>
         {render_cta(data, "hero")}
-        <div class="craft-console" aria-label="작업 방식">
-          <div class="craft-console-head">
-            <span class="mono">HOW I WORK</span>
-            <output class="craft-output mono" aria-live="polite">01 / DESIGN</output>
-          </div>
-          <div class="craft-path" role="group" aria-label="작업 단계">
-            <button type="button" data-craft="design" data-index="01" data-copy="처음 보는 사람이 막힌 곳을 기록해 문제를 다시 정의합니다. · ExplainSOC" aria-pressed="true"><span>01</span>DESIGN</button>
-            <button type="button" data-craft="build" data-index="02" data-copy="화면·서버·인증을 하나의 서비스로 연결합니다. · CLOV · 7번 다이어리" aria-pressed="false"><span>02</span>BUILD</button>
-            <button type="button" data-craft="ship" data-index="03" data-copy="배포본을 모바일·키보드·외부 전송까지 자동으로 검증합니다. · ExplainSOC" aria-pressed="false"><span>03</span>SHIP</button>
-          </div>
-          <p class="craft-caption">처음 보는 사람이 막힌 곳을 기록해 문제를 다시 정의합니다. · ExplainSOC</p>
-        </div>
+        <section class="how-i-work" aria-label="일하는 방식">
+          <p class="how-title">일하는 방식</p>
+          <ol>
+            <li><span class="how-step">설계</span><span>처음 보는 사람이 막힌 곳을 기록해 문제를 다시 정의합니다.</span><span class="how-proof">ExplainSOC</span></li>
+            <li><span class="how-step">구현</span><span>화면·서버·인증을 하나의 서비스로 연결합니다.</span><span class="how-proof">CLOV · 7번 다이어리</span></li>
+            <li><span class="how-step">검증</span><span>배포본을 모바일·키보드·외부 전송까지 자동으로 검증합니다.</span><span class="how-proof">ExplainSOC</span></li>
+          </ol>
+        </section>
       </header>
 
 {render_entrances()}
@@ -237,7 +159,6 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
         <div><dt>연락</dt><dd>{contact_html}</dd></div>
       </dl>
     </aside>
-{render_project_rail(data)}
     </div>"""
 
 
@@ -334,17 +255,14 @@ def render_works(data: dict[str, object], draft: bool) -> str:
                 f'width="{esc(visual["width"])}" height="{esc(visual["height"])}"{focus} '
                 'loading="lazy" decoding="async">'
             )
-            signal = ""
         else:
             visual_class = ""
             visual_accessibility = ' aria-hidden="true"'
             visual_media = ""
-            signal = '<span class="work-signal"></span>'
         period = item.get("period")
         if item.get("status") == "planned":
             period = f"예정 · {value_or_todo(item.get('plannedDate'), draft, '예정일 확정 필요')}"
         pending = " pending" if item.get("status") == "planned" else " published"
-        status_label = "NEXT" if item.get("status") == "planned" else "LIVE"
         decision_html = ""
         if item.get("keyDecision"):
             decision_html = f'<p class="work-decision"><span class="mono">핵심 판단</span>{esc(item["keyDecision"])}</p>'
@@ -356,23 +274,23 @@ def render_works(data: dict[str, object], draft: bool) -> str:
         case_html = ""
         if case_study:
             steps = (
-                ("01", "문제", "PROBLEM", case_study.get("problem")),
-                ("02", "판단", "DECISION", case_study.get("decision")),
-                ("03", "구현", "BUILD", case_study.get("implementation")),
-                ("04", "검증", "VERIFY", case_study.get("validation")),
+                ("01", "문제", case_study.get("problem")),
+                ("02", "판단", case_study.get("decision")),
+                ("03", "구현", case_study.get("implementation")),
+                ("04", "검증", case_study.get("validation")),
             )
             step_html = []
-            for step_number, label, english, value in steps:
+            for step_number, label, value in steps:
                 step_html.append(
                     f'''                <section class="case-step">
-                  <span class="case-step-index mono">{step_number} / {esc(english)}</span>
+                  <span class="case-step-index mono">{step_number}</span>
                   <h4>{esc(label)}</h4>
                   <p>{value_or_todo(value, draft, f'{label} 확정 필요')}</p>
                 </section>'''
                 )
             case_html = f'''            <details class="work-case">
               <summary>
-                <span><span class="mono">CASE NOTES</span><span class="case-summary-open">문제부터 검증까지 보기</span><span class="case-summary-close">사례 노트 접기</span></span>
+                <span><span class="case-label">사례 노트</span><span class="case-summary-open">문제부터 검증까지 보기</span><span class="case-summary-close">접기</span></span>
                 <span class="case-icon" aria-hidden="true"></span>
               </summary>
               <div class="case-grid">
@@ -384,11 +302,9 @@ def render_works(data: dict[str, object], draft: bool) -> str:
             <div class="work-visual{visual_class}"{visual_accessibility}>
               {visual_media}
               <span class="work-number">0{index}</span>
-              {signal}
-              <span class="work-status">{status_label}</span>
             </div>
             <div class="work-copy">
-              <span class="mono muted work-kind">CASE {index:02d} · {esc(item['kind'])} · {period if '<span' in str(period) else esc(period)}</span>
+              <span class="mono muted work-kind">{esc(item['kind'])} · {period if '<span' in str(period) else esc(period)}</span>
               <h3 class="work-title">{esc(item['title'])}</h3>
               <p class="work-desc">{esc(item['summary'])}</p>
               {decision_html}
@@ -507,7 +423,6 @@ def render_documents(data: dict[str, object], output: Path, draft: bool) -> str:
       </section>
 
       <footer id="contact" class="contact">
-        <p class="contact-kicker mono">LET'S BUILD SOMETHING RELIABLE.</p>
         <p class="name">{esc(data['profile']['name'])}</p>
         {render_cta(data, "footer")}
         <p class="note">숫자 기준일 {esc(data['updatedAt'])}</p>

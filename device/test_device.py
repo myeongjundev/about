@@ -134,10 +134,10 @@ class SiteTests(unittest.TestCase):
                 "career-description-kim-myeongjun",
             ):
                 self.assertIn(f'href="files/{name}.pdf"', content)
-            self.assertEqual(content.count('data-craft="'), 3)
-            self.assertEqual(content.count('data-craft="design"'), 1)
-            self.assertIn('data-craft="design" data-index="01"', content)
-            self.assertIn('aria-pressed="true"', content)
+            # 일하는 방식은 단추 위젯 대신 세 줄 목록이다. 각 줄에 근거 작업이 붙는다.
+            self.assertNotIn("data-craft", content)
+            self.assertEqual(content.count('class="how-step"'), 3)
+            self.assertEqual(content.count('class="how-proof"'), 3)
             self.assertNotIn('aria-label="색상 테마 바꾸기"', content)
             self.assertNotIn("fonts.googleapis.com", content)
             self.assertNotIn("fonts.gstatic.com", content)
@@ -162,7 +162,7 @@ class SiteTests(unittest.TestCase):
             )
             content = output.read_text(encoding="utf-8")
             self.assertEqual(content.count('class="entrances-head"'), 2)
-            self.assertEqual(content.count("01 — 05"), 2)
+            self.assertEqual(content.count("<span>바로 가기</span>"), 2)
             self.assertEqual(content.count('class="entrance-indicator"'), 2)
             # ol 안에는 li만 올 수 있다. 표시 요소는 목록 밖에 둔다.
             import re as _re
@@ -185,7 +185,7 @@ class SiteTests(unittest.TestCase):
                 mobile.index("  .entrances {"),
             )
 
-    def test_selected_builds_link_to_existing_project_sections(self) -> None:
+    def test_project_sections_exist_without_decorative_card_stack(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             output_dir = Path(temp)
             copy_published_documents(output_dir)
@@ -197,40 +197,18 @@ class SiteTests(unittest.TestCase):
                 False,
             )
             content = output.read_text(encoding="utf-8")
-            self.assertIn("SELECTED BUILDS", content)
-            # 왼쪽 카드는 공개된 작업을 빠지지 않고 다 싣는다. 수를 적어 두면 과제를 늘렸을 때 조용히 잘린다.
+            # 왼쪽에 쌓이던 SELECTED BUILDS 카드 더미와 영문 장식 문구는 뺐다(2026-09-25).
+            for decoration in ("SELECTED BUILDS", "build-card", "LET'S BUILD", "CASE NOTES", "PORTFOLIO 2026", 'class="avatar"'):
+                self.assertNotIn(decoration, content)
+            # 공개된 대표작과 경력은 모두 제자리(id)가 있다.
             approved = json.loads((REPO / "content" / "approved.json").read_text(encoding="utf-8"))
-            work_ids = {item["id"] for item in approved["works"] if item.get("status") == "published"}
-            expected_cards = len(work_ids) + sum(
-                1
-                for item in approved["experience"]
-                if item.get("status") == "published" and item["id"] not in work_ids
-            )
-            self.assertEqual(content.count('class="build-card"'), expected_cards)
-            self.assertIn('href="#experience-t04-info-board"', content)
-            self.assertIn('href="#experience-t02-mini-game"', content)
-
-            styles = (REPO / "docs" / "styles.css").read_text(encoding="utf-8")
-            stack = styles[styles.index(".build-stack {") : styles.index(".build-card {")]
-            card = styles[styles.index(".build-card {") : styles.index(".build-card:nth-child(2)")]
-            # 카드 사이를 margin으로 벌리면 sticky가 멈추는 자리까지 함께 올라가,
-            # 맨 아래에서 가운데 카드들이 같은 높이에 겹쳐 선다. 간격은 gap으로만 준다.
-            self.assertIn("gap:", stack)
-            self.assertNotIn("margin-bottom", card)
-            import re as _re2
-
-            offsets = [int(v) for v in _re2.findall(r"--stack-top: (\d+)px", content)]
-            self.assertEqual(len(offsets), expected_cards)
-            steps = {b - a for a, b in zip(offsets, offsets[1:])}
-            self.assertEqual(len(steps), 1, "카드가 같은 간격으로 겹쳐야 한다")
-            # 카드 높이 330px을 더해도 낮은 창 안에 들어와야 맨 아래에서 다 보인다.
-            self.assertLessEqual(offsets[-1] + 330, 560)
-            self.assertIn('href="#work-clov"', content)
-            self.assertIn('id="work-clov"', content)
+            for item in approved["works"]:
+                if item.get("status") == "published":
+                    self.assertIn(f'id="work-{item["id"]}"', content)
+            for item in approved["experience"]:
+                self.assertIn(f'id="experience-{item["id"]}"', content)
             # 대표작은 ExplainSOC·10번·CLOV·7번 인증 넷이고, 5번 AI 인계는 경력으로 내려갔다.
-            self.assertIn('href="#work-t07-auth"', content)
             self.assertIn('id="work-t07-auth"', content)
-            self.assertIn('href="#experience-t05-ai-handoff"', content)
             self.assertNotIn('id="work-t05-ai-handoff"', content)
             self.assertLess(content.index('id="work-t13-app"'), content.index('id="work-t10-paper"'))
             # 대표작마다 카드 겉면에 핵심 판단 한 줄이 있다.
@@ -240,9 +218,7 @@ class SiteTests(unittest.TestCase):
             self.assertEqual(content.count('class="cta-text" href="resume-en.html" lang="en"'), 2)
             self.assertEqual(content.count('class="cta-secondary" href="https://github.com/myeongjundev"'), 2)
             self.assertNotIn("mailto:", content)
-            self.assertIn('href="#work-t13-app"', content)
             self.assertIn('id="work-t13-app"', content)
-            self.assertIn('href="#experience-third-project"', content)
             self.assertIn('id="experience-third-project"', content)
             self.assertEqual(content.count('class="work-case"'), 4)
             self.assertEqual(content.count('class="case-step"'), 16)
