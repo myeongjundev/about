@@ -5,6 +5,7 @@
 - 사용자 요청 "올려주고 사이트 공유 이미지(og-card)도 같이 정리해줘": `device/build_og_image.py`에서 맨 위 "myeongjundev / portfolio"를 교육 첫 항목("SKT ALEPH 네트워크 보안 과정")으로 바꾸고, 장식 번짐(glow)을 빼 단색 바탕으로 둔다. 이름·직함·한 줄 소개·주소는 그대로. `docs/assets/og-card.png` 다시 생성(1200x630).
 - GitHub 프로필 README(`myeongjundev/myeongjundev`)에 대표작 네 개의 실제 화면을 이은 배너 `work-strip.png`(투명 바탕, 대체 텍스트 포함)를 넣었다(9541bc1). bio·웹사이트 칸은 토큰에 `user` 권한이 없어 바꾸지 못했다 — 사용자가 직접 바꾸거나 `gh auth refresh -h github.com -s user`로 권한을 준 뒤 바꾼다.
 - 단위 20개·반복 생성·릴리스 검사 통과.
+- 배포: main 빨리 감기(c508e46) push. T12 checks·Pages 성공, 공개 og-card.png가 커밋 파일과 SHA-256이 같다.
 
 ## 2026-09-25 — 남은 장식 정리
 
