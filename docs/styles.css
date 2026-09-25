@@ -396,55 +396,15 @@ p { margin: 0; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
 }
 
-.profile-actions { display: flex; align-items: center; gap: 8px; }
-
-.avatar {
-  display: grid;
-  width: 52px;
-  height: 52px;
-  place-items: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
-  border-radius: 17px;
-  /* 테마를 타지 않는 고정 색이어야 흰 글자가 두 테마에서 모두 읽힌다. */
-  background: linear-gradient(145deg, #2457ff, #6c40e8);
-  box-shadow: 0 12px 26px color-mix(in srgb, var(--accent) 22%, transparent);
-  color: #fff;
-  font-family: var(--mono);
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-.availability {
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-  gap: 7px;
-  padding: 7px 10px;
-  border: 1px solid color-mix(in srgb, var(--signal-ink) 20%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--signal) 55%, var(--surface-solid));
-  color: var(--signal-ink);
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.availability > span {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #16a36a;
-  box-shadow: 0 0 0 4px color-mix(in srgb, #16a36a 16%, transparent);
-}
+/* 이름 위 한 줄: 장식 대신 지금 하고 있는 일을 적는다. */
+.profile-context { color: var(--muted); font-size: 13px; font-weight: 600; line-height: 1.4; }
 
 .intro { display: flex; flex-direction: column; }
-.site-id { letter-spacing: 0.02em; }
 
 .intro h1 {
   margin: 14px 0 2px;
@@ -796,7 +756,7 @@ p { margin: 0; }
 
 .section-head {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 12px 32px;
   align-items: end;
   margin-bottom: 30px;
@@ -804,12 +764,8 @@ p { margin: 0; }
   border-bottom: 1px solid var(--line-strong);
 }
 
-.section-head::after {
-  content: 'PORTFOLIO / 2026';
-  color: var(--faint);
-  font: 500 12px var(--mono);
-  letter-spacing: 0.08em;
-}
+.section-head h2 { white-space: nowrap; }
+.section-head p { justify-self: end; }
 
 .section-head h2 {
   margin: 0;
@@ -1440,7 +1396,7 @@ p { margin: 0; }
 
   .content { order: 3; padding: 0; gap: 84px; }
   .section-head { grid-template-columns: 1fr; }
-  .section-head::after { display: none; }
+  .section-head p { justify-self: start; }
   .section-head h2 { font-size: 36px; }
   .lead { font-size: 21px; }
 
@@ -1500,9 +1456,6 @@ p { margin: 0; }
 @media (max-width: 390px) {
   .layout { padding-inline: 12px; }
   .side { padding: 20px; }
-  .profile-topline { align-items: flex-start; }
-  .availability { font-size: 12px; }
-  .profile-actions { gap: 5px; }
   .intro h1 { font-size: 38px; }
   .facts > div { grid-template-columns: 56px minmax(0, 1fr); }
   .metric { padding: 15px; }

@@ -198,19 +198,18 @@ def render_sidebar(data: dict[str, object], draft: bool) -> str:
     else:
         contact_html = value_or_todo(None, draft, "공개 연락 수단 확정 필요")
 
+    # 이름 위 한 줄은 지금 무엇을 하고 있는지다. 교육의 첫 항목(진행 중인 과정)에서 가져온다.
+    context = ((profile.get("education") or [{}])[0]).get("name") or ""
+
     return f"""    <div class="side-column">
     <aside class="side">
       <header class="intro">
         <div class="profile-topline">
-          <span class="avatar" aria-hidden="true">MJ</span>
-          <span class="profile-actions">
-            <span class="availability"><span aria-hidden="true"></span> Portfolio 2026</span>
-            <button class="theme-toggle" type="button" aria-pressed="false">
-              <span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Dark mode</span>
-            </button>
-          </span>
+          <span class="profile-context">{esc(context)}</span>
+          <button class="theme-toggle" type="button" aria-pressed="false">
+            <span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Dark mode</span>
+          </button>
         </div>
-        <span class="mono muted site-id">myeongjundev / portfolio</span>
         <h1>{esc(profile['name'])}</h1>
         <p class="role">{esc(profile['role'])}</p>
         <p class="tagline">{value_or_todo(profile.get('tagline'), draft, '본인이 쓸 한 줄 소개')}</p>
