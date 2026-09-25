@@ -164,7 +164,16 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-
 .doc-closing { margin: 0; font-weight: 700; }
 
 @media (max-width: 640px) {
-  .doc-bar { padding: 10px 16px; }
+  /* 휴대폰에서는 탭이 여러 줄로 접혀 읽는 내내 화면을 가린다. 따라오지 않게 하고 처음에만 보인다. */
+  .doc-bar { position: static; padding: 8px 16px 10px; gap: 4px 12px; }
+  .doc-back,
+  .doc-tabs a,
+  .doc-downloads a { display: inline-flex; min-height: 40px; align-items: center; }
+  .doc-downloads a { padding: 0 14px; }
+  /* 첫 줄에 돌아가기와 내려받기, 둘째 줄에 문서 탭을 둬 한 줄을 아낀다. */
+  .doc-back { order: 0; }
+  .doc-downloads { order: 1; }
+  .doc-tabs { order: 2; flex-basis: 100%; }
   .doc { margin: 12px; padding: 26px 20px; border-radius: 16px; }
   .doc-head h1 { font-size: 28px; }
   .doc-skill,

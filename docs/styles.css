@@ -485,7 +485,7 @@ p { margin: 0; }
 .cta a:hover { transform: translateY(-2px); }
 .cta .cta-primary { border-color: var(--accent); background: var(--accent); color: var(--surface-solid); }
 .cta .cta-secondary { background: var(--surface-solid); color: var(--ink); }
-.cta .cta-text { padding: 0 6px; border-color: transparent; color: var(--accent); font-weight: 650; text-decoration: underline; text-underline-offset: 3px; }
+.cta .cta-text { padding: 0 2px; border-color: transparent; color: var(--accent); font-weight: 650; text-decoration: underline; text-underline-offset: 3px; }
 .contact .cta .cta-text { color: var(--bg); }
 .cta .cta-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -1346,6 +1346,8 @@ p { margin: 0; }
   .entrances-rail .arrow { display: none; }
   .metrics { grid-template-columns: 1fr; }
   .metric { min-height: 220px; }
+  /* 카드가 한 줄에 하나일 때는 제목 줄 높이를 맞출 이웃이 없다. 빈 줄이 남지 않게 푼다. */
+  .metric .label { min-height: 0; }
   .work,
   .work:nth-child(even) { grid-template-columns: 1fr; min-height: 0; }
   .work:nth-child(even) .work-visual,
@@ -1486,7 +1488,13 @@ p { margin: 0; }
 }
 
 @media (max-width: 640px) {
-  .doc-list { grid-template-columns: 1fr; }
+  .doc-list { grid-template-columns: 1fr; gap: 10px; }
+  /* 카드 여섯 장이 한 줄씩 쌓이므로 아이콘을 빼고 단추를 한 줄에 둔다. 단추는 손가락으로 누르기 좋게 40px. */
+  .doc-card { min-height: 0; padding: 16px; }
+  .doc-card::before { display: none; }
+  .doc-formats { grid-template-columns: 2fr 1fr 1fr; margin-top: 12px; }
+  .doc-formats a:first-child { grid-column: auto; }
+  .doc-formats a { display: flex; min-height: 40px; align-items: center; justify-content: center; padding: 0 8px; }
 }
 
 @media (max-width: 390px) {
