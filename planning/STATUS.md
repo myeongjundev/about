@@ -7,6 +7,7 @@
 - 사용자 지적("AI 티가 너무 나고 디자인적으로도 별로"): 프로필 머리의 MJ 그라데이션 아바타, 초록 "PORTFOLIO 2026" 상태 배지, "myeongjundev / portfolio" 경로 장식을 걷어 내고, 이름 위에 교육 첫 항목("SKT ALEPH 네트워크 보안 과정") 한 줄과 테마 단추만 둔다. 모든 절 제목 아래 `::after` "PORTFOLIO / 2026"도 뺐다.
 - 남은 같은 결의 장식 후보(손대지 않음): HOW I WORK 콘솔, SELECTED BUILDS 카드 더미, "LET'S BUILD SOMETHING RELIABLE.", 대문자 코드 글꼴 라벨(CASE NOTES·LIVE·VIEW ↗).
 - 단위 20개·반복 생성·릴리스 검사 통과, 1440(밝은·어두운)·390px 가로 넘침 0.
+- 배포: 사용자 "배포해" 승인 뒤 main 빨리 감기(d46c91b) push. T12 checks·Pages 성공, 공개 index·styles.css 200이고 커밋 파일과 SHA-256이 같다.
 
 ## 2026-09-25 — 휴대폰 화면 점검과 수정
 
