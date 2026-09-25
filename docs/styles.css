@@ -221,6 +221,164 @@ p { margin: 0; }
 .side.is-pointer-active::before { opacity: 1; }
 .side > * { position: relative; z-index: 1; }
 
+.build-reel {
+  display: flex;
+  min-height: 0;
+  margin-top: 42px;
+  padding: 0 6px;
+  flex: 1;
+  flex-direction: column;
+}
+
+.build-reel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-strong);
+  color: var(--accent-strong);
+}
+
+.build-reel h2 {
+  max-width: 310px;
+  margin: 18px 0 0;
+  font-size: clamp(23px, 2.5vw, 30px);
+  font-weight: 680;
+  letter-spacing: -0.045em;
+  line-height: 1.28;
+}
+
+.build-reel-intro {
+  max-width: 290px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.build-stack {
+  display: flex;
+  min-height: calc(100% - 150px);
+  padding-top: 28px;
+  padding-bottom: 40px;
+  flex: 1;
+  flex-direction: column;
+  /* 카드 사이는 margin이 아니라 gap으로 벌린다. margin은 sticky가 멈추는 자리를 함께
+     끌어올려, 맨 아래에서 가운데 카드 여럿이 같은 높이에 겹쳐 섰다. */
+  gap: clamp(300px, 52vh, 520px);
+}
+
+.build-card {
+  --card-accent: #2457ff;
+  position: sticky;
+  top: var(--stack-top);
+  z-index: calc(10 + var(--stack-order));
+  display: flex;
+  min-height: 330px;
+  padding: 14px;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--card-accent) 28%, var(--line));
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--surface-solid) 94%, var(--card-accent) 6%);
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--card-accent) 13%, transparent);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.build-card:nth-child(2) { --card-accent: #7c3aed; }
+.build-card:nth-child(3) { --card-accent: #0f9f74; }
+.build-card:nth-child(4) { --card-accent: #d97706; }
+.build-card:nth-child(5) { --card-accent: #be123c; }
+.build-card:nth-child(6) { --card-accent: #0e7490; }
+
+.build-card:hover {
+  border-color: color-mix(in srgb, var(--card-accent) 62%, var(--line));
+  box-shadow: 0 30px 72px color-mix(in srgb, var(--card-accent) 20%, transparent);
+  transform: translateY(-4px);
+}
+
+.build-card-visual {
+  position: relative;
+  display: block;
+  height: 190px;
+  overflow: hidden;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 76% 18%, rgba(255, 255, 255, 0.34), transparent 28%),
+    linear-gradient(145deg, var(--card-accent), #101828);
+}
+
+.build-card-visual::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 12, 28, 0.04), rgba(6, 12, 28, 0.72));
+  content: '';
+}
+
+.build-card-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 500ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.build-card:hover .build-card-visual img { transform: scale(1.055); }
+
+.build-card-number,
+.build-card-mark {
+  position: absolute;
+  z-index: 1;
+  color: #fff;
+  font-family: var(--mono);
+}
+
+.build-card-number {
+  left: 14px;
+  bottom: 11px;
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: -0.08em;
+}
+
+.build-card-mark {
+  right: 12px;
+  top: 12px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 999px;
+  background: rgba(8, 15, 34, 0.54);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(8px);
+}
+
+.build-card-meta {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+}
+
+.build-card-meta span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.build-card strong {
+  display: block;
+  font-size: 18px;
+  letter-spacing: -0.03em;
+  line-height: 1.42;
+}
+
 .content {
   display: flex;
   min-width: 0;
@@ -1040,6 +1198,7 @@ p { margin: 0; }
   /* 하단 고정 바는 프로필 카드(.side, isolation: isolate) 안에 있어 카드의 쌓임 순서를 따른다.
      카드 열을 본문보다 위에 두어야 뒤에 오는 본문 글자가 바 위로 그려지지 않는다. */
   .side-column { z-index: 20; width: 100%; }
+  .build-reel { display: none; }
 
 
   .side {
@@ -1187,7 +1346,7 @@ p { margin: 0; }
 
 @media print {
   body { background: #fff; color: #111; }
-  body::before, .scroll-progress, .theme-toggle, .entrances, .draft-banner, .work-case { display: none; }
+  body::before, .scroll-progress, .theme-toggle, .entrances, .draft-banner, .build-reel, .work-case { display: none; }
   .layout { display: block; max-width: none; padding: 0; }
   .side { position: static; max-height: none; margin-bottom: 28px; box-shadow: none; }
   .content { gap: 48px; padding: 0; }
