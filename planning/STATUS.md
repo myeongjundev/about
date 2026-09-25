@@ -4,6 +4,8 @@
 
 - 사용자 요청 "남은 장식들도 정리": HOW I WORK 콘솔(DESIGN·BUILD·SHIP 단추와 `app.js` 선택 코드) → "일하는 방식" 세 줄 목록(문장·근거 그대로). 왼쪽 SELECTED BUILDS 카드 더미(`render_project_rail`, `.build-*` CSS) 삭제. 바닥글 "LET'S BUILD SOMETHING RELIABLE." 삭제. 대표작 LIVE 배지·장식 원·"CASE 01 ·" 접두어 삭제, "CASE NOTES"→"사례 노트"(펼치면 "접기"), 사례 단계 "01 / PROBLEM"→"01", 바로 가기 머리 "SECTIONS 01 — 05"→"바로 가기".
 - 테스트: 카드 더미 검사를 "뺀 장식이 다시 들어오지 않는지 + 공개된 대표작·경력 id가 모두 있는지"로 바꿨다. 단위 20개·반복 생성·릴리스 검사 통과, 1280·1440·1920(어두운 포함)·390px 가로 넘침·스크립트 오류 0.
+- 배포: 사용자 "배포하고 README에 올려줘" 승인 뒤 main 빨리 감기(d08272c) push. T12 checks·Pages 성공, 공개 index·styles.css·app.js 200이고 커밋 파일과 SHA-256이 같다.
+- GitHub 프로필 README: 같은 승인으로 공개 저장소 `myeongjundev/myeongjundev`를 만들고 README(한 줄 소개·포트폴리오/이력서 링크·대표작 4개 표·기술)를 올렸다(bcad22c). 문장은 사이트에 공개된 것만 썼고 통계 위젯·배지는 넣지 않았다. 프로필 첫 화면에 보이고 README 안 링크 11개 모두 200. 한 줄 소개(bio)·웹사이트 칸·고정 저장소는 계정 설정이라 손대지 않았다(사용자 몫).
 
 ## 2026-09-25 — 데스크톱 점검, 머리 부분 장식 정리, 절 제목 접힘 수정
 
