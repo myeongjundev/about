@@ -374,7 +374,7 @@ def render_works(data: dict[str, object], draft: bool) -> str:
             case_html = f'''            <details class="work-case">
               <summary>
                 <span><span class="mono">CASE NOTES</span><span class="case-summary-open">문제부터 검증까지 보기</span><span class="case-summary-close">사례 노트 접기</span></span>
-                <span class="case-icon" aria-hidden="true">＋</span>
+                <span class="case-icon" aria-hidden="true"></span>
               </summary>
               <div class="case-grid">
 {chr(10).join(step_html)}

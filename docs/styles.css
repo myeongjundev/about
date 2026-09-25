@@ -1113,17 +1113,29 @@ p { margin: 0; }
 .work-case[open] .case-summary-close { display: inline; }
 
 .case-icon {
-  display: grid;
+  position: relative;
   width: 34px;
   height: 34px;
   flex: 0 0 34px;
-  place-items: center;
   border: 1px solid var(--line-strong);
   border-radius: 50%;
-  color: var(--accent-strong);
-  font-size: 20px;
   transition: transform 220ms ease, background-color 220ms ease;
 }
+
+/* 글자(＋)는 글꼴 기준선 때문에 원 가운데서 조금 내려앉는다. 막대 두 개로 정확히 가운데에 그린다. */
+.case-icon::before,
+.case-icon::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--accent-strong);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+.case-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
 
 .work-case[open] .case-icon {
   background: var(--accent-soft);
@@ -1282,7 +1294,7 @@ p { margin: 0; }
 
 /* 같은 문서를 형식별로 내려받는 단추. 워드가 없으면 PDF로 연다. */
 /* 웹에서 보기를 첫 줄에, PDF·DOCX를 둘째 줄에 둔다. 칸 폭과 상관없이 모든 카드가 같은 모양이다. */
-.doc-formats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+.doc-formats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; margin-top: 14px; }
 .doc-formats a:first-child { grid-column: 1 / -1; }
 /* 웹에서 바로 읽는 단추가 먼저 눈에 띄게 */
 .doc-formats a:first-child { border-color: var(--accent); color: var(--accent); }
