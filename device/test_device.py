@@ -240,12 +240,13 @@ class SiteTests(unittest.TestCase):
             self.assertLessEqual(offsets[-1] + 330, 560)
             for card_id in re_card_targets(content):
                 self.assertIn(f'id="{card_id}"', content)
-            # 대표작은 ExplainSOC·10번·CLOV·7번 인증 넷이고, 5번 AI 인계는 경력으로 내려갔다.
+            # NetProof를 맨 앞에 추가하고, 기존 대표작과 경력도 남긴다.
+            self.assertLess(content.index('id="work-netproof"'), content.index('id="work-t13-app"'))
             self.assertIn('id="work-t07-auth"', content)
             self.assertNotIn('id="work-t05-ai-handoff"', content)
             self.assertLess(content.index('id="work-t13-app"'), content.index('id="work-t10-paper"'))
             # 대표작마다 카드 겉면에 핵심 판단 한 줄이 있다.
-            self.assertEqual(content.count('class="work-decision"'), 4)
+            self.assertEqual(content.count('class="work-decision"'), len(approved["works"]))
             # 첫 화면과 맨 아래에 이력서 PDF(주)와 GitHub(보조)가 있다. 없는 연락처는 만들지 않는다.
             self.assertEqual(content.count('class="cta-primary" href="resume.html"'), 2)
             self.assertEqual(content.count('class="cta-text" href="resume-en.html" lang="en"'), 2)
@@ -253,8 +254,9 @@ class SiteTests(unittest.TestCase):
             self.assertNotIn("mailto:", content)
             self.assertIn('id="work-t13-app"', content)
             self.assertIn('id="experience-third-project"', content)
-            self.assertEqual(content.count('class="work-case"'), 4)
-            self.assertEqual(content.count('class="case-step"'), 16)
+            case_count = sum(bool(item.get("caseStudy")) for item in approved["works"])
+            self.assertEqual(content.count('class="work-case"'), case_count)
+            self.assertEqual(content.count('class="case-step"'), case_count * 4)
             self.assertIn("문제부터 검증까지 보기", content)
 
 

@@ -12,9 +12,11 @@ DOCX 문서 3종을 생성했고, 기록 집계·반복 실행·접근성·외�
 `docs/`에는 GitHub Pages용 사이트와 내려받을 문서가 있으며, 제출용 ZIP은 로컬에서 재현할 수 있습니다.
 제출한 것과 양식 문안은 [`planning/SUBMISSION-2026-09-21.md`](planning/SUBMISSION-2026-09-21.md)에 있습니다.
 
-제출 뒤에는 대표작 넷째 자리(`t13-app`)만 고칩니다. 2026-09-22에 예정 카드를 공개된 13번 앱
-[ExplainSOC](https://myeongjundev.github.io/explainsoc/)로 바꿨고, 앱이 바뀔 때마다 대표 그림과 검증 문장을
-맞춥니다(최근 2026-09-23 V8 화면, 단위·컴포넌트 99개·브라우저 27개).
+제출 뒤에도 공개 프로젝트의 화면과 검증 근거를 갱신합니다. 대표작은 NetProof, ExplainSOC,
+10번 연구, CLOV, 7번 다이어리 인증입니다. 2026-10-25에 사용자의 요청으로
+[NetProof](https://netproof-vert.vercel.app/)를 추가했습니다. 합성 구성에서 닿는 서비스 15개가
+1개로 줄고 수복 기록에 막힘 14·아직 닿음 1이 남는 흐름을 소개하며, 실제 장비 대조와
+다른 사용자 확인은 아직 없다고 구분합니다. 근거는 [NetProof 검토 기록](https://github.com/myeongjundev/netproof/blob/main/docs/final-review-2026-10-25.md)입니다.
 
 - 공개 사이트: https://myeongjundev.github.io/about/
 
