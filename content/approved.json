@@ -154,6 +154,43 @@
   ],
   "works": [
     {
+      "id": "netproof",
+      "kind": "ALEPH 앱 프로젝트 · 네트워크·보안",
+      "period": "2026.10",
+      "title": "NetProof — 네트워크 설정 검증 실습실",
+      "summary": "내 예상과 네트워크 구성의 계산 근거를 비교하는 실습실입니다. 침해를 가정한 웹서버에서 닿는 서비스를 15개에서 1개로 줄이고, 처음 닿던 연결의 막힘 여부를 수복 기록으로 대조합니다.",
+      "caseStudy": {
+        "problem": "네트워크 설정에 대한 답이 맞는지 결과만으로는 확인하기 어렵고, 서버 하나가 뚫렸다고 가정했을 때 다른 장비까지 연결을 시작할 수 있는 범위도 살펴볼 필요가 있었습니다.",
+        "decision": "최종 PASS/DENY는 엔진만 정하게 하고, 화면에서는 계산 근거를 보여 주도록 나눴습니다. 실제 장비와 대조하지 않은 모델 계산을 운영 결과처럼 설명하지 않는 기준을 세웠습니다.",
+        "implementation": "Claude Code·Codex와 협업해 Python 판정 엔진, Flask API, React·TypeScript 화면을 연결했습니다. 침해 가정 실습 4장면, pfSense 방식의 방화벽 입력, 변경 전후 비교와 Markdown 수복 기록, 로그인 없이 보는 CISA KEV 보안 소식을 구현했습니다. 실제 네트워크에 패킷을 보내거나 앱 안에서 AI를 부르지는 않습니다.",
+        "validation": "2026-10-25 검토 기록에서 장면 1의 닿는 서비스 15개가 1개로 줄고 수복 기록에 막힘 14·아직 닿음 1이 나오는 것을 확인했습니다. 자동 시험은 엔진 508 passed·2 xfailed, 서버 277 passed·1 skipped, 웹 832 passed였습니다. 브라우저 확인은 AI의 학생 입장 점검이며 실제 pfSense 장비 대조와 다른 사용자 확인은 아직 없습니다."
+      },
+      "status": "published",
+      "visual": {
+        "src": "assets/netproof-contained.jpg",
+        "alt": "NetProof 침해 가정 장면 1. 규칙을 고친 뒤 처음 3곳·서비스 15개에서 지금 1곳·서비스 1개로 줄고 DB의 MySQL만 닿는 합성 구성이다.",
+        "width": 800,
+        "height": 562,
+        "fit": "contain",
+        "focus": "center"
+      },
+      "links": [
+        {
+          "label": "앱 체험",
+          "href": "https://netproof-vert.vercel.app/"
+        },
+        {
+          "label": "검증 기록",
+          "href": "https://github.com/myeongjundev/netproof/blob/main/docs/final-review-2026-10-25.md"
+        },
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/netproof"
+        }
+      ],
+      "keyDecision": "최종 판정은 엔진 한 곳에서만 정하고, 모델 계산과 실제 장비 결과를 구분했습니다."
+    },
+    {
       "id": "t13-app",
       "kind": "13번 과제 · 앱",
       "period": "2026.09",
@@ -299,6 +336,56 @@
     }
   ],
   "experience": [
+    {
+      "id": "netproof",
+      "workId": "netproof",
+      "period": "2026.10",
+      "title": "NetProof · 네트워크 설정 검증 실습실",
+      "role": "기획 · 범위 결정 · AI 협업 · 검증",
+      "scope": "학습 흐름과 기능 범위 결정, 엔진·화면의 판정 책임 분리, Claude Code·Codex 협업, 검토·배포 근거 기록",
+      "ability": "자기조절력",
+      "situation": "네트워크 설정에 대한 답이 맞는지 결과만으로는 확인하기 어렵고, 서버 하나가 뚫렸다고 가정했을 때 다른 장비까지 연결을 시작할 수 있는 범위도 살펴볼 필요가 있었습니다.",
+      "rationale": "최종 PASS/DENY는 엔진만 정하게 하고, 화면에서는 계산 근거를 보여 주도록 나눴습니다. 실제 장비와 대조하지 않은 모델 계산을 운영 결과처럼 설명하지 않는 기준을 세웠습니다.",
+      "action": "Claude Code·Codex와 협업해 Python 판정 엔진, Flask API, React·TypeScript 화면을 연결했습니다. 침해 가정 실습 4장면, pfSense 방식의 방화벽 입력, 변경 전후 비교와 Markdown 수복 기록, 로그인 없이 보는 CISA KEV 보안 소식을 구현했습니다. 실제 네트워크에 패킷을 보내거나 앱 안에서 AI를 부르지는 않습니다.",
+      "result": "합성 구성에서 웹서버가 닿는 서비스를 15개에서 1개로 줄이고, 수복 기록의 막힘 14·아직 닿음 1과 지켜야 할 서비스 유지를 확인했습니다. 실제 장비 대조·다른 사용자 확인은 아직 없습니다.",
+      "status": "published",
+      "technologies": [
+        "Python",
+        "Flask",
+        "React",
+        "TypeScript",
+        "Vercel",
+        "PostgreSQL"
+      ],
+      "gallery": [
+        {
+          "src": "assets/netproof-contained.jpg",
+          "alt": "NetProof 침해 가정 장면 1. 규칙을 고친 뒤 처음 3곳·서비스 15개에서 지금 1곳·서비스 1개로 줄고 DB의 MySQL만 닿는 합성 구성이다.",
+          "width": 800,
+          "height": 562,
+          "fit": "contain",
+          "label": "규칙 수정 뒤 피해 범위"
+        },
+        {
+          "src": "assets/netproof-remediation.jpg",
+          "alt": "NetProof 수복 기록. 처음 닿던 서비스 15개 가운데 막힘 14·아직 닿음 1, 바꾼 방화벽 규칙과 모델의 남은 한계를 표시한다.",
+          "label": "같은 연결을 다시 대조한 수복 기록",
+          "width": 800,
+          "height": 450
+        }
+      ],
+      "links": [
+        {
+          "label": "앱 체험",
+          "href": "https://netproof-vert.vercel.app/"
+        },
+        {
+          "label": "공개 저장소",
+          "href": "https://github.com/myeongjundev/netproof"
+        }
+      ],
+      "resumeDetail": "compact"
+    },
     {
       "id": "t13",
       "workId": "t13-app",

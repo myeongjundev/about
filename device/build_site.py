@@ -75,6 +75,8 @@ def render_project_rail(data: dict[str, object]) -> str:
             }
         )
 
+    # 카드가 늘어도 마지막 카드(330px)가 낮은 창(560px) 안에 남게 간격을 줄인다.
+    stack_step = min(25, (560 - 330 - 28) // max(1, len(projects) - 1))
     cards = []
     for index, item in enumerate(projects, start=1):
         visual = item.get("visual")
@@ -88,7 +90,7 @@ def render_project_rail(data: dict[str, object]) -> str:
                 'loading="lazy" decoding="async">'
             )
         cards.append(
-            f'''        <a class="build-card" href="#{esc(item['target'])}" style="--stack-order: {index - 1}; --stack-top: {28 + (index - 1) * 25}px">
+            f'''        <a class="build-card" href="#{esc(item['target'])}" style="--stack-order: {index - 1}; --stack-top: {28 + (index - 1) * stack_step}px">
           <span class="build-card-visual{image_class}" aria-hidden="true">
             {image}
             <span class="build-card-number">{index:02d}</span>
