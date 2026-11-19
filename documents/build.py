@@ -412,7 +412,8 @@ class DocxWriter:
 
     def body(self, body: str) -> None:
         paragraph = self.document.add_paragraph(body)
-        # 세 장면과 마지막 문장이 한 쪽에 들어가도록 본문만 조금 좁게 짠다.
+        # 각 장면의 제목과 본문이 같은 쪽에 놓이게 한다.
+        paragraph.paragraph_format.keep_together = True
         paragraph.paragraph_format.space_after = Pt(7)
         paragraph.paragraph_format.line_spacing = 1.16
         for run in paragraph.runs:
@@ -685,6 +686,13 @@ def build_career_description(
             text(item.get("title"), draft, "세 번째 항목 확정 필요"),
             text(item.get("period"), draft),
         )
+        if item.get("resumeDetail") == "omit" or item["id"] == "t13":
+            writer.line(labels["role"], item["role"])
+            if item["id"] in {"t13", "t10"}:
+                writer.line(labels["action"], item["action"])
+            writer.line(labels["result"], item["result"], keep=bool(item.get("links")))
+            writer.links(item.get("links"))
+            continue
         writer.line(labels["role"], text(item.get("role"), draft))
         if item.get("scope"):
             writer.line(labels["scope"], item["scope"])

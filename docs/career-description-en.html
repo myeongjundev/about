@@ -23,15 +23,33 @@
       </header>
       <p class="doc-intro">For each project: my role and scope, then the situation, my judgment, what I did and the result, written as facts that can be checked.</p>
         <article class="doc-entry">
+          <div class="doc-entry-head"><h2>Haedam City Hall security orchestration and response lab</h2><span class="doc-period">2026.11</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Led a team of four, built the React and Flask citizen portal, and verified response actions.</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>과제지속력</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>The citizen portal needed to remain available to legitimate users during incident response.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>A block can interrupt legitimate traffic. I used a second client to check availability and repeated both requests after an approved rollback.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>Built the React and Flask portal and prepared the S8 and S10 test inputs. In my personal lab I compared the ticket history with responses from both clients before and after blocking and rollback. In S8, the blocked client received 403 and the unaffected client received 200. Both received 200 after rollback.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Reproduced the alert-to-ticket workflow in a personal lab. Verified with live requests that blocking took effect after ticket creation, other users retained access, and approved rollback restored access.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>React · Flask · Docker · Graylog · n8n · pfSense</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/haedam-soar-portfolio">Lab evidence and team responsibilities</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>NetProof network configuration lab</h2><span class="doc-period">2026.10</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Project design, scope and verification</span></p>
+          <p class="doc-line"><span class="doc-label">Scope</span><span>Defined the learning workflow and separated routing decisions from their presentation.</span></p>
+          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
+          <p class="doc-line"><span class="doc-label">Situation</span><span>Learners needed evidence for which services a modeled web server could reach.</span></p>
+          <p class="doc-line"><span class="doc-label">Judgment</span><span>The engine determines reachability and the interface explains its decisions.</span></p>
+          <p class="doc-line"><span class="doc-label">Action</span><span>Connected a Python engine, Flask API and React interface with Claude Code and Codex.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Reduced reachable services from 15 to one in a simulated configuration and verified that the required service remained reachable.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>Python · Flask · React · TypeScript · Vercel · PostgreSQL</span></p>
+          <p class="doc-links"><a href="https://netproof-vert.vercel.app/">Try the app</a><a href="https://github.com/myeongjundev/netproof">Repository</a></p>
+        </article>
+        <article class="doc-entry">
           <div class="doc-entry-head"><h2>ExplainSOC — Security-AI Performance Claim Checker (ALEPH Assignment 13)</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>Planning · Front-end implementation · User observation · Validation · Deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>15 reading rules, conclusion card, paper lab, six user sessions, reproducible ZIP, GitHub Pages</span></p>
-          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
-          <p class="doc-line"><span class="doc-label">Situation</span><span>Security AI product brochures lead with numbers like ‘99% accuracy’ but rarely say which test produced them. In my Assignment 10 paper, the same XGBoost scored Macro F1 0.9979 on a randomly split test and 0.3871 on a test holding only attacks absent from training.</span></p>
-          <p class="doc-line"><span class="doc-label">Judgment</span><span>I chose not to build scores, grades or pass marks that judge a number good or bad. Instead, the tool checks the test conditions behind a number first, then turns missing evidence into questions to ask the vendor.</span></p>
           <p class="doc-line"><span class="doc-label">Action</span><span>I wrote 15 reading rules that find missing test conditions in brochure sentences and score tables and turn them into vendor questions, and built a conclusion card and a paper lab for changing the paper&#x27;s experiments directly. Rather than adding features, I recorded first-time users six times and fixed each place they got stuck. The app runs entirely in the browser, with no server.</span></p>
           <p class="doc-line"><span class="doc-label">Result</span><span>A fellow trainee reached the vendor questions on a phone unaided; 187 tests gate every deploy.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>React 19 · TypeScript · Vite 8 · Vitest · Playwright</span></p>
           <p class="doc-links"><a href="https://myeongjundev.github.io/explainsoc/">Try the app</a><a href="https://github.com/myeongjundev/explainsoc">Public repository</a></p>
         </article>
         <article class="doc-entry">
@@ -49,85 +67,44 @@
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>Network Intrusion Detection Research (ALEPH Assignment 10)</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>Research design · Implementation · Validation · Paper writing</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>Research design, data audit, three-model comparison, SHAP stability checks, paper and reproducible materials</span></p>
-          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-motivation</span></p>
-          <p class="doc-line"><span class="doc-label">Situation</span><span>I needed to check whether high detection scores on a random split actually generalize to attacks the model has never seen.</span></p>
-          <p class="doc-line"><span class="doc-label">Judgment</span><span>I designed a random split and a date-based unseen-attack split separately, and compared three models&#x27; performance and SHAP explanation stability under the same conditions.</span></p>
           <p class="doc-line"><span class="doc-label">Action</span><span>I audited 2,830,743 CICIDS2017 records, compared three models on the random and unseen-attack splits, and checked the stability of SHAP explanations.</span></p>
           <p class="doc-line"><span class="doc-label">Result</span><span>Submitted a paper with reproducible materials: XGBoost Macro F1 fell from 0.9979 to 0.3871.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>Python · scikit-learn · XGBoost · SHAP</span></p>
           <p class="doc-links"><a href="https://github.com/myeongjundev/explainsoc-research/blob/main/output/pdf/T10-research-paper.pdf">Read the paper</a><a href="https://github.com/myeongjundev/explainsoc-research">Public repository</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>Passkey-Protected Private Area (ALEPH Assignment 8)</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>WebAuthn authentication design · Implementation · Validation · Deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>WebAuthn registration and sign-in, session, Origin and CSRF checks, database, public deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
-          <p class="doc-line"><span class="doc-label">Situation</span><span>I had to keep a public introduction page open while letting only myself see private material, without a password.</span></p>
-          <p class="doc-line"><span class="doc-label">Judgment</span><span>Instead of passwords, I decided to confirm identity with a device passkey and to check the boundary between public and private content at every request.</span></p>
-          <p class="doc-line"><span class="doc-label">Action</span><span>I implemented WebAuthn registration and sign-in, and made each one-time challenge usable only once in the database. Server sessions, Origin and CSRF checks, and a guard against deleting the last passkey are all enforced at the request level.</span></p>
           <p class="doc-line"><span class="doc-label">Result</span><span>Met all 47 acceptance criteria and passed 50 tests; zero password fields on public pages, 401 for private requests without a session.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>Java 25 · Spring Boot · WebAuthn4J · PostgreSQL · Vercel</span></p>
           <p class="doc-links"><a href="https://github.com/myeongjundev/t08-passkey-portfolio">Public repository</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>Plan–Do–See Diary Account Authentication (ALEPH Assignment 7)</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>Authentication design · Full-stack implementation · Validation · Deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>Argon2id password storage, JWTs bound to server sessions with refresh-token rotation, per-account data isolation, migration of existing records, Docker deployment on Render</span></p>
-          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
-          <p class="doc-line"><span class="doc-label">Situation</span><span>I had to turn a Plan–Do–See diary that started as a public app into one based on personal accounts. A JWT checked only by its signature stays valid after logout until it expires, and hiding the diary behind a login screen alone would still leave a path to read other accounts&#x27; records.</span></p>
-          <p class="doc-line"><span class="doc-label">Judgment</span><span>I bound each access JWT to a server session row so every request checks that the session is alive and who owns the data, and treated a reused, already-rotated refresh token as possible theft that revokes the whole token family.</span></p>
-          <p class="doc-line"><span class="doc-label">Action</span><span>I stored passwords with Argon2id and limited lists, single records, statistics and exports to the user ID confirmed by the server. Existing records were backed up and moved to the new account, and changing the password revokes every existing session.</span></p>
           <p class="doc-line"><span class="doc-label">Result</span><span>Passed 319 back-end and 76 front-end tests, with request/response evidence that access to other accounts&#x27; data and reused tokens are rejected.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>React · TypeScript · Flask · PostgreSQL · Argon2id · Docker</span></p>
           <p class="doc-links"><a href="https://t06-plando-see-diary.onrender.com">Try the service (slow first load)</a><a href="https://github.com/myeongjundev/t07-plando-see-diary/blob/main/docs/T07-AUTH-GUIDE.md">Authentication guide</a><a href="https://github.com/myeongjundev/t07-plando-see-diary">Public repository</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>AI Handoff Without Sharing the Conversation (ALEPH Assignment 5)</h2><span class="doc-period">2026.08 - 2026.09</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>Experiment design · Front-end implementation · Validation · Deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>Ten fixed checks, a slider that overlays the original and finished card, a seven-part handoff document, unit and E2E regression tests, GitHub Pages deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-motivation</span></p>
-          <p class="doc-line"><span class="doc-label">Situation</span><span>Every time I switched AI tools I had to explain the same context again, and it had never been tested whether the next AI could safely continue the same project without the conversation.</span></p>
-          <p class="doc-line"><span class="doc-label">Judgment</span><span>Instead of racing for speed, I fixed the feature scope and ten fixed checks first, and tested whether the next AI could take over from code, checks and a handoff document alone, without the conversation.</span></p>
-          <p class="doc-line"><span class="doc-label">Action</span><span>I first set the rule that a check not actually run is never recorded as passed, and had the first AI implement only checks 1–3 and stop as planned. The next AI read only the handoff document and finished checks 4–10 and the full regression suite. When the next AI read the first AI&#x27;s work log before the prohibition rules, I did not hide that procedural violation behind the passing result; I left it in the work log and on the public page.</span></p>
           <p class="doc-line"><span class="doc-label">Result</span><span>Passed all 10 fixed checks; 85 unit and 38 E2E tests stayed green with no human code fixes.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>React 19 · Vite 8 · Canvas API · Playwright</span></p>
           <p class="doc-links"><a href="https://myeongjundev.github.io/t05-ai-handoff/">Try the site</a><a href="https://github.com/myeongjundev/t05-ai-handoff/blob/main/docs/FINAL_COMPARISON.md">Handoff results</a><a href="https://github.com/myeongjundev/t05-ai-handoff">Public repository</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>Security Board with Alerts and Privilege Revocation (course lab)</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>Security feature design and implementation · Automation integration · Validation</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>Role-based access control with admin safeguards, an n8n sign-in alert bot with three messenger channels, porting the course&#x27;s automatic over-privilege revocation code, Graylog SYN flood detection</span></p>
-          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
-          <p class="doc-line"><span class="doc-label">Situation</span><span>I had to add role-based access control to a board from class and port the course&#x27;s code that automatically revokes excess privileges. If automatic revocation misfired, it could demote even the administrators and leave no one able to manage members.</span></p>
-          <p class="doc-line"><span class="doc-label">Judgment</span><span>The more automatic a revocation feature is, the more it must first prevent administrators from locking themselves out, so I applied the same rules that forbid self-demotion, self-deletion and demoting the last administrator to the revocation bot.</span></p>
-          <p class="doc-line"><span class="doc-label">Action</span><span>I split the revocation bot into three stages (report only, notify Graylog, actually demote) so it removes privileges only when given the option, and kept evidence captures and alert senders from exposing API keys or webhook addresses on screen or in error messages. In the SYN flood lab I did not stop at seeing the alert arrive; I compared it with the run record and fixed a bug where the attack was marked as allowed and the real source and count were missing.</span></p>
           <p class="doc-line"><span class="doc-label">Result</span><span>Passed 45 tests; a 35,033-packet SYN flood from Kali reached Graylog, n8n, three messengers and the board log.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>Flask · MySQL · JWT · n8n · Graylog · Docker</span></p>
           <p class="doc-links"><a href="https://github.com/myeongjundev/flask-board">Public repository</a></p>
         </article>
         <article class="doc-entry">
-          <div class="doc-entry-head"><h2>GAME PULSE Data Board (ALEPH Assignment 4)</h2><span class="doc-period">2026.08 - 2026.09</span></div>
+          <div class="doc-entry-head"><h2>GAME PULSE Data Board (ALEPH Assignment 4)</h2><span class="doc-period">2026.08–11</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>Data collection design · Front-end implementation · Validation · Deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>Collecting and storing four Steam feeds (concurrent players, sales, discounts, streams), a React 19 UI, failure reproduction and recovery, GitHub Pages deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-regulation</span></p>
-          <p class="doc-line"><span class="doc-label">Situation</span><span>When numbers collected from several sources share one screen, it becomes unclear when and where each value came from and what is shown when collection fails.</span></p>
-          <p class="doc-line"><span class="doc-label">Judgment</span><span>I chose Steam over Stack Overflow and narrowed it to four axes (concurrent players, sales, discounts and streams). When collection fails, the board shows the last good value and its time instead of inventing an unknown one.</span></p>
-          <p class="doc-line"><span class="doc-label">Action</span><span>I stored each value with its source, measurement time, data state and calculation basis, and tested recovery by reproducing five kinds of failure, including timeouts.</span></p>
           <p class="doc-line"><span class="doc-label">Result</span><span>Passed all 317 regression tests with an audit trail for all 35 assignment conditions.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>React 19 · Vite 8 · Node 22 · GitHub Actions · GitHub Pages</span></p>
           <p class="doc-links"><a href="https://myeongjundev.github.io/info-board/">Try the site</a><a href="https://github.com/myeongjundev/info-board">Public repository</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>SOC SHIFT:30 Alert-Triage Game (ALEPH Assignment 2)</h2><span class="doc-period">2026.08</span></div>
           <p class="doc-line"><span class="doc-label">Role</span><span>Planning · Front-end implementation · Testing · Deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>Thirty-second triage rules, React 18 and TypeScript, keyboard, mouse and touch controls, serverless deployment on GitHub Pages</span></p>
-          <p class="doc-line"><span class="doc-label">Strength</span><span>Self-motivation</span></p>
-          <p class="doc-line"><span class="doc-label">Situation</span><span>To let people briefly experience security-monitoring judgment, a single accuracy score does not reveal what they actually got wrong.</span></p>
-          <p class="doc-line"><span class="doc-label">Judgment</span><span>I judged that counting false positives and false negatives separately keeps a round survived by blocking everything from scoring the same as a round that sorted alerts correctly.</span></p>
-          <p class="doc-line"><span class="doc-label">Action</span><span>I built a 30-second shift where each alert must be passed or blocked within three seconds, and the results screen counts false positives and false negatives separately as bars.</span></p>
           <p class="doc-line"><span class="doc-label">Result</span><span>Serverless build that passed 291 tests; playable from a link with no install or sign-in.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>React 18 · TypeScript · Vite 8</span></p>
           <p class="doc-links"><a href="https://myeongjundev.github.io/mini-game/">Play the game</a><a href="https://github.com/myeongjundev/mini-game">Public repository</a></p>
         </article>
   </main>

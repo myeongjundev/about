@@ -23,15 +23,33 @@
       </header>
       <p class="doc-intro">프로젝트마다 맡은 역할과 담당 범위, 상황에서 판단과 행동을 거쳐 결과에 이른 과정을 확인 가능한 사실로 정리했습니다.</p>
         <article class="doc-entry">
+          <div class="doc-entry-head"><h2>해담시청 SOAR · 민원포털 보안 대응 자동화</h2><span class="doc-period">2026.11</span></div>
+          <p class="doc-line"><span class="doc-label">역할</span><span>4인 팀 조장 · React·Flask 민원포털 구현 및 대응 검증</span></p>
+          <p class="doc-line"><span class="doc-label">능력</span><span>과제지속력</span></p>
+          <p class="doc-line"><span class="doc-label">상황</span><span>민원포털을 보호하면서 정상 이용자의 접속을 유지해야 했습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">판단</span><span>차단 규칙이 정상 접속까지 막을 수 있어 차단 대상과 정상 클라이언트를 함께 시험하고, 승인 원복 뒤에 같은 요청을 반복하기로 했습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">행동</span><span>React·Flask 민원포털을 구현하고 S8·S10 시나리오의 시험 입력을 준비했습니다. 개인 랩에서는 티켓 이력과 두 클라이언트의 응답을 차단 전후 및 원복 후에 대조했습니다. S8에서 차단 대상은 403, 정상 클라이언트는 200을 받았고, 원복 뒤에는 양쪽 모두 200을 받았습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">결과</span><span>개인 랩에서 경보가 티켓에 기록된 뒤 차단되는 순서를 재현했습니다. 실제 요청으로 차단 대상의 접근 제한, 정상 사용자의 접속 유지, 승인 후 접근 복구를 확인했습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">기술</span><span>React · Flask · Docker · Graylog · n8n · pfSense</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/haedam-soar-portfolio">재현 기록과 팀 내 역할</a></p>
+        </article>
+        <article class="doc-entry">
+          <div class="doc-entry-head"><h2>NetProof · 네트워크 설정 검증 실습실</h2><span class="doc-period">2026.10</span></div>
+          <p class="doc-line"><span class="doc-label">역할</span><span>기획 · 범위 결정 · AI 협업 · 검증</span></p>
+          <p class="doc-line"><span class="doc-label">담당</span><span>학습 흐름과 기능 범위 결정, 엔진·화면의 판정 책임 분리, Claude Code·Codex 협업, 검토·배포 근거 기록</span></p>
+          <p class="doc-line"><span class="doc-label">능력</span><span>자기조절력</span></p>
+          <p class="doc-line"><span class="doc-label">상황</span><span>네트워크 설정에 대한 답이 맞는지 결과만으로는 확인하기 어렵고, 서버 하나가 뚫렸다고 가정했을 때 다른 장비까지 연결을 시작할 수 있는 범위도 살펴볼 필요가 있었습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">판단</span><span>최종 PASS/DENY는 엔진만 정하게 하고, 화면에서는 계산 근거를 보여 주도록 나눴습니다. 실제 장비와 대조하지 않은 모델 계산을 운영 결과처럼 설명하지 않는 기준을 세웠습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">행동</span><span>Claude Code·Codex와 협업해 Python 판정 엔진, Flask API, React·TypeScript 화면을 연결했습니다. 침해 가정 실습 4장면, pfSense 방식의 방화벽 입력, 변경 전후 비교와 Markdown 수복 기록, 로그인 없이 보는 CISA KEV 보안 소식을 구현했습니다. 실제 네트워크에 패킷을 보내거나 앱 안에서 AI를 부르지는 않습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">결과</span><span>합성 구성에서 웹서버가 닿는 서비스를 15개에서 1개로 줄이고, 수복 기록의 막힘 14·아직 닿음 1과 지켜야 할 서비스 유지를 확인했습니다. 실제 장비 대조·다른 사용자 확인은 아직 없습니다.</span></p>
+          <p class="doc-line"><span class="doc-label">기술</span><span>Python · Flask · React · TypeScript · Vercel · PostgreSQL</span></p>
+          <p class="doc-links"><a href="https://netproof-vert.vercel.app/">앱 체험</a><a href="https://github.com/myeongjundev/netproof">공개 저장소</a></p>
+        </article>
+        <article class="doc-entry">
           <div class="doc-entry-head"><h2>13번 과제 · ExplainSOC 보안 AI 성능 숫자 검토 도구</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">역할</span><span>기획 · 프론트엔드 구현 · 사용자 관찰 · 검증 · 배포</span></p>
-          <p class="doc-line"><span class="doc-label">담당</span><span>판독 규칙 15개·결론 카드·논문 실험실 구현, 사용자 반응 기록 6회, 재현 ZIP 검증, GitHub Pages 배포</span></p>
-          <p class="doc-line"><span class="doc-label">능력</span><span>자기조절력</span></p>
-          <p class="doc-line"><span class="doc-label">상황</span><span>보안 AI 제품 소개서는 ‘정확도 99%’ 같은 숫자를 앞세우지만 그 숫자가 어떤 시험에서 나왔는지는 잘 적지 않습니다. 10번 논문에서도 같은 XGBoost가 무작위로 나눈 시험에서는 Macro F1 0.9979, 학습에 없던 공격만 둔 시험에서는 0.3871이었습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">판단</span><span>숫자의 좋고 나쁨을 판정하는 점수·등급·합격선은 만들지 않고, 숫자를 만든 시험 조건을 먼저 확인한 뒤 빠진 근거를 판매 업체에 물을 질문으로 바꾸게 하기로 했습니다.</span></p>
           <p class="doc-line"><span class="doc-label">행동</span><span>소개서 문장과 성능표에서 빠진 시험 조건을 판독 규칙 15개로 찾아 공급자 질문으로 바꾸고, 결론 카드와 논문 결과를 직접 바꿔 보는 논문 실험실을 만들었습니다. 기능을 늘리기보다 처음 보는 사람의 반응을 여섯 번 기록하며 막힌 곳을 하나씩 고쳤고, 서버 없이 브라우저에서만 동작하게 했습니다.</span></p>
           <p class="doc-line"><span class="doc-label">결과</span><span>ALEPH 동기가 휴대폰에서 도움 없이 업체 질문까지 갔고, 단위·컴포넌트 테스트 152개와 실제 브라우저 테스트 35개를 통과한 커밋만 배포되게 했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">기술</span><span>React 19 · TypeScript · Vite 8 · Vitest · Playwright</span></p>
           <p class="doc-links"><a href="https://myeongjundev.github.io/explainsoc/">앱 체험</a><a href="https://github.com/myeongjundev/explainsoc">공개 저장소</a></p>
         </article>
         <article class="doc-entry">
@@ -49,85 +67,44 @@
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>10번 과제 · 네트워크 침입 탐지 연구</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">역할</span><span>연구 설계 · 구현 · 검증 · 논문 작성</span></p>
-          <p class="doc-line"><span class="doc-label">담당</span><span>연구 설계, 데이터 감사, 세 모델 학습과 비교 실험, SHAP 설명 안정성 검증, 논문과 재현 자료 공개</span></p>
-          <p class="doc-line"><span class="doc-label">능력</span><span>자기동기력</span></p>
-          <p class="doc-line"><span class="doc-label">상황</span><span>무작위 분할에서 높은 탐지 점수가 실제로 처음 보는 공격에 일반화되는지 확인할 필요가 있었습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">판단</span><span>무작위 분할과 날짜 기반 미관측 공격 분할을 따로 설계하고, 세 모델의 성능과 SHAP 설명 안정성을 같은 조건에서 비교했습니다.</span></p>
           <p class="doc-line"><span class="doc-label">행동</span><span>CICIDS2017 2,830,743건을 감사하고 무작위 분할과 미관측 공격 분할에서 세 모델을 비교했으며 SHAP 설명 안정성을 확인했습니다.</span></p>
           <p class="doc-line"><span class="doc-label">결과</span><span>XGBoost Macro F1이 0.9979에서 0.3871로 낮아지는 격차를 재현 자료와 논문으로 제출했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">기술</span><span>Python · scikit-learn · XGBoost · SHAP</span></p>
           <p class="doc-links"><a href="https://github.com/myeongjundev/explainsoc-research/blob/main/output/pdf/T10-research-paper.pdf">논문 읽기</a><a href="https://github.com/myeongjundev/explainsoc-research">공개 저장소</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>8번 과제 · 패스키로 잠근 비공개 영역</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">역할</span><span>WebAuthn 인증 설계 · 구현 · 검증 · 배포</span></p>
-          <p class="doc-line"><span class="doc-label">담당</span><span>WebAuthn 등록·로그인 흐름 설계와 구현, 세션과 Origin·CSRF 검증, 데이터베이스 설계, 공개 배포</span></p>
-          <p class="doc-line"><span class="doc-label">능력</span><span>자기조절력</span></p>
-          <p class="doc-line"><span class="doc-label">상황</span><span>공개 소개 페이지는 그대로 열어 두면서 비공개 자료는 비밀번호 없이 본인만 볼 수 있게 나눠야 했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">판단</span><span>비밀번호를 없애는 대신 기기 패스키로 본인을 확인하고, 공개 화면과 비공개 자료의 경계를 요청 단계마다 검증하기로 했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">행동</span><span>WebAuthn 등록과 로그인을 구현하고, 일회용 질문을 데이터베이스에서 한 번만 사용하게 했습니다. 서버 세션, Origin과 CSRF 검사, 마지막 패스키 삭제 방지까지 요청 단계에서 검증했습니다.</span></p>
           <p class="doc-line"><span class="doc-label">결과</span><span>판정 기준 47개를 모두 충족하고 자동 테스트 50개를 통과했습니다. 공개 화면의 비밀번호 입력 칸은 0개이며, 로그인하지 않은 비공개 요청은 401로 거절합니다.</span></p>
-          <p class="doc-line"><span class="doc-label">기술</span><span>Java 25 · Spring Boot · WebAuthn4J · PostgreSQL · Vercel</span></p>
           <p class="doc-links"><a href="https://github.com/myeongjundev/t08-passkey-portfolio">공개 저장소</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>7번 과제 · 플랜두씨 다이어리 계정 인증</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">역할</span><span>인증 설계 · 풀스택 구현 · 검증 · 배포</span></p>
-          <p class="doc-line"><span class="doc-label">담당</span><span>Argon2id 비밀번호 저장, 서버 세션에 묶은 JWT와 Refresh 토큰 회전, 계정별 데이터 격리, 기존 기록 이전, Docker·Render 배포</span></p>
-          <p class="doc-line"><span class="doc-label">능력</span><span>자기조절력</span></p>
-          <p class="doc-line"><span class="doc-label">상황</span><span>공개형으로 시작한 Plan–Do–See 다이어리를 개인 계정 기반으로 바꿔야 했습니다. 서명만 확인하는 JWT는 로그아웃한 뒤에도 만료 전까지 유효하고, 로그인 화면으로 가리기만 하면 다른 계정의 기록을 읽는 길도 남습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">판단</span><span>Access JWT를 서버 세션 행에 묶어 매 요청에서 세션 생존과 소유자를 확인하고, 이미 회전한 Refresh 토큰이 다시 오면 탈취 가능성으로 보고 같은 계열 전체를 폐기하기로 했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">행동</span><span>비밀번호를 Argon2id로 저장하고, 목록·단건·집계·내보내기를 서버가 확인한 사용자 ID로 제한했습니다. 기존 기록은 백업한 뒤 새 계정으로 옮겼고, 비밀번호를 바꾸면 기존 세션을 모두 폐기합니다.</span></p>
           <p class="doc-line"><span class="doc-label">결과</span><span>백엔드 테스트 319개와 프런트엔드 76개를 통과했고, 다른 계정 자료 접근과 재사용된 토큰이 거절되는 동작을 요청·응답 증거로 남겼습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">기술</span><span>React · TypeScript · Flask · PostgreSQL · Argon2id · Docker</span></p>
           <p class="doc-links"><a href="https://t06-plando-see-diary.onrender.com">서비스 체험 · 첫 접속 느림</a><a href="https://github.com/myeongjundev/t07-plando-see-diary/blob/main/docs/T07-AUTH-GUIDE.md">인증 설명서</a><a href="https://github.com/myeongjundev/t07-plando-see-diary">공개 저장소</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>5번 과제 · 대화 없이 넘긴 AI 인계</h2><span class="doc-period">2026.08 - 2026.09</span></div>
           <p class="doc-line"><span class="doc-label">역할</span><span>실험 설계 · 프론트엔드 구현 · 검증 · 배포</span></p>
-          <p class="doc-line"><span class="doc-label">담당</span><span>고정 검사 10개 설계, 원본과 완성 카드를 겹쳐 보는 비교 슬라이더 구현, 인계 문서 7개 항목 구성, 단위·E2E 회귀 검증, GitHub Pages 배포</span></p>
-          <p class="doc-line"><span class="doc-label">능력</span><span>자기동기력</span></p>
-          <p class="doc-line"><span class="doc-label">상황</span><span>AI를 바꿀 때마다 사람이 같은 맥락을 다시 설명해야 했고, 대화를 넘기지 않고도 다음 AI가 같은 프로젝트를 안전하게 이어갈 수 있는지는 확인된 적이 없었습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">판단</span><span>누가 더 빠른지 겨루는 대신 기능 범위와 고정 검사 10개를 먼저 정하고, 대화를 넘기지 않은 채 코드·검사·인계 문서만으로 다음 AI가 이어받는지 확인하기로 했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">행동</span><span>실행하지 않은 검사는 통과로 적지 않는다는 기준을 먼저 세우고, 앞선 AI가 검사 1~3까지만 구현한 뒤 계획대로 멈추게 했습니다. 다음 AI는 인계 문서만 읽고 검사 4~10과 전체 회귀 검사를 마쳤습니다. 다음 AI가 금지 규칙보다 앞선 AI의 작업 기록을 먼저 읽은 절차 위반은 통과 결과로 덮지 않고 작업 기록과 공개 화면에 그대로 남겼습니다.</span></p>
           <p class="doc-line"><span class="doc-label">결과</span><span>고정 검사 10개를 모두 통과하고 단위 테스트 85개와 Chromium E2E 38개를 유지했으며, 사람이 코드를 다시 고치거나 같은 내용을 재설명한 일은 없었습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">기술</span><span>React 19 · Vite 8 · Canvas API · Playwright</span></p>
           <p class="doc-links"><a href="https://myeongjundev.github.io/t05-ai-handoff/">사이트 체험</a><a href="https://github.com/myeongjundev/t05-ai-handoff/blob/main/docs/FINAL_COMPARISON.md">인계 결과 보기</a><a href="https://github.com/myeongjundev/t05-ai-handoff">공개 저장소</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>수업 실습 · 경보와 권한 회수를 붙인 보안 게시판</h2><span class="doc-period">2026.09</span></div>
           <p class="doc-line"><span class="doc-label">역할</span><span>보안 기능 설계·구현 · 자동화 연동 · 검증</span></p>
-          <p class="doc-line"><span class="doc-label">담당</span><span>등급별 접근 제어와 관리자 안전장치, n8n 로그인 경보 봇과 메신저 3종 알림, 수업에서 받은 과잉권한 자동 회수 코드의 이식, Graylog SYN Flood 탐지 연동</span></p>
-          <p class="doc-line"><span class="doc-label">능력</span><span>자기조절력</span></p>
-          <p class="doc-line"><span class="doc-label">상황</span><span>수업에서 받은 게시판에 등급별 접근 제어를 넣고, 과잉권한을 자동으로 회수하는 수업 코드를 옮겨 붙여야 했습니다. 자동 회수가 잘못 돌면 관리자까지 강등해 아무도 회원을 관리할 수 없게 될 수 있었습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">판단</span><span>권한을 자동으로 회수하는 기능일수록 관리자가 스스로 잠기는 사고부터 막아야 한다고 보고, 자기 강등·자기 삭제·마지막 관리자 강등을 금지한 규칙을 회수 봇에도 그대로 적용했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">행동</span><span>회수 봇은 출력만 확인, Graylog 신고만, 실제 강등의 3단계로 나눠 옵션을 줄 때만 권한을 빼앗게 했고, 증적 캡처와 경보 전송기가 API 키와 Webhook 주소를 화면과 오류 메시지에 남기지 않게 했습니다. SYN Flood 실습에서는 경보가 도착한 것만 보지 않고 실행 기록과 대조해, 공격이 허용으로 표시되고 실제 출발지와 개수가 빠지던 문제를 고쳤습니다.</span></p>
           <p class="doc-line"><span class="doc-label">결과</span><span>자동 테스트 45개를 통과했고, Kali에서 보낸 2초 SYN Flood 35,033개가 출발지·개수와 함께 Graylog, n8n, 메신저 3종, 게시판 기록까지 이어지는 것을 확인했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">기술</span><span>Flask · MySQL · JWT · n8n · Graylog · Docker</span></p>
           <p class="doc-links"><a href="https://github.com/myeongjundev/flask-board">공개 저장소</a></p>
         </article>
         <article class="doc-entry">
-          <div class="doc-entry-head"><h2>4번 과제 · GAME PULSE 데이터 보드</h2><span class="doc-period">2026.08 - 2026.09</span></div>
+          <div class="doc-entry-head"><h2>4번 과제 · GAME PULSE Steam 게임 시장 정보판</h2><span class="doc-period">2026.08–11</span></div>
           <p class="doc-line"><span class="doc-label">역할</span><span>데이터 수집 설계 · 프론트엔드 구현 · 검증 · 배포</span></p>
-          <p class="doc-line"><span class="doc-label">담당</span><span>Steam 동시접속·매출·할인·방송 네 갈래 수집과 저장, React 19 화면 구현, 장애 재현과 복구 처리, GitHub Pages 배포</span></p>
-          <p class="doc-line"><span class="doc-label">능력</span><span>자기조절력</span></p>
-          <p class="doc-line"><span class="doc-label">상황</span><span>여러 곳에서 모은 숫자를 한 화면에 모으면, 그 값이 언제 어디서 왔는지와 수집이 실패했을 때 무엇이 보이는지가 불분명해집니다.</span></p>
-          <p class="doc-line"><span class="doc-label">판단</span><span>Stack Overflow 대신 Steam을 골라 동시접속·매출·할인·방송 네 축으로 좁히고, 수집이 실패하면 모르는 값을 지어내지 않고 마지막 정상값과 그 시각을 그대로 보여 주기로 했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">행동</span><span>값마다 출처·측정 시각·데이터 상태·계산 근거를 함께 저장하고, timeout을 포함한 장애 5가지를 재현해 복구 흐름을 검사했습니다.</span></p>
           <p class="doc-line"><span class="doc-label">결과</span><span>회귀 테스트 317개를 모두 통과하고 과제 조건 35개의 감사 경로를 남겼습니다. 공개 화면에서 원자료·저장값·계산값·화면값을 손으로 대조할 수 있습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">기술</span><span>React 19 · Vite 8 · Node 22 · GitHub Actions · GitHub Pages</span></p>
           <p class="doc-links"><a href="https://myeongjundev.github.io/info-board/">사이트 체험</a><a href="https://github.com/myeongjundev/info-board">공개 저장소</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h2>2번 과제 · SOC SHIFT:30 관제 판단 게임</h2><span class="doc-period">2026.08</span></div>
           <p class="doc-line"><span class="doc-label">역할</span><span>기획 · 프론트엔드 구현 · 테스트 · 배포</span></p>
-          <p class="doc-line"><span class="doc-label">담당</span><span>30초 판정 규칙 설계, React 18·TypeScript 구현, 키보드·마우스·터치 조작, 서버 없이 GitHub Pages 배포</span></p>
-          <p class="doc-line"><span class="doc-label">능력</span><span>자기동기력</span></p>
-          <p class="doc-line"><span class="doc-label">상황</span><span>보안 관제의 판단을 짧게 체험하게 하려면, 정답률 하나로만 점수를 매겨서는 실제로 무엇을 잘못했는지 드러나지 않습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">판단</span><span>틀리는 방식을 오탐과 미탐으로 나누어 따로 세면, 아무거나 막아서 버틴 판과 제대로 가려낸 판이 같은 점수가 되지 않는다고 판단했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">행동</span><span>경보 한 건을 3초 안에 통과·차단으로 정하는 30초 근무를 만들고, 결과 화면에서 오탐과 미탐을 따로 세어 막대로 보여 주었습니다.</span></p>
           <p class="doc-line"><span class="doc-label">결과</span><span>서버 없이 동작하는 구조로 만들고 자동 테스트 291개를 통과했으며, 설치나 로그인 없이 링크만으로 플레이할 수 있게 공개했습니다.</span></p>
-          <p class="doc-line"><span class="doc-label">기술</span><span>React 18 · TypeScript · Vite 8</span></p>
           <p class="doc-links"><a href="https://myeongjundev.github.io/mini-game/">게임 실행</a><a href="https://github.com/myeongjundev/mini-game">공개 저장소</a></p>
         </article>
   </main>
