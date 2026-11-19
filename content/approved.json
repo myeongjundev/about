@@ -120,39 +120,83 @@
   "numbers": [
     {
       "id": "attendance",
-      "value": "49 / 50일",
-      "label": "출석일 / 재적일",
-      "detail": "결석 0 · 10/26 출석 확인 전",
-      "source": "내 출석 기록",
-      "asOf": "2026-10-26",
-      "denominator": "2026-08-11부터 2026-10-26까지 재적일. 10/26 미확정 1일 포함",
+      "value": "100%",
+      "label": "출석률",
+      "source": "ALEPH 내 기록",
+      "asOf": "2026-11-19",
+      "denominator": "과정 출석률 · 기준 80%",
+      "supports": "과제지속력",
       "linkedSegment": null,
-      "supports": "과제지속력"
+      "detail": null
+    },
+    {
+      "id": "defense",
+      "value": "22 / 22단계",
+      "label": "방어전",
+      "source": "ALEPH 내 기록",
+      "asOf": "2026-11-19",
+      "denominator": "마무리 자료로 확정된 전체 단계",
+      "supports": "과제지속력",
+      "linkedSegment": null,
+      "detail": null
     },
     {
       "id": "ritual",
-      "value": "49 / 49일",
-      "label": "아침 리추얼 작성 수업일 / 확정 수업일",
-      "detail": null,
-      "source": "내 리추얼 기록",
-      "asOf": "2026-10-23",
-      "denominator": "2026-08-11부터 2026-10-23까지 확정된 수업일",
+      "value": "63일",
+      "label": "리추얼 작성일",
+      "source": "ALEPH 내 기록",
+      "asOf": "2026-11-19",
+      "denominator": "아침과 마무리 리추얼을 모두 쓴 날",
+      "supports": "회복탄력성",
       "linkedSegment": "now",
-      "supports": "회복탄력성"
+      "detail": null
     },
     {
       "id": "submissions",
-      "value": "14 / 14개",
-      "label": "제출한 과제 / 현재 제출 대상 과제",
-      "detail": "공개 검증 가능 12개 · 비공개 저장소 2개",
-      "source": "내 제출 현황 · GitHub 저장소",
-      "asOf": "2026-10-26",
-      "denominator": "T01부터 T13까지와 NetProof. 진행 중인 과제 없음",
+      "value": "13 / 13개",
+      "label": "무료 과제",
+      "source": "ALEPH 내 기록",
+      "asOf": "2026-11-19",
+      "denominator": "전체 무료 과제 중 마스터가 승인한 과제",
+      "supports": "과제지속력",
       "linkedSegment": "setback",
-      "supports": "과제지속력"
+      "detail": null
+    },
+    {
+      "id": "documents",
+      "value": "3 / 3종",
+      "label": "메모리얼 문서",
+      "source": "ALEPH 내 기록",
+      "asOf": "2026-11-19",
+      "denominator": "이력서 · 자기소개서 · 포트폴리오",
+      "supports": "과제지속력",
+      "linkedSegment": null,
+      "detail": null
     }
   ],
   "works": [
+    {
+      "id": "haedam-soar",
+      "kind": "SKT ALEPH 팀 프로젝트 · 개인 재현 랩",
+      "period": "2026.11",
+      "title": "해담시청 SOAR · 민원포털 보안 대응 자동화",
+      "summary": "4인 팀의 조장을 맡아 React·Flask 민원포털을 구현했습니다. 개인 랩에서는 경보가 티켓으로 기록된 뒤 차단되는 과정을 재현하고, 정상 사용자가 계속 접속할 수 있는지와 승인 후 접속이 복구되는지를 실제 요청으로 확인했습니다.",
+      "status": "published",
+      "visual": {
+        "src": "assets/haedam-flow.png",
+        "alt": "해담시청 개인 랩의 탐지, 티켓 기록, 차단, 검증과 원복 흐름",
+        "width": 1600,
+        "height": 900,
+        "fit": "contain"
+      },
+      "links": [
+        {
+          "label": "개인 재현 기록과 팀 내 역할",
+          "href": "https://github.com/myeongjundev/haedam-soar-portfolio"
+        }
+      ],
+      "keyDecision": "차단 성공 여부와 정상 사용자의 접속 여부를 함께 확인했습니다."
+    },
     {
       "id": "netproof",
       "kind": "ALEPH 앱 프로젝트 · 네트워크·보안",
@@ -715,8 +759,8 @@
     },
     {
       "id": "t04-info-board",
-      "period": "2026.08 - 2026.09",
-      "title": "4번 과제 · GAME PULSE 데이터 보드",
+      "period": "2026.08–11",
+      "title": "4번 과제 · GAME PULSE Steam 게임 시장 정보판",
       "role": "데이터 수집 설계 · 프론트엔드 구현 · 검증 · 배포",
       "scope": "Steam 동시접속·매출·할인·방송 네 갈래 수집과 저장, React 19 화면 구현, 장애 재현과 복구 처리, GitHub Pages 배포",
       "ability": "자기조절력",
@@ -846,5 +890,5 @@
       "lang": "en"
     }
   ],
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-19"
 }

@@ -89,7 +89,7 @@ class SiteTests(unittest.TestCase):
             self.assertIn("CLOV 팀 프로젝트", content)
             self.assertIn("2,830,743건", content)
             self.assertIn("CLOV 추억 피드 화면", content)
-            self.assertIn("↔ 숫자 · 「제출한 과제 / 현재 제출 대상 과제」", content)
+            self.assertIn("↔ 숫자 · 「무료 과제」", content)
             self.assertIn("↔ 이야기 · 「더 나아진 지금」", content)
             self.assertNotIn("↔ 이야기 now", content)
             self.assertNotIn("↔ 이야기 setback", content)

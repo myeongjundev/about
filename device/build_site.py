@@ -282,19 +282,22 @@ def render_numbers(data: dict[str, object], draft: bool) -> str:
         if linked_segment:
             linked_title = story_titles[str(linked_segment)]
             linked = f'<span class="pair">↔ 이야기 · 「{esc(linked_title)}」</span>'
-        progress = 0
+        progress = None
         value = str(item.get("value") or "")
         match = re.search(r"(\d+)\s*/\s*(\d+)", value)
         if match and int(match.group(2)):
             progress = round(int(match.group(1)) / int(match.group(2)) * 100)
+        elif value.endswith("%") and value[:-1].isdigit():
+            progress = int(value[:-1])
+        bar = "" if progress is None else f'<span class="metric-bar" aria-hidden="true"><span style="--progress: {progress}%"></span></span>'
         cards.append(
             f"""          <article class="metric reveal">
             <span class="metric-index mono">0{index}</span>
             <span class="value">{value_or_todo(item.get('value'), draft, '집계 필요')}</span>
             <span class="label">{esc(item['label'])}</span>
             {detail}
-            <span class="metric-bar" aria-hidden="true"><span style="--progress: {progress}%"></span></span>
-            <span class="source">근거 · {value_or_todo(item.get('supports'), draft, '근거 능력 필요')}<br>출처 · {esc(item['source'])}<br>기준 · {value_or_todo(item.get('asOf'), draft, '기준일 필요')}<br>분모 · {value_or_todo(item.get('denominator'), draft, '분모 정의 필요')}</span>
+            {bar}
+            <span class="source">근거 · {value_or_todo(item.get('supports'), draft, '근거 능력 필요')}<br>출처 · {esc(item['source'])}<br>기준 · {value_or_todo(item.get('asOf'), draft, '기준일 필요')}<br>집계 범위 · {value_or_todo(item.get('denominator'), draft, '분모 정의 필요')}</span>
             {linked}
           </article>"""
         )
