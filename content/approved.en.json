@@ -30,7 +30,7 @@
   "profile": {
     "name": "Myeongjun Kim",
     "role": "Junior Developer · From Service Development to Network & Security",
-    "direction": "I have built front ends, back ends and deployments, and I am extending that experience into networking and security.",
+    "direction": "I build services with React and Flask and use real requests to verify access controls and incident response workflows.",
     "highlights": [
       "Led a four-person team, running 152 issues and 266 pull requests and reviewing 72 of them myself; deployed the React and Spring Boot service on Ubuntu, Docker, Nginx and HTTPS.",
       "Designed and built WebAuthn passkey authentication that met all 47 acceptance criteria and passed 50 automated tests, with zero password fields on the public pages.",
@@ -195,12 +195,36 @@
         "Authentication guide",
         "Public repository"
       ]
+    },
+    "haedam-soar": {
+      "title": "Haedam City Hall security orchestration and response lab",
+      "role": "Led a team of four, built the React and Flask citizen portal, and verified response actions.",
+      "result": "Reproduced the alert-to-ticket workflow in a personal lab. Verified with live requests that blocking took effect after ticket creation, other users retained access, and approved rollback restored access.",
+      "links": [
+        "Lab evidence and team responsibilities"
+      ],
+      "situation": "The citizen portal needed to remain available to legitimate users during incident response.",
+      "action": "Built the portal and compared requests before blocking, after blocking and after approved rollback."
+    },
+    "netproof": {
+      "title": "NetProof network configuration lab",
+      "role": "Project design, scope and verification",
+      "scope": "Defined the learning workflow and separated routing decisions from their presentation.",
+      "situation": "Learners needed evidence for which services a modeled web server could reach.",
+      "rationale": "The engine determines reachability and the interface explains its decisions.",
+      "action": "Connected a Python engine, Flask API and React interface with Claude Code and Codex.",
+      "result": "Reduced reachable services from 15 to one in a simulated configuration and verified that the required service remained reachable.",
+      "links": [
+        "Try the app",
+        "Repository"
+      ]
     }
   },
   "education": [
     {
       "name": "SKT ALEPH Network Security Program",
-      "period": "2026.08 - 2026.11"
+      "period": "2026.08 - 2026.11",
+      "detail": "100% attendance. Completed all 22 defense stages, logged opening and closing reflections on 63 days, earned approval for all 13 free assignments and prepared all three portfolio documents."
     },
     {
       "name": "Full-Stack Development Program (Generative-AI PHR Solutions)",

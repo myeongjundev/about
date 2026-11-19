@@ -21,7 +21,7 @@
         <h1><span class="doc-name">Myeongjun Kim</span> <span class="doc-kind">Résumé</span></h1>
         <p class="doc-meta"><strong>Junior Developer · From Service Development to Network &amp; Security</strong> <span aria-hidden="true">·</span> <a href="https://github.com/myeongjundev">GitHub profile</a> <span aria-hidden="true">·</span> <a href="https://myeongjundev.github.io/about/">Portfolio site</a></p>
       </header>
-      <p class="doc-intro">I have built front ends, back ends and deployments, and I am extending that experience into networking and security.</p>
+      <p class="doc-intro">I build services with React and Flask and use real requests to verify access controls and incident response workflows.</p>
       <section class="doc-section">
         <h2>Highlights</h2>
         <ul class="doc-highlights"><li>Led a four-person team, running 152 issues and 266 pull requests and reviewing 72 of them myself; deployed the React and Spring Boot service on Ubuntu, Docker, Nginx and HTTPS.</li><li>Designed and built WebAuthn passkey authentication that met all 47 acceptance criteria and passed 50 automated tests, with zero password fields on the public pages.</li><li>Verified on 2,830,743 CICIDS2017 records how the data split changes detection (Macro F1 0.9979 → 0.3871), published the paper, and built ExplainSOC to check security-AI performance claims.</li></ul>
@@ -37,12 +37,11 @@
       <section class="doc-section">
         <h2>Projects &amp; Research</h2>
         <article class="doc-entry">
-          <div class="doc-entry-head"><h3>ExplainSOC — Security-AI Performance Claim Checker (ALEPH Assignment 13)</h3><span class="doc-period">2026.09</span></div>
-          <p class="doc-line"><span class="doc-label">Role</span><span>Planning · Front-end implementation · User observation · Validation · Deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>15 reading rules, conclusion card, paper lab, six user sessions, reproducible ZIP, GitHub Pages</span></p>
-          <p class="doc-line"><span class="doc-label">Result</span><span>A fellow trainee reached the vendor questions on a phone unaided; 187 tests gate every deploy.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>React 19 · TypeScript · Vite 8 · Vitest · Playwright</span></p>
-          <p class="doc-links"><a href="https://myeongjundev.github.io/explainsoc/">Try the app</a><a href="https://github.com/myeongjundev/explainsoc">Public repository</a></p>
+          <div class="doc-entry-head"><h3>Haedam City Hall security orchestration and response lab</h3><span class="doc-period">2026.11</span></div>
+          <p class="doc-line"><span class="doc-label">Role</span><span>Led a team of four, built the React and Flask citizen portal, and verified response actions.</span></p>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Reproduced the alert-to-ticket workflow in a personal lab. Verified with live requests that blocking took effect after ticket creation, other users retained access, and approved rollback restored access.</span></p>
+          <p class="doc-line"><span class="doc-label">Stack</span><span>React · Flask · Docker · Graylog · n8n · pfSense</span></p>
+          <p class="doc-links"><a href="https://github.com/myeongjundev/haedam-soar-portfolio">Lab evidence and team responsibilities</a></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h3>CLOV — Team Project</h3><span class="doc-period">2026.06 - 2026.08</span></div>
@@ -52,45 +51,25 @@
           <p class="doc-line"><span class="doc-label">Stack</span><span>React · Spring Boot · Docker · Nginx · OAuth</span></p>
           <p class="doc-links"><a href="https://github.com/Pickeslog/clov-web">Front-end repository</a><a href="https://github.com/Pickeslog/clov-api">Back-end repository</a></p>
         </article>
-        <article class="doc-entry">
-          <div class="doc-entry-head"><h3>Network Intrusion Detection Research (ALEPH Assignment 10)</h3><span class="doc-period">2026.09</span></div>
-          <p class="doc-line"><span class="doc-label">Role</span><span>Research design · Implementation · Validation · Paper writing</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>Research design, data audit, three-model comparison, SHAP stability checks, paper and reproducible materials</span></p>
-          <p class="doc-line"><span class="doc-label">Result</span><span>Submitted a paper with reproducible materials: XGBoost Macro F1 fell from 0.9979 to 0.3871.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>Python · scikit-learn · XGBoost · SHAP</span></p>
-          <p class="doc-links"><a href="https://github.com/myeongjundev/explainsoc-research/blob/main/output/pdf/T10-research-paper.pdf">Read the paper</a><a href="https://github.com/myeongjundev/explainsoc-research">Public repository</a></p>
-        </article>
-        <article class="doc-entry">
-          <div class="doc-entry-head"><h3>Passkey-Protected Private Area (ALEPH Assignment 8)</h3><span class="doc-period">2026.09</span></div>
-          <p class="doc-line"><span class="doc-label">Role</span><span>WebAuthn authentication design · Implementation · Validation · Deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Scope</span><span>WebAuthn registration and sign-in, session, Origin and CSRF checks, database, public deployment</span></p>
-          <p class="doc-line"><span class="doc-label">Result</span><span>Met all 47 acceptance criteria and passed 50 tests; zero password fields on public pages, 401 for private requests without a session.</span></p>
-          <p class="doc-line"><span class="doc-label">Stack</span><span>Java 25 · Spring Boot · WebAuthn4J · PostgreSQL · Vercel</span></p>
-          <p class="doc-links"><a href="https://github.com/myeongjundev/t08-passkey-portfolio">Public repository</a></p>
-        </article>
       </section>
       <section class="doc-section">
         <h2>Other Work</h2>
         <article class="doc-entry">
-          <div class="doc-entry-head"><h3>Plan–Do–See Diary Account Authentication (ALEPH Assignment 7)</h3><span class="doc-period">2026.09</span></div>
-          <p class="doc-line"><span class="doc-label">Result</span><span>Passed 319 back-end and 76 front-end tests, with request/response evidence that access to other accounts&#x27; data and reused tokens are rejected.</span></p>
-          <p class="doc-links"><a href="https://t06-plando-see-diary.onrender.com">Try the service (slow first load)</a><a href="https://github.com/myeongjundev/t07-plando-see-diary/blob/main/docs/T07-AUTH-GUIDE.md">Authentication guide</a><a href="https://github.com/myeongjundev/t07-plando-see-diary">Public repository</a></p>
+          <div class="doc-entry-head"><h3>NetProof network configuration lab</h3><span class="doc-period">2026.10</span></div>
+          <p class="doc-line"><span class="doc-label">Result</span><span>Reduced reachable services from 15 to one in a simulated configuration and verified that the required service remained reachable.</span></p>
+          <p class="doc-links"><a href="https://netproof-vert.vercel.app/">Try the app</a><a href="https://github.com/myeongjundev/netproof">Repository</a></p>
         </article>
         <article class="doc-entry">
-          <div class="doc-entry-head"><h3>Security Board with Alerts and Privilege Revocation (course lab)</h3><span class="doc-period">2026.09</span></div>
-          <p class="doc-line"><span class="doc-label">Result</span><span>Passed 45 tests; a 35,033-packet SYN flood from Kali reached Graylog, n8n, three messengers and the board log.</span></p>
-          <p class="doc-links"><a href="https://github.com/myeongjundev/flask-board">Public repository</a></p>
-        </article>
-        <article class="doc-entry">
-          <div class="doc-entry-head"><h3>SOC SHIFT:30 Alert-Triage Game (ALEPH Assignment 2)</h3><span class="doc-period">2026.08</span></div>
-          <p class="doc-line"><span class="doc-label">Result</span><span>Serverless build that passed 291 tests; playable from a link with no install or sign-in.</span></p>
-          <p class="doc-links"><a href="https://myeongjundev.github.io/mini-game/">Play the game</a><a href="https://github.com/myeongjundev/mini-game">Public repository</a></p>
+          <div class="doc-entry-head"><h3>ExplainSOC — Security-AI Performance Claim Checker (ALEPH Assignment 13)</h3><span class="doc-period">2026.09</span></div>
+          <p class="doc-line"><span class="doc-label">Result</span><span>A fellow trainee reached the vendor questions on a phone unaided; 187 tests gate every deploy.</span></p>
+          <p class="doc-links"><a href="https://myeongjundev.github.io/explainsoc/">Try the app</a><a href="https://github.com/myeongjundev/explainsoc">Public repository</a></p>
         </article>
       </section>
       <section class="doc-section">
         <h2>Education</h2>
         <article class="doc-entry">
           <div class="doc-entry-head"><h3>SKT ALEPH Network Security Program</h3><span class="doc-period">2026.08 - 2026.11</span></div>
+          <p class="doc-line"><span class="doc-label">Details</span><span>100% attendance. Completed all 22 defense stages, logged opening and closing reflections on 63 days, earned approval for all 13 free assignments and prepared all three portfolio documents.</span></p>
         </article>
         <article class="doc-entry">
           <div class="doc-entry-head"><h3>Full-Stack Development Program (Generative-AI PHR Solutions)</h3><span class="doc-period">2026.03 - 2026.08</span></div>

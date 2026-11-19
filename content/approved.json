@@ -4,7 +4,7 @@
     "name": "김명준",
     "role": "신입 개발자 · 서비스 개발 → 네트워크·보안",
     "tagline": "서비스를 만들던 경험을 네트워크·보안으로 넓히고 있는 사람",
-    "direction": "프론트엔드와 백엔드, 배포를 경험했고 네트워크와 보안까지 학습 범위를 넓히고 있습니다.",
+    "direction": "React와 Flask로 서비스를 구현하고, 접근 제어와 보안 대응이 의도대로 동작하는지 실제 요청으로 검증합니다.",
     "contact": {
       "label": "GitHub 프로필",
       "href": "https://github.com/myeongjundev"
@@ -12,7 +12,8 @@
     "education": [
       {
         "name": "SKT ALEPH 네트워크 보안 과정",
-        "period": "2026.08 - 2026.11"
+        "period": "2026.08 - 2026.11",
+        "detail": "출석률 100% · 방어전 22/22단계 · 리추얼 63일 · 무료 과제 13/13개 승인 · 메모리얼 문서 3/3종"
       },
       {
         "name": "생성형 AI 활용 실버케어 PHR 솔루션 개발 교육과정",
@@ -381,6 +382,33 @@
   ],
   "experience": [
     {
+      "id": "haedam-soar",
+      "workId": "haedam-soar",
+      "period": "2026.11",
+      "title": "해담시청 SOAR · 민원포털 보안 대응 자동화",
+      "role": "4인 팀 조장 · React·Flask 민원포털 구현 및 대응 검증",
+      "result": "개인 랩에서 경보가 티켓에 기록된 뒤 차단되는 순서를 재현했습니다. 실제 요청으로 차단 대상의 접근 제한, 정상 사용자의 접속 유지, 승인 후 접근 복구를 확인했습니다.",
+      "technologies": [
+        "React",
+        "Flask",
+        "Docker",
+        "Graylog",
+        "n8n",
+        "pfSense"
+      ],
+      "links": [
+        {
+          "label": "재현 기록과 팀 내 역할",
+          "href": "https://github.com/myeongjundev/haedam-soar-portfolio"
+        }
+      ],
+      "status": "published",
+      "resumeDetail": "full",
+      "ability": "과제지속력",
+      "situation": "민원포털을 보호하면서 정상 이용자의 접속을 유지해야 했습니다.",
+      "action": "포털을 구현하고 개인 랩에서 차단 전후와 승인 원복 후의 요청 결과를 대조했습니다."
+    },
+    {
       "id": "netproof",
       "workId": "netproof",
       "period": "2026.10",
@@ -475,7 +503,7 @@
           "href": "https://github.com/myeongjundev/explainsoc"
         }
       ],
-      "resumeDetail": "full"
+      "resumeDetail": "compact"
     },
     {
       "id": "clov",
@@ -582,7 +610,7 @@
           "href": "https://github.com/myeongjundev/explainsoc-research"
         }
       ],
-      "resumeDetail": "full"
+      "resumeDetail": "omit"
     },
     {
       "id": "third-project",
@@ -625,7 +653,7 @@
         }
       ],
       "status": "published",
-      "resumeDetail": "full"
+      "resumeDetail": "omit"
     },
     {
       "id": "t07",
@@ -661,7 +689,7 @@
           "href": "https://github.com/myeongjundev/t07-plando-see-diary"
         }
       ],
-      "resumeDetail": "compact"
+      "resumeDetail": "omit"
     },
     {
       "id": "t05-ai-handoff",
@@ -755,7 +783,7 @@
         }
       ],
       "status": "published",
-      "resumeDetail": "compact"
+      "resumeDetail": "omit"
     },
     {
       "id": "t04-info-board",
@@ -840,7 +868,7 @@
         }
       ],
       "status": "published",
-      "resumeDetail": "compact"
+      "resumeDetail": "omit"
     }
   ],
   "documents": [
